@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Home - AnimeMome</title>
+
+    <!-- Bootstrap -->
+    <link href="/file/css/runtime/materialize.min.css" rel="stylesheet"/>
+    <link href="/file/css/runtime/000.css" rel="stylesheet"/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .klkl{right:15%;left:60%; top:30%;border-radius:5px 5px 5px 5px; position: absolute;z-index: 1;background-color:rgba(255,255,255,0.9);padding: 10px;color: #000000;box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.6);  }
+    </style>
+  </head>
+  <body>
+  	<div class="had-container blue lighten-3">
+        <header style="position: relative;" id="index_header">
+        	<div class="klkl  hide-on-med-and-down" style="padding: 20px;">
+        		<form action="/sign_in" method="post" id="form_sign_in">
+        		<div class="row">
+			    <div class="input-field">
+			      <input id="username" type="text" class="validate" name="username">
+			      <label class="active" for="username">用户名</label>
+			    </div>
+			    <div class="input-field">
+			      <input id="password" type="text" class="validate" name="password">
+			      <label class="active" for="username">密码</label>
+			    </div>
+			    <div class="row">
+			    	<div class="s12"><a class="waves-effect waves-light btn" style="width: 49%;" onclick="sign_in()">登录</a><a class="waves-effect waves-red btn secondary-content" style="width: 49%;" href="/sign_up">注册</a></div>
+			    </div>
+			    <div id="showmessage">
+			    </div>
+			  </div>
+			  </form>
+        	</div>
+			<img class="responsive-img" src="/img/222.jpg">
+        </header>
+        
+        <ul id="dropdown1" class="dropdown-content">
+		  <li><a href="#!">one</a></li>
+		  <li><a href="#!">two</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#!">three</a></li>
+		</ul>
+		<nav>
+	    <div class="nav-wrapper">
+	      
+	      <ul id="nav-mobile" class="right">
+	      	<li id="nav_sign_up"><a href="/sign_up">注册</a></li>
+	      	<li id="nav_sign_in"><a class="waves-effect waves-light btn" href="/sign_in">登录</a></li>
+	        <li><a href="sass.html">番剧时间表</a></li>
+	        <li><a href="badges.html">番剧列表</a></li>
+	        <li><a href="collapsible.html">发现点好玩的</a></li>
+	        <li><a class='dropdown-button' href='#' data-activates='dropdown1'>Drop Me!</a></li>
+	      </ul>
+	    </div>
+	  </nav>
+	</div>
+	<script type="text/javascript" src="/file/js/index_hide_login.js"></script>
+	<!-- ====================================================================================================== -->
+	
+	<div class="fixed-action-btn click-to-toggle">
+    <a id="menu" class="btn btn-floating btn-large cyan"><i class="material-icons">menu</i></a>
+    <ul>
+      <li><a href="/id" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="个人主页">
+      <img src="/img/000222.jpg" alt="" class="circle responsive-img">
+      </a></li>
+      <li><a class="btn-floating red tooltipped"  data-position="left" data-delay="50" data-tooltip="个人主页"><i class="material-icons">add</i></a></li>
+      <li><a class="btn-floating yellow darken-1 tooltipped"  data-position="left" data-delay="50" data-tooltip="个人主页"><i class="material-icons">backup</i></a></li>
+      <li><a class="btn-floating green tooltipped"  data-position="left" data-delay="50" data-tooltip="个人主页"><i class="material-icons">publish</i></a></li>
+      <li><a class="btn-floating blue tooltipped"  data-position="left" data-delay="50" data-tooltip="个人主页"><i class="material-icons">apps</i></a></li>
+    </ul>
+  	</div>
+    <!-- ====================================================================================================== -->
+	<div class="container">
+	<div class="row"><br/>
+		  <form action="/s" method="get">
+		  <div class="col m3"></div>
+		  <div class="col s12 m6">
+		  <div class="input-field col s8">
+	          <input id="search" type="text" class="validate" name="w">
+	          <label for="search" data-error="wrong" data-success="right" style="font-size: 20px;">搜索</label>
+	      </div>
+	      <div class="col s4" style="padding: 20px;">
+	      	<button class="waves-effect waves-light btn" id="search_button" type="submit">搜索</button>
+	      </div>
+	      </div>
+	      <div class="col m3"></div>
+		  </form>
+	</div>
+	<h3>最近添加</h3>
+        <div class="row" id="div_indexanime">
+        <br/><br/>
+			
+    	</div>
+    </div>
+    <script type="text/javascript" src="/file/js/index_js.js"></script>
+    <!-- ====================================================================================================== -->
+    <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">啦啦啦</h5>
+                <p class="grey-text text-lighten-4">到这里，已经初步完成了。<br>
+                2017年11月19日
+                </p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">感谢</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="http://materializecss.com/">Materialize框架</a><p>一款基于 Material Design 的现代响应式前端框架。</p></li>
+                  <li><a class="grey-text text-lighten-3" href="https://steamcommunity.com/id/Neptune-Noire/">Steam 社区</a><p>在设计用户个人资料页时，参考了Steam社区的设计。这个链接是我的个人主页哦</p></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Spring系列框架及相关技术背后默默付出的人们</a><p>使用了Spring系列框架，感谢其中参与的所有人。没有他们，这个页面是不可能诞生的。</p></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+    </footer>
+    
+  </body>
+</html>

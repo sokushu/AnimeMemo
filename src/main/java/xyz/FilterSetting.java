@@ -5,7 +5,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import xyz.bangumi.filter.UN_SIGN_IN;
-
+/**
+ * 过滤器的配置
+ */
 @Configuration
 public class FilterSetting extends WebMvcConfigurerAdapter {
 	

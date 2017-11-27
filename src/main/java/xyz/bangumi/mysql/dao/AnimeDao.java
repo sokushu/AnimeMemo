@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.*;
  * @author miri
  *
  */
-@Mapper // 标志为 Mybatis 的 Mapper
-
+// 标志为 Mybatis 的 Mapper
+@Mapper
 public interface AnimeDao {
     /**
      * 根据动画id寻找

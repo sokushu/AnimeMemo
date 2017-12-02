@@ -10,18 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import xyz.bangumi.mysql.dao.AnimeDao;
 import xyz.bangumi.mysql.dao.SELECT;
-import xyz.bangumi.mysql.dao.User_AnimeDao;
 
 @Controller
 @EnableAutoConfiguration
 public class TheTest {
 
-	@Autowired
-	private AnimeDao anime;
-	@Autowired
-	private User_AnimeDao ua;
 	@Autowired
 	private SELECT select;
 	

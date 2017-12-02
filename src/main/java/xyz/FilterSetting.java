@@ -21,5 +21,4 @@ public class FilterSetting extends WebMvcConfigurerAdapter {
 //		registry.addInterceptor(new Sign_in()).addPathPatterns("/sign_in");
 		super.addInterceptors(registry);
 	}
-
 }

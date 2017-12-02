@@ -1,4 +1,8 @@
 package xyz.bangumi.mysql.bean;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * 动画
  * @author miri
@@ -12,10 +16,13 @@ public class Anime {
 		/**
 		 * 动画名字
 		 */
+		@NotEmpty(message = "还没有写动画名呢")
 		private String anime_name;
 		/**
 		 * 动画集数
 		 */
+		@NotEmpty(message = "请填写动画集数")
+		@Length(max = 5, message = "喂，你够了，哪有这么长的动画")
 		private Integer anime_number;
 		/**
 		 * 类别，比如说TV版，OVA
@@ -28,6 +35,7 @@ public class Anime {
 		/**
 		 * 剧情简介
 		 */
+		@NotEmpty(message = "要填写剧情简介哦")
 		private String anime_info;
 		/**
 		 * 对它的一些备注信息
@@ -82,9 +90,13 @@ public class Anime {
 		 */
 		private String anime_info_edsonger;
 		/**
-		 * 动画的标签ID 大合集！！(json字符串)
+		 * 动画更新日期（只用来读）
 		 */
-		private String anime_tag;
+		private String date;
+		/**
+		 * 动画创建日期（只用来读）
+		 */
+		private String date_new;
 //==================================================
 		public Integer getAnime_id() {
 			return anime_id;
@@ -200,41 +212,17 @@ public class Anime {
 		public void setAnime_info_edsonger(String anime_info_edsonger) {
 			this.anime_info_edsonger = anime_info_edsonger;
 		}
-		public String getAnime_tag() {
-			return anime_tag;
+		public String getDate() {
+			return date;
 		}
-		public void setAnime_tag(String anime_tag) {
-			this.anime_tag = anime_tag;
+		public void setDate(String date) {
+			this.date = date;
 		}
-		public Anime(Integer anime_id, String anime_name, Integer anime_number, String anime_class, String anime_pic,
-				String anime_info, String anime_info2, String anime_info_daoyan, String anime_info_music,
-				String anime_info_de, String anime_info_pic, String anime_info_anime, String anime_info_site,
-				String anime_info_date, String anime_info_from, String anime_info_op, String anime_info_opsonger,
-				String anime_info_ed, String anime_info_edsonger, String anime_tag) {
-			super();
-			this.anime_id = anime_id;
-			this.anime_name = anime_name;
-			this.anime_number = anime_number;
-			this.anime_class = anime_class;
-			this.anime_pic = anime_pic;
-			this.anime_info = anime_info;
-			this.anime_info2 = anime_info2;
-			this.anime_info_daoyan = anime_info_daoyan;
-			this.anime_info_music = anime_info_music;
-			this.anime_info_de = anime_info_de;
-			this.anime_info_pic = anime_info_pic;
-			this.anime_info_anime = anime_info_anime;
-			this.anime_info_site = anime_info_site;
-			this.anime_info_date = anime_info_date;
-			this.anime_info_from = anime_info_from;
-			this.anime_info_op = anime_info_op;
-			this.anime_info_opsonger = anime_info_opsonger;
-			this.anime_info_ed = anime_info_ed;
-			this.anime_info_edsonger = anime_info_edsonger;
-			this.anime_tag = anime_tag;
+		public String getDate_new() {
+			return date_new;
 		}
-		public Anime() {
-			super();
+		public void setDate_new(String date_new) {
+			this.date_new = date_new;
 		}
 		@Override
 		public int hashCode() {
@@ -259,7 +247,8 @@ public class Anime {
 			result = prime * result + ((anime_name == null) ? 0 : anime_name.hashCode());
 			result = prime * result + ((anime_number == null) ? 0 : anime_number.hashCode());
 			result = prime * result + ((anime_pic == null) ? 0 : anime_pic.hashCode());
-			result = prime * result + ((anime_tag == null) ? 0 : anime_tag.hashCode());
+			result = prime * result + ((date == null) ? 0 : date.hashCode());
+			result = prime * result + ((date_new == null) ? 0 : date_new.hashCode());
 			return result;
 		}
 		@Override
@@ -366,12 +355,48 @@ public class Anime {
 					return false;
 			} else if (!anime_pic.equals(other.anime_pic))
 				return false;
-			if (anime_tag == null) {
-				if (other.anime_tag != null)
+			if (date == null) {
+				if (other.date != null)
 					return false;
-			} else if (!anime_tag.equals(other.anime_tag))
+			} else if (!date.equals(other.date))
+				return false;
+			if (date_new == null) {
+				if (other.date_new != null)
+					return false;
+			} else if (!date_new.equals(other.date_new))
 				return false;
 			return true;
+		}
+		public Anime(Integer anime_id, String anime_name, Integer anime_number, String anime_class, String anime_pic,
+				String anime_info, String anime_info2, String anime_info_daoyan, String anime_info_music,
+				String anime_info_de, String anime_info_pic, String anime_info_anime, String anime_info_site,
+				String anime_info_date, String anime_info_from, String anime_info_op, String anime_info_opsonger,
+				String anime_info_ed, String anime_info_edsonger, String date, String date_new) {
+			super();
+			this.anime_id = anime_id;
+			this.anime_name = anime_name;
+			this.anime_number = anime_number;
+			this.anime_class = anime_class;
+			this.anime_pic = anime_pic;
+			this.anime_info = anime_info;
+			this.anime_info2 = anime_info2;
+			this.anime_info_daoyan = anime_info_daoyan;
+			this.anime_info_music = anime_info_music;
+			this.anime_info_de = anime_info_de;
+			this.anime_info_pic = anime_info_pic;
+			this.anime_info_anime = anime_info_anime;
+			this.anime_info_site = anime_info_site;
+			this.anime_info_date = anime_info_date;
+			this.anime_info_from = anime_info_from;
+			this.anime_info_op = anime_info_op;
+			this.anime_info_opsonger = anime_info_opsonger;
+			this.anime_info_ed = anime_info_ed;
+			this.anime_info_edsonger = anime_info_edsonger;
+			this.date = date;
+			this.date_new = date_new;
+		}
+		public Anime() {
+			super();
 		}
 		@Override
 		public String toString() {
@@ -383,6 +408,8 @@ public class Anime {
 					+ ", anime_info_site=" + anime_info_site + ", anime_info_date=" + anime_info_date
 					+ ", anime_info_from=" + anime_info_from + ", anime_info_op=" + anime_info_op
 					+ ", anime_info_opsonger=" + anime_info_opsonger + ", anime_info_ed=" + anime_info_ed
-					+ ", anime_info_edsonger=" + anime_info_edsonger + ", anime_tag=" + anime_tag + "]";
+					+ ", anime_info_edsonger=" + anime_info_edsonger + ", date=" + date + ", date_new=" + date_new
+					+ "]";
 		}
+		
 }

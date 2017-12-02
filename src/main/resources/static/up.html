@@ -1,24 +1,26 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <meta charset="UTF-8"/>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
     <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
-</head>  
-  
-<body>  
-    <h2>HTML5异步上传文件，带进度条</h2>  
-    <form method="post" enctype="multipart/form-data">   
-        选择要上传的文件：<br/>  
-        <input type="file" name="file" /><span></span><br/>  
-    </form>  
-      
-    <br/><br/>  
-    <input type="button" value="上传吧" onclick="upload()"/>  
-    <br/><br/>  
-    上传进度：<progress></progress><br/>  
-    <p id="progress">0 bytes</p>  
-    <p id="info"></p>  
-    
+</head>
+
+<body>
+    <h2>HTML5异步上传文件，带进度条</h2>
+    <form method="post" enctype="multipart/form-data">
+        选择要上传的文件：<br/>
+        <input type="file" name="file" /><span></span><br/>
+    </form>
+
+    <br/><br/>
+    <input type="button" value="上传吧" onclick="upload()" />
+    <br/><br/> 上传进度：
+    <progress></progress><br/>
+    <p id="progress">0 bytes</p>
+    <p id="info"></p>
+
     <script type="text/javascript" src="/file/js/fileupload.js"></script>
-</body>  
+</body>
+
 </html>

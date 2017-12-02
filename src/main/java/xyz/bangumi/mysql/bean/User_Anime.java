@@ -18,9 +18,14 @@ public class User_Anime {
 	 */
 	private Integer allnumber;
 	/**
-	 * 用户写的文章备忘录
+	 * 用户订阅动画的时间
 	 */
-	private String article;
+	private String data_new;
+	/**
+	 * 用户看过动画后
+	 * 更新的时间
+	 */
+	private String data_updata;
 	public Integer getUid() {
 		return uid;
 	}
@@ -45,22 +50,17 @@ public class User_Anime {
 	public void setAllnumber(Integer allnumber) {
 		this.allnumber = allnumber;
 	}
-	public String getArticle() {
-		return article;
+	public String getData_new() {
+		return data_new;
 	}
-	public void setArticle(String article) {
-		this.article = article;
+	public void setData_new(String data_new) {
+		this.data_new = data_new;
 	}
-	public User_Anime(Integer uid, Integer animeid, Integer number, Integer allnumber, String article) {
-		super();
-		this.uid = uid;
-		this.animeid = animeid;
-		this.number = number;
-		this.allnumber = allnumber;
-		this.article = article;
+	public String getData_updata() {
+		return data_updata;
 	}
-	public User_Anime() {
-		super();
+	public void setData_updata(String data_updata) {
+		this.data_updata = data_updata;
 	}
 	@Override
 	public int hashCode() {
@@ -68,7 +68,8 @@ public class User_Anime {
 		int result = 1;
 		result = prime * result + ((allnumber == null) ? 0 : allnumber.hashCode());
 		result = prime * result + ((animeid == null) ? 0 : animeid.hashCode());
-		result = prime * result + ((article == null) ? 0 : article.hashCode());
+		result = prime * result + ((data_new == null) ? 0 : data_new.hashCode());
+		result = prime * result + ((data_updata == null) ? 0 : data_updata.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
 		return result;
@@ -92,10 +93,15 @@ public class User_Anime {
 				return false;
 		} else if (!animeid.equals(other.animeid))
 			return false;
-		if (article == null) {
-			if (other.article != null)
+		if (data_new == null) {
+			if (other.data_new != null)
 				return false;
-		} else if (!article.equals(other.article))
+		} else if (!data_new.equals(other.data_new))
+			return false;
+		if (data_updata == null) {
+			if (other.data_updata != null)
+				return false;
+		} else if (!data_updata.equals(other.data_updata))
 			return false;
 		if (number == null) {
 			if (other.number != null)
@@ -109,10 +115,22 @@ public class User_Anime {
 			return false;
 		return true;
 	}
+	public User_Anime(Integer uid, Integer animeid, Integer number, Integer allnumber, String data_new,
+			String data_updata) {
+		super();
+		this.uid = uid;
+		this.animeid = animeid;
+		this.number = number;
+		this.allnumber = allnumber;
+		this.data_new = data_new;
+		this.data_updata = data_updata;
+	}
+	public User_Anime() {
+		super();
+	}
 	@Override
 	public String toString() {
 		return "User_Anime [uid=" + uid + ", animeid=" + animeid + ", number=" + number + ", allnumber=" + allnumber
-				+ ", article=" + article + "]";
+				+ ", data_new=" + data_new + ", data_updata=" + data_updata + "]";
 	}
-	
 }

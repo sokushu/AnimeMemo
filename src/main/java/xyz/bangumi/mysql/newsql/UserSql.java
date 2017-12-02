@@ -85,9 +85,9 @@ public class UserSql {
 				}
 			} catch (Exception e) {}
 			try {
-				users.getName();
-				if (users.getName()!="") {
-					SET("name = #{name}");
+				users.getPageusername();
+				if (users.getPageusername()!="") {
+					SET("pageusername = #{pageusername}");
 				}
 			} catch (Exception e) {}
 			WHERE("uid = #{uid}");

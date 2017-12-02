@@ -1,22 +1,40 @@
 package xyz.bangumi.mysql.bean;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+/**
+ * 用户表
+ * @author miri
+ *
+ */
 public class Users {
 	/**
 	 * 用户id
 	 */
 	private Integer uid;
+
+	@NotEmpty(message = "用户名不能为空哦")
 	private String username;
+
+	@NotEmpty(message = "密码不能为空哦")
+	@Length(min = 6, message = "密码长度至少为6位哦")
 	private String password;
+
+	@NotEmpty(message = "邮箱不能为空哦")
+	@Email(message = "您输入的可不是一个邮箱啊")
 	private String email;
 	/**
 	 * 自定义url（必填）
 	 */
+	@NotEmpty(message = "请填写您的自定义主页URL")
+	@Length(max = 128, message = "歪，这也有点太长了吧")
 	private String url;
 	//==========================
 	/**
 	 * 用户头像
 	 */
-	private String user_pic;
+	private String userpic;
 	/**
 	 * 个人信息
 	 */
@@ -24,15 +42,20 @@ public class Users {
 	/**
 	 * 对外显示的名字
 	 */
-	private String name;
+	private String pageusername;
 	/**
 	 * 个人资料背景
 	 */
-	private String back_pic;
-	public Integer getId() {
+	private String backpic;
+	/**
+	 * 用户注册时间(仅用来读)
+	 */
+	private String sign_up_data;
+	//===========================================
+	public Integer getUid() {
 		return uid;
 	}
-	public void setId(Integer uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 	public String getUsername() {
@@ -59,11 +82,11 @@ public class Users {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getUser_pic() {
-		return user_pic;
+	public String getUserpic() {
+		return userpic;
 	}
-	public void setUser_pic(String user_pic) {
-		this.user_pic = user_pic;
+	public void setUserpic(String userpic) {
+		this.userpic = userpic;
 	}
 	public String getInfo() {
 		return info;
@@ -71,47 +94,38 @@ public class Users {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public String getName() {
-		return name;
+	public String getPageusername() {
+		return pageusername;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setPageusername(String pageusername) {
+		this.pageusername = pageusername;
 	}
-	public String getBack_pic() {
-		return back_pic;
+	public String getBackpic() {
+		return backpic;
 	}
-	public void setBack_pic(String back_pic) {
-		this.back_pic = back_pic;
+	public void setBackpic(String backpic) {
+		this.backpic = backpic;
 	}
-	public Users(Integer id, String username, String password, String email, String url, String user_pic, String info,
-			String name, String back_pic) {
-		super();
-		this.uid = id;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.url = url;
-		this.user_pic = user_pic;
-		this.info = info;
-		this.name = name;
-		this.back_pic = back_pic;
+	public String getSign_up_data() {
+		return sign_up_data;
 	}
-	public Users() {
-		super();
+	public void setSign_up_data(String sign_up_data) {
+		this.sign_up_data = sign_up_data;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((back_pic == null) ? 0 : back_pic.hashCode());
+		result = prime * result + ((backpic == null) ? 0 : backpic.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
 		result = prime * result + ((info == null) ? 0 : info.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((pageusername == null) ? 0 : pageusername.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((sign_up_data == null) ? 0 : sign_up_data.hashCode());
+		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		result = prime * result + ((user_pic == null) ? 0 : user_pic.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((userpic == null) ? 0 : userpic.hashCode());
 		return result;
 	}
 	@Override
@@ -123,57 +137,80 @@ public class Users {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (back_pic == null) {
-			if (other.back_pic != null)
+		if (backpic == null) {
+			if (other.backpic != null)
 				return false;
-		} else if (!back_pic.equals(other.back_pic))
+		} else if (!backpic.equals(other.backpic))
 			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (uid == null) {
-			if (other.uid != null)
-				return false;
-		} else if (!uid.equals(other.uid))
-			return false;
 		if (info == null) {
 			if (other.info != null)
 				return false;
 		} else if (!info.equals(other.info))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (pageusername == null) {
+			if (other.pageusername != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!pageusername.equals(other.pageusername))
 			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (sign_up_data == null) {
+			if (other.sign_up_data != null)
+				return false;
+		} else if (!sign_up_data.equals(other.sign_up_data))
+			return false;
+		if (uid == null) {
+			if (other.uid != null)
+				return false;
+		} else if (!uid.equals(other.uid))
+			return false;
 		if (url == null) {
 			if (other.url != null)
 				return false;
 		} else if (!url.equals(other.url))
-			return false;
-		if (user_pic == null) {
-			if (other.user_pic != null)
-				return false;
-		} else if (!user_pic.equals(other.user_pic))
 			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
+		if (userpic == null) {
+			if (other.userpic != null)
+				return false;
+		} else if (!userpic.equals(other.userpic))
+			return false;
 		return true;
+	}
+	public Users(Integer uid, String username, String password, String email, String url, String userpic, String info,
+			String pageusername, String backpic, String sign_up_data) {
+		super();
+		this.uid = uid;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.url = url;
+		this.userpic = userpic;
+		this.info = info;
+		this.pageusername = pageusername;
+		this.backpic = backpic;
+		this.sign_up_data = sign_up_data;
+	}
+	public Users() {
+		super();
 	}
 	@Override
 	public String toString() {
-		return "Users [id=" + uid + ", username=" + username + ", password=" + password + ", email=" + email + ", url="
-				+ url + ", user_pic=" + user_pic + ", info=" + info + ", name=" + name + ", back_pic=" + back_pic + "]";
+		return "Users [uid=" + uid + ", username=" + username + ", password=" + password + ", email=" + email + ", url="
+				+ url + ", userpic=" + userpic + ", info=" + info + ", pageusername=" + pageusername + ", backpic="
+				+ backpic + ", sign_up_data=" + sign_up_data + "]";
 	}
 	
 }

@@ -24,27 +24,6 @@ public interface AnimeDao {
      */
     @Select("SELECT * FROM anime WHERE anime_id = #{animeid}")
     //返回 Map 结果集
-    @Results({
-    	@Result(property = "anime_id", column = "anime_id"),
-        @Result(property = "anime_name", column = "anime_name"),
-        @Result(property = "anime_number", column = "anime_number"),
-        @Result(property = "anime_class", column = "anime_class"),
-        @Result(property = "anime_pic", column = "anime_pic"),
-        @Result(property = "anime_info", column = "anime_info"),
-        @Result(property = "anime_info2", column = "anime_info2"),
-        @Result(property = "anime_info_daoyan", column = "anime_info_daoyan"),
-        @Result(property = "anime_info_music", column = "anime_info_music"),
-        @Result(property = "anime_info_de", column = "anime_info_de"),
-        @Result(property = "anime_info_pic", column = "anime_info_pic"),
-        @Result(property = "anime_info_site", column = "anime_info_site"),
-        @Result(property = "anime_info_date", column = "anime_info_date"),
-        @Result(property = "anime_info_from", column = "anime_info_from"),
-        @Result(property = "anime_info_op", column = "anime_info_op"),
-        @Result(property = "anime_info_opsonger", column = "anime_info_opsonger"),
-        @Result(property = "anime_info_ed", column = "anime_info_ed"),
-        @Result(property = "anime_info_edsonger", column = "anime_info_edsonger"),
-        @Result(property = "anime_tag", column = "anime_tag"),
-    })
     public Map<String, Object> findByAnimeID(@Param("animeid") String animeid);
 //=========================================================================================================================    
     /**

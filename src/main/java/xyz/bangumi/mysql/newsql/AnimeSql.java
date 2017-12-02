@@ -53,9 +53,6 @@ public class AnimeSql {
 			if (anime.getAnime_info_edsonger()!=null||anime.getAnime_info_edsonger().trim()!="") {
 				VALUES("anime_info_edsonger", "#{anime_info_edsonger}");
 			}
-			if (anime.getAnime_tag()!=null||anime.getAnime_tag().trim()!="") {
-				VALUES("anime_tag", "#{anime_tag}");
-			}
 		}}.toString();
 	}
 	public String selectfromindex() {
@@ -115,9 +112,6 @@ public class AnimeSql {
 			}
 			if (anime.getAnime_info_edsonger()!=null||anime.getAnime_info_edsonger().trim()!="") {
 				SET("anime_info_edsonger = #{anime_info_edsonger}");
-			}
-			if (anime.getAnime_tag()!=null||anime.getAnime_tag().trim()!="") {
-				SET("anime_tag = #{anime_tag}");
 			}
 			WHERE("anime_id = #{animeid}");
 		}}.toString();

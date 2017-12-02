@@ -21,7 +21,11 @@ public class Message {
 	/**
 	 * 是否已读
 	 */
-	private Boolean readed;
+	private Integer readed;
+	/**
+	 * 发送日期(只用来读)
+	 */
+	private String date;
 	public Integer getId() {
 		return id;
 	}
@@ -46,27 +50,23 @@ public class Message {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Boolean getReaded() {
+	public Integer getReaded() {
 		return readed;
 	}
-	public void setReaded(Boolean readed) {
+	public void setReaded(Integer readed) {
 		this.readed = readed;
 	}
-	public Message(Integer id, Integer fromUID, Integer toUID, String message, Boolean readed) {
-		super();
-		this.id = id;
-		this.fromUID = fromUID;
-		this.toUID = toUID;
-		this.message = message;
-		this.readed = readed;
+	public String getDate() {
+		return date;
 	}
-	public Message() {
-		super();
+	public void setDate(String date) {
+		this.date = date;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((fromUID == null) ? 0 : fromUID.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
@@ -83,6 +83,11 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		if (fromUID == null) {
 			if (other.fromUID != null)
 				return false;
@@ -110,10 +115,22 @@ public class Message {
 			return false;
 		return true;
 	}
+	public Message(Integer id, Integer fromUID, Integer toUID, String message, Integer readed, String date) {
+		super();
+		this.id = id;
+		this.fromUID = fromUID;
+		this.toUID = toUID;
+		this.message = message;
+		this.readed = readed;
+		this.date = date;
+	}
+	public Message() {
+		super();
+	}
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", fromUID=" + fromUID + ", toUID=" + toUID + ", message=" + message + ", readed="
-				+ readed + "]";
+				+ readed + ", date=" + date + "]";
 	}
 	
 }

@@ -1,5 +1,9 @@
 package xyz.bangumi.mysql.bean;
-
+/**
+ * 留言
+ * @author miri
+ *
+ */
 public class Comments {
 	/**
 	 * 留言id
@@ -25,9 +29,11 @@ public class Comments {
 	 * 留言内容
 	 */
 	private String comm;
-	
-	
-	
+	/**
+	 * 留言时间
+	 */
+	private String comm_data;
+//=======================================
 	public Integer getCommid() {
 		return commid;
 	}
@@ -64,20 +70,18 @@ public class Comments {
 	public void setComm(String comm) {
 		this.comm = comm;
 	}
-	public Comments(Integer commid, Integer uid, Integer commuid, String name, String pic, String comm) {
-		super();
-		this.commid = commid;
-		this.uid = uid;
-		this.commuid = commuid;
-		this.name = name;
-		this.pic = pic;
-		this.comm = comm;
+	public String getComm_data() {
+		return comm_data;
+	}
+	public void setComm_data(String comm_data) {
+		this.comm_data = comm_data;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comm == null) ? 0 : comm.hashCode());
+		result = prime * result + ((comm_data == null) ? 0 : comm_data.hashCode());
 		result = prime * result + ((commid == null) ? 0 : commid.hashCode());
 		result = prime * result + ((commuid == null) ? 0 : commuid.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -98,6 +102,11 @@ public class Comments {
 			if (other.comm != null)
 				return false;
 		} else if (!comm.equals(other.comm))
+			return false;
+		if (comm_data == null) {
+			if (other.comm_data != null)
+				return false;
+		} else if (!comm_data.equals(other.comm_data))
 			return false;
 		if (commid == null) {
 			if (other.commid != null)
@@ -126,11 +135,23 @@ public class Comments {
 			return false;
 		return true;
 	}
+	public Comments(Integer commid, Integer uid, Integer commuid, String name, String pic, String comm,
+			String comm_data) {
+		super();
+		this.commid = commid;
+		this.uid = uid;
+		this.commuid = commuid;
+		this.name = name;
+		this.pic = pic;
+		this.comm = comm;
+		this.comm_data = comm_data;
+	}
+	public Comments() {
+		super();
+	}
 	@Override
 	public String toString() {
 		return "Comments [commid=" + commid + ", uid=" + uid + ", commuid=" + commuid + ", name=" + name + ", pic="
-				+ pic + ", comm=" + comm + "]";
+				+ pic + ", comm=" + comm + ", comm_data=" + comm_data + "]";
 	}
-	
-	
 }

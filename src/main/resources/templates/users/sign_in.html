@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-	<meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>用户登录</title>
-	
-	<link href="/file/css/runtime/materialize.min.css" rel="stylesheet"/>
-    <link href="/file/css/runtime/000.css" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>用户登录</title>
+
+    <link href="/file/css/runtime/materialize.min.css" rel="stylesheet" />
+    <link href="/file/css/runtime/000.css" rel="stylesheet" />
     <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
-	<link href="/file/css/backimg.css" rel="stylesheet"/>
+    <link href="/file/css/backimg.css" rel="stylesheet" />
 
 </head>
+
 <body>
-	<div class="bg" style="background-color:rgb(64, 64, 64);background-image:url(&quot;/file/img/page/222.jpg&quot;);"></div>
-	<div class="container"><br/><br/><br/><br/><br/><br/>
-		<div class="row">
-			<div class="col s4"></div>
-			<form action="/sign_in" method="post" id="form_sign_in">
-				<div class="input-field col s4" style="background-color:rgba(255,255,255,0.9);padding: 30px;">
-				<div class="input-field">
-					 <input placeholder="登录用户名" id="username" type="text" class="validate" name="username"/>
-		         	 <label for="password">用户名</label>
-				</div>
-				<div class="input-field">
-					 <input placeholder="用户密码" id="password" type="password" class="validate" name="password"/>
-		          	 <label for="password">密码</label>
-				</div>
-		          <button style="width: 49%;" type="button" class="waves-effect waves-light btn" id="login">登录</button>
-				  <a style="width: 49%;" class="waves-effect waves-light btn" href="/sign_up">注册</a>
-				</div>
-			</form>
-			<div id="showmessage"></div>
-			<div class="col s4"></div>
-			<script type="text/javascript" src="/file/js/sign_in_js.js"></script>
-		</div>
-	</div>
+    <div class="bg" style="background-color:rgb(64, 64, 64);background-image:url(&quot;/file/img/page/backpic.jpg&quot;);"></div>
+    <div class="container"><br/><br/><br/><br/><br/><br/>
+        <div class="row">
+            <div class="col s4"></div>
+            <form action="/sign_in" method="post" id="form_sign_in">
+                <div class="input-field col s4" style="background-color:rgba(255,255,255,0.9);padding: 30px;">
+                    <div class="input-field">
+                        <input placeholder="登录用户名" id="username" type="text" class="validate" name="username" />
+                        <label for="password">用户名</label>
+                    </div>
+                    <div class="input-field">
+                        <input placeholder="用户密码" id="password" type="password" class="validate" name="password" />
+                        <label for="password">密码</label>
+                    </div>
+                    <button style="width: 49%;" type="button" class="waves-effect waves-light btn" id="login">登录</button>
+                    <a style="width: 49%;" class="waves-effect waves-light btn" href="/sign_up">注册</a>
+                </div>
+            </form>
+            <div id="showmessage"></div>
+            <div class="col s4"></div>
+            <script type="text/javascript" src="/file/js/sign_in_js.js"></script>
+        </div>
+    </div>
 </body>
+
 </html>

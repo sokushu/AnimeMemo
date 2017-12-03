@@ -1,70 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-	<meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title th:text:="用户登录">Insert title here</title>
-	
-	<link href="/file/css/runtime/materialize.min.css" rel="stylesheet"/>
-    <link href="/file/css/runtime/000.css" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title th:text:="用户注册 - AnimeMemo">网页标题</title>
+
+    <link href="/file/css/runtime/materialize.min.css" rel="stylesheet" />
+    <link href="/file/css/runtime/000.css" rel="stylesheet" />
     <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
 </head>
+
 <body>
-	<div class="row">
-	<div class="col s12 m3"></div>
-    <form class="col s12 m6" action="/sign_up" method="post">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate" name="username"/>
-          <label for="first_name">用户名</label>
+
+    <div class="row" id="sign_indiv" style="width: 320px;">
+        <div class="col s12 z-depth-4 card-panel">
+            <form action="" method="POST" class="input-field">
+                <input/>
+            </form>
         </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate" name="name"/>
-          <label for="last_name">昵称</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="disabled" type="password" class="validate" name="password"/>
-          <label for="disabled">密码</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate"/>
-          <label for="password">重复密码</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="email"/>
-          <label for="email">邮箱</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          请输入您的自定义url
-          <div class="input-field">
-            <input id="email" type="text" class="validate col s7" name="url" />
-            <label for="email" data-error="wrong" data-success="right">用于个人资料页地址的链接，http://bangumi.xyz/id/您输入的URL</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-      	<div class="col s12">
-      		<div class="col s6">
-      			<button class="waves-effect waves-light btn red lighten-2 col s12" type="submit" id="zhuce">注册</button>
-      		</div>
-      		<div class="col s6">
-      			<button class="waves-effect waves-light btn blue darken-1 col s12" type="reset">清除重写</button>
-      		</div>
-      	</div>
-      </div>
-    </form>
-    <div class="col s12 m3"></div>
-    <script type="text/javascript" src="/file/js/sign_up.js"></script>
-  </div>
+    </div>
+
+
+    <!-- <div class="row">
+        <div class="col s12 m3"></div>
+        <form class="col s12 m6" action="/sign_up" method="post">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="first_name" type="text" class="validate" name="username" />
+                    <label for="first_name">用户名</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate" name="pageusername" />
+                    <label for="last_name">昵称</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="disabled" type="password" class="validate" name="password" />
+                    <label for="disabled">密码</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" />
+                    <label for="password">重复密码</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" name="email" />
+                    <label for="email">邮箱</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    请输入您的自定义url
+                    <div class="input-field">
+                        <input id="email" type="text" class="validate col s7" name="url" />
+                        <label for="email" data-error="wrong" data-success="right">用于个人资料页地址的链接，http://bangumi.xyz/id/您输入的URL</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s6">
+                        <button class="waves-effect waves-light btn red lighten-2 col s12" type="submit" id="zhuce">注册</button>
+                    </div>
+                    <div class="col s6">
+                        <button class="waves-effect waves-light btn blue darken-1 col s12" type="reset">清除重写</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col s12 m3"></div>
+        <script type="text/javascript" src="/file/js/sign_up.js"></script>
+    </div> -->
 </body>
+
 </html>

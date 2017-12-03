@@ -11,10 +11,10 @@ public class UserSql {
 			SELECT("username");
 			SELECT("email");
 			SELECT("url");
-			SELECT("user_pic");
+			SELECT("userpic");
 			SELECT("info");
-			SELECT("name");
-			SELECT("back_pic");
+			SELECT("pageusername");
+			SELECT("backpic");
 			FROM("users");
 			WHERE("uid = #{uid}");
 		}}.toString();
@@ -25,10 +25,10 @@ public class UserSql {
 			SELECT("username");
 			SELECT("email");
 			SELECT("url");
-			SELECT("user_pic");
+			SELECT("userpic");
 			SELECT("info");
-			SELECT("name");
-			SELECT("back_pic");
+			SELECT("pageusername");
+			SELECT("backpic");
 			FROM("users");
 			WHERE("username = #{username}");
 		}}.toString();
@@ -39,10 +39,10 @@ public class UserSql {
 			SELECT("username");
 			SELECT("email");
 			SELECT("url");
-			SELECT("user_pic");
+			SELECT("userpic");
 			SELECT("info");
-			SELECT("name");
-			SELECT("back_pic");
+			SELECT("pageusername");
+			SELECT("backpic");
 			FROM("users");
 			WHERE("url = #{url}");
 		}}.toString();
@@ -54,7 +54,7 @@ public class UserSql {
 			VALUES("password", "#{password}");
 			VALUES("email", "#{email}");
 			VALUES("url", "#{url}");
-			VALUES("name", "#{name}");
+			VALUES("pageusername", "#{pageusername}");
 		}}.toString();
 	}
 	public String updataUser(final Users users) {
@@ -96,7 +96,7 @@ public class UserSql {
 	public String updataPic() {
 		return new SQL() {{
 			UPDATE("users");
-			SET("user_pic = #{user_pic}");
+			SET("userpic = #{userpic}");
 			WHERE("uid = #{uid}");
 		}}.toString();
 	}

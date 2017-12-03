@@ -1,30 +1,103 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link href="" rel=""/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- 各种资源文件 -->
+    <link href="file:///home/miri/Work/MyProject/BanGuMiKiRoKu/src/main/resources/file/css/runtime/materialize.min.css" rel="stylesheet" />
+    <link href="file:///home/miri/Work/MyProject/BanGuMiKiRoKu/src/main/resources/file/css/runtime/000.css" rel="stylesheet" />
+    <script type="text/javascript" src="file:///home/miri/Work/MyProject/BanGuMiKiRoKu/src/main/resources/file/js/runtime/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="file:///home/miri/Work/MyProject/BanGuMiKiRoKu/src/main/resources/file/js/runtime/materialize.min.js"></script>
     <title>番剧列表</title>
 </head>
+
 <body>
     <!-- 番组动画头部 -->
     <header>
-        <div class="">
-
+        <div class="container-fluid">
+            <h1>Hello World</h1>
+        </div>
+        <!-- 搜索栏 -->
+        <div>
+            <form action="" method="GET" id="formsearch">
+                <input name="w" id="keyword" />
+                <button class="btn">搜索</button>
+            </form>
         </div>
     </header>
-    <!-- 身体部位 -->
-    <div class="row">
-        <div class="col s12 m2"></div>
-        <!-- 动画的列表 -->
-        <div class="col s12 m8">
+    <!-- 一些其他部分，例如导航栏 -->
+    <div>
 
-        </div>
-        <div class="col s12 m2"></div>
     </div>
+    <!-- 身体部位 -->
+    <div class="container">
+        <div class="row">
+            <!-- 手机的话则显示这块 -->
+            <div class="col s12 hide-on-large-only">
+                <h5>标签</h5>
+                <div class="chip">
+                    1997年
+                </div>
+                <div class="chip">
+                    少女革命
+                </div>
+            </div>
+            <!-- 动画的列表 -->
+            <div class="col s12 m12 l8">
+                <div class="col s12">
+                    <h2 class="header">动画列表</h2>
+                    <div class="card horizontal small">
+                        <div class="card-image">
+                            <img src="file:///home/miri/Work/MyProject/BanGuMiKiRoKu/src/main/resources/file/img/page/000222.jpg">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>少女革命</h5>
+                                <p>一段吵吵超长的剧情介绍kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#!">动画详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 电脑的话则显示这块 -->
+            <div class="col s12 l4 hide-on-med-and-down">
+                <h5>标签</h5>
+                <div class="chip">
+                    1997年
+                </div>
+                <div class="chip">
+                    少女革命
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m3 l3"></div>
+            <div class="col s12 m6 l6">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#!">前一页</a></li>
+                    <li class="active"><a href="#!">1</a></li>
+                    <li class="waves-effect"><a href="#!">2</a></li>
+                    <li class="waves-effect"><a href="#!">3</a></li>
+                    <li class="waves-effect"><a href="#!">4</a></li>
+                    <li class="waves-effect"><a href="#!">5</a></li>
+                    <li class="waves-effect"><a href="#!">后一页</a></li>
+                </ul>
+            </div>
+            <div class="col m3 l3"></div>
+        </div>
+    </div>
+    <!-- 页尾 -->
+    <div>
 
+    </div>
     <!-- js代码大合集 -->
     <script type='text/javascript' src=""></script>
 </body>
+
 </html>

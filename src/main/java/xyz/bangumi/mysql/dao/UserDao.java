@@ -74,5 +74,5 @@ public interface UserDao {
 	 * @param uid
 	 */
 	@UpdateProvider(type = UserSql.class, method = "updataPic")
-	public void updataPic(@Param("user_pic")String pic, @Param("uid")String uid);
+	public void updataPic(@Param("userpic")String pic, @Param("uid")String uid);
 }

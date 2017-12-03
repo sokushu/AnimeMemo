@@ -8,7 +8,9 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-
+/**
+ * 核心运行类
+ */
 @SpringBootApplication
 public class MainRun {
 

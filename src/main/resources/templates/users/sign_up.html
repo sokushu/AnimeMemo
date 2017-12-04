@@ -9,86 +9,72 @@
 
     <link href="/file/css/runtime/materialize.min.css" rel="stylesheet" />
     <link href="/file/css/runtime/000.css" rel="stylesheet" />
+    <link href="/file/css/backimg.css" rel="stylesheet" />
     <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
 </head>
 
 <body>
     <!-- 背景 -->
-    <div></div>
+    <div class="bg pink lighten-4"></div>
+    <!-- 导航栏 -->
+    <div>
+
+    </div>
+    <br/><br/><br/>
     <!-- 用户注册主体 -->
-    <div class="row" id="sign_indiv" style="width: 320px;">
-        <div class="col s12 z-depth-4 card-panel">
-            <form action="" method="POST" class="input-field">
+    <div class="row" id="sign_indiv" style="width: 300px;">
+        <div class="col s12 z-depth-4 hoverable card-panel">
+            <div class="input-field" style="padding: 10px;">
                 <div class="row">
                     <div class="col s12 center input-field">
-                        <h1>注册</h1>
-                        <p class="center">欢迎加入</p>
+                        <h3>注册</h3>
+                        <p class="center">现在就注册加入<br/>欢迎加入!</p>
                     </div>
                 </div>
-                <div class="">
-                    <input type="text" name="" id="username" />
+                <div class="input-field row">
+                    <i class="material-icons small prefix">account_box</i>
+                    <input type="text" name="username" id="username" />
                     <label for="username">用户名</label>
                 </div>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- <div class="row">
-        <div class="col s12 m3"></div>
-        <form class="col s12 m6" action="/sign_up" method="post">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="first_name" type="text" class="validate" name="username" />
-                    <label for="first_name">用户名</label>
+                <div class="input-field row">
+                    <i class="material-icons small prefix">fingerprint</i>
+                    <input type="password" name="password" id="password" />
+                    <label for="password">密码</label>
                 </div>
-                <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate" name="pageusername" />
-                    <label for="last_name">昵称</label>
+                <div class="input-field row">
+                    <i class="material-icons small prefix">fingerprint</i>
+                    <input type="password" name="pass" id="pass" />
+                    <label for="pass">确认密码</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="disabled" type="password" class="validate" name="password" />
-                    <label for="disabled">密码</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" class="validate" />
-                    <label for="password">重复密码</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" class="validate" name="email" />
+                <div class="input-field row">
+                    <i class="material-icons small prefix">drafts</i>
+                    <input type="email" name="email" id="email" />
                     <label for="email">邮箱</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    请输入您的自定义url
-                    <div class="input-field">
-                        <input id="email" type="text" class="validate col s7" name="url" />
-                        <label for="email" data-error="wrong" data-success="right">用于个人资料页地址的链接，http://bangumi.xyz/id/您输入的URL</label>
+                <div class="input-field row">
+                    <i class="material-icons small prefix">grade</i>
+                    <input type="text" name="pageusername" id="pagename" />
+                    <label for="pagename">昵称</label>
+                </div>
+                <div class="input-field row">
+                    <i class="material-icons small prefix">favorite</i>
+                    <input type="text" name="url" id="url" />
+                    <label for="url">个人页面自定义URL</label>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button class="btn col s12 pink darken-3" type="button" id="sign_upbut"><b>立即注册</b></button>
+                    </div>
+                    <div class="input-field col s12">
+                        <p class="center-align">已有帐号？<a href="/sign_in">登录</a></p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="col s6">
-                        <button class="waves-effect waves-light btn red lighten-2 col s12" type="submit" id="zhuce">注册</button>
-                    </div>
-                    <div class="col s6">
-                        <button class="waves-effect waves-light btn blue darken-1 col s12" type="reset">清除重写</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="col s12 m3"></div>
-        <script type="text/javascript" src="/file/js/sign_up.js"></script>
-    </div> -->
+        </div>
+    </div>
+    <!-- JS -->
+    <script type='text/javascript' src='/file/js/sign_up.js'></script>
 </body>
 
 </html>

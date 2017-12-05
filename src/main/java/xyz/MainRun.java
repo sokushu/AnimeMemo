@@ -1,6 +1,9 @@
 package xyz;
 
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -14,10 +17,21 @@ import org.springframework.http.HttpStatus;
 @SpringBootApplication
 public class MainRun {
 
+	/**
+	 * 全局map集合
+	 * 用于储存数据库信息
+	 */
+	public static Map<String, Object> MySQLReaderData = new ConcurrentHashMap<>();
+
+	/**
+	 * 主运行Main方法
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(MainRun.class, args);
 	}
-	
+	/**
+	 * 设置错误页面
+	 */
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
 
@@ -29,6 +43,9 @@ public class MainRun {
 	        container.addErrorPages(error401Page, error404Page, error500Page);
 	   });
 	}
+	/**
+	 * 设置session失效时间
+	 */
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer1() {
 		return new EmbeddedServletContainerCustomizer() {

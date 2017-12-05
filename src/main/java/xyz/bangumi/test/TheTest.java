@@ -43,10 +43,4 @@ public class TheTest {
 	public List<Map<String, Object>> tesd(String word) {
 		return select.findWatchingAnimeInfo("29");
 	}
-
-	@ResponseBody
-	@RequestMapping(value = "/test/hello", method = RequestMethod.GET)
-	public String name() {
-		return "Hello World";
-	}
 }

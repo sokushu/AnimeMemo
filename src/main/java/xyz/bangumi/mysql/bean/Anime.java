@@ -42,7 +42,7 @@ public class Anime {
 		 */
 		private String anime_info2;
 		/**
-		 * 监督，导演
+		 * 监督，导演（拼音）
 		 */
 		private String anime_info_daoyan;
 		/**
@@ -50,7 +50,8 @@ public class Anime {
 		 */
 		private String anime_info_music;
 		/**
-		 * 角色设计（日语 KyaRaKuTa—— DeZaInn）
+		 * 角色设计（日语 KyaRaKuTa—— DeZaInn）（キャラクターデザィン）
+		 * 取DE（デ）
 		 */
 		private String anime_info_de;
 		/**

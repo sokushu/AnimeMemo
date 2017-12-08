@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.*;
 /**
  * 动画
  * @author miri
- *
  */
 // 标志为 Mybatis 的 Mapper
 @Mapper

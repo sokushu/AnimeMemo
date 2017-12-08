@@ -10,18 +10,29 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import xyz.bangumi.filter.UN_SIGN_IN;
 /**
- * 核心运行类
+ * 运行类
+ * 配置
  */
 @SpringBootApplication
 public class MainRun {
 
 	/**
-	 * 全局map集合
+	 * map集合
 	 * 用于储存数据库信息
 	 */
 	public static Map<String, Object> MySQLReaderData = new ConcurrentHashMap<>();
+	/**
+	 * 图片文件存放路径
+	 */
+	public static String filePath = "/home/miri/Work/000/";
 
 	/**
 	 * 主运行Main方法
@@ -29,6 +40,7 @@ public class MainRun {
 	public static void main(String[] args) {
 		SpringApplication.run(MainRun.class, args);
 	}
+
 	/**
 	 * 设置错误页面
 	 */
@@ -53,8 +65,42 @@ public class MainRun {
 			@Override
 			public void customize(ConfigurableEmbeddedServletContainer container) {
 				// TODO Auto-generated method stub
+				/**
+				 * 3600秒
+				 */
 				container.setSessionTimeout(3600);
 			}
 		};
+	}
+
+	/**
+	 * 自定义文件路径的设置
+	 */
+	@Configuration
+	class FilePathSet extends WebMvcConfigurerAdapter{
+		@Override
+		public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			//addResourceHandler中的是访问路径，可以修改为其他的字符串
+        	//addResourceLocations中的是实际路径
+			registry.addResourceHandler("/img/**").addResourceLocations("file:" + MainRun.filePath);
+			registry.addResourceHandler("/file/**").addResourceLocations("classpath:/file/");
+			registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
+			super.addResourceHandlers(registry);
+		}
+	}
+
+	/**
+	 * 过滤器的配置
+	 */
+	@Configuration
+	class FilterSet extends WebMvcConfigurerAdapter{
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(new UN_SIGN_IN())
+			.addPathPatterns("/id/*/edit")
+			.addPathPatterns("/bangumi/*/*")
+			;
+			super.addInterceptors(registry);
+		}
 	}
 }

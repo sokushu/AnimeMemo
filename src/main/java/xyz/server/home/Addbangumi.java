@@ -35,6 +35,9 @@ public class Addbangumi {
 	public Map<String, String> addbangumiPost(@PathVariable("username")String username, @Valid Anime anime, BindingResult result, 
 	HttpServletResponse res) {
 		if (result.hasErrors()) {
+			/**
+			 * 拿到错误信息
+			 */
 			Map<String, String> maperr = new HashMap<>();
 			maperr.put(result.getFieldError().getField(), result.getFieldError().getDefaultMessage());
 			return maperr;

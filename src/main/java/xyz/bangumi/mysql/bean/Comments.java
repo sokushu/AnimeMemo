@@ -1,4 +1,7 @@
 package xyz.bangumi.mysql.bean;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * 留言
  * @author miri
@@ -28,6 +31,7 @@ public class Comments {
 	/**
 	 * 留言内容
 	 */
+	@NotEmpty(message = "不能为空哦")
 	private String comm;
 	/**
 	 * 留言时间

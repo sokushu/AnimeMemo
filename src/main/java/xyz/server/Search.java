@@ -39,7 +39,9 @@ public class Search {
 		return "search";
 	}
 	
-	
+	/**
+	 * 进行分页
+	 */
 	public void se(int Page, Model model, String w) {
 		PageHelper.startPage(Page, 9);
 		List<Map<String, Object>>search = anime.searchAnime(w);

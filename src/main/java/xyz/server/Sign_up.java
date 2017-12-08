@@ -36,19 +36,18 @@ public class Sign_up {
 			}
 			return maperror;
 		}else{
-			//添加用户注册
+			//添加用户注册信息
 			users.addUser(user);
 			try {
 				//进行页面跳转
 				res.sendRedirect("/sign_in");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.err.println("404");
-			}
+			} catch (IOException e) {}
 			return null;
 		}
 	}
-	
+	/**
+	 * 显示注册页面
+	 */
 	@RequestMapping(value = "/sign_up", method = RequestMethod.GET)
 	public String signUpGet() {
 		return "users/sign_up";

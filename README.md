@@ -1,5 +1,5 @@
 这个项目是用Spring boot框架搭建的。     
-使用了多种开发工具测试，都可以使用，继续开发。     
+VSCode Eclipse 都可以继续开发。     
 
 最近迷上了Visual Studio Code这款编辑器。很不错。   
 先到这里吧，等以后在更新。

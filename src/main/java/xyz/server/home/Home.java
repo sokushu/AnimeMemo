@@ -93,11 +93,16 @@ public class Home {
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     public String homeget(HttpSession session) {
     	try {
+			/**
+			 * 得到用户的url
+			 */
     		String URL = session.getAttribute("USERURL").toString();
     		return "redirect:/id/" + URL;
 		} catch (Exception e) {
-			// TODO: handle exception
-			return "redirect:/index.html";
+			/**
+			 * 未登录
+			 */
+			return "redirect:/sign_in";
 		}
     }
     

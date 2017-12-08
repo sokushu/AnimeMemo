@@ -13,7 +13,7 @@ public class Message {
     /**
      * 用来显示页面用
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{url}/message", method = RequestMethod.GET)
     public String Showmessage(Model model, HttpSession session){
         return "";
     }

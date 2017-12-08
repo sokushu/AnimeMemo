@@ -38,9 +38,8 @@ public class TheTest {
 // 		return "HELLO WORLD" +" " +word;
 // 	}
 	
-	@RequestMapping(value = "/test/ru", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Map<String, Object>> tesd(String word) {
-		return select.findWatchingAnimeInfo("29");
+	@RequestMapping(value = "/test/", method = RequestMethod.GET)
+	public String adada(){
+		return "user/edit";
 	}
 }

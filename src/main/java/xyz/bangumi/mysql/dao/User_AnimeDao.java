@@ -28,12 +28,10 @@ public interface User_AnimeDao {
 	public void updata(@Param("number") String number, @Param("article")String article, @Param("uid")String uid, @Param("animeid")String animeid);
 	
 	/**
-	 * 查询用户订阅的所有动画
-	 * @param uid
-	 * @return
+	 * 用户对动画集数的修改
 	 */
-	@Select("SELECT * FROM user_anime WHERE uid = #{uid}")
-	public List<Map<String, Object>> selectAll(@Param("uid")String uid);
+	@UpdateProvider(type = User_AnimeSql.class, method = "updatanumber")
+	public void updatabumber(@Param("animeid")String animeid, @Param("number")String number, @Param("uid")String uid);
 	
 	/**
 	 * 删除用户订阅的一部动画

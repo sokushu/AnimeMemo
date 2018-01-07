@@ -21,37 +21,40 @@
     <br/><br/><br/><br/><br/>
     <div class="row" style="width: 300px;">
         <div class="col s12 z-depth-4 hoverable card-panel">
-            <div class="input-field" style="padding: 10px;">
-                <div class="row">
-                    <h3 class="center">登录</h3>
-                    <p class="center">用户登录</p>
-                </div>
-                <div class="row input-field">
-                    <i class="material-icons small prefix">account_box</i>
-                    <input type="text" name="username" id="username" />
-                    <label for="username">用户名</label>
-                </div>
-                <div class="row input-field">
-                    <i class="material-icons small prefix">fingerprint</i>
-                    <input type="password" name="password" id="password" />
-                    <label for="password">密码</label>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <button class="btn col s12 pink darken-3" id="sign_inbut">
+            <form action="/sign_in" method="POST" id="sign_inform">
+                <div class="input-field" style="padding: 10px;">
+                    <div class="row">
+                        <h3 class="center">登录</h3>
+                        <p class="center">用户登录</p>
+                    </div>
+                    <div class="row input-field">
+                        <i class="material-icons small prefix">account_box</i>
+                        <input type="text" name="username" id="username" />
+                        <label for="username">用户名</label>
+                    </div>
+                    <div class="row input-field">
+                        <i class="material-icons small prefix">fingerprint</i>
+                        <input type="password" name="password" id="password" />
+                        <label for="password">密码</label>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <button class="btn col s12 pink darken-3" id="sign_inbut">
                             <b>登录</b>
                         </button>
-                    </div>
-                    <div class="input-field col s12">
-                        <p class="col s6 left-align">
-                            未注册？<a href="/sign_up">注册</a>
-                        </p>
-                        <p class="col s6 right-align">
-                            <a href="#modal1" class="modal-trigger">忘记密码？</a>
-                        </p>
+                        </div>
+                        <div class="input-field col s12">
+                            <p class="col s6 left-align">
+                                未注册？<a href="/sign_up">注册</a>
+                            </p>
+                            <p class="col s6 right-align">
+                                <a href="#modal1" class="modal-trigger">忘记密码？</a>
+                            </p>
+                            <p id="passworderror"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- 忘记密码弹窗 -->

@@ -34,6 +34,7 @@ public class Sign_in {
 					session.setAttribute("USERNAME", readUser.get("username"));
 					
 //					return "redirect:/id/" + readUser.get("url");
+					// 重定向到个人主页
 					response.sendRedirect("/id/"+ readUser.get("url"));
 					return;
 				}

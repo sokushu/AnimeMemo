@@ -31,29 +31,39 @@ public class Home {
     @RequestMapping(value = "/id/{url}", method = RequestMethod.GET)
     public String homeid(@PathVariable("url") String url, HttpSession session, Model model) {
     	Map<String, Object>map = user.showUserByURL(url);
-    	if (map == null) {
+		//判断是否存在该用户
+		if (map == null) {
     		return "redirect:/id";
 		}
     	String uid = map.get("uid").toString();
-    	List<Map<String, Object>> watching = select.findWatchingAnimeInfo(uid);
-//    	List<Map<String, Object>> watched = select.findWatchedAnimeInfo(map.get("uid").toString());
+    	List<Map<String, Object>> watching = select.findWatchingAnimeInfoBy3(uid);
+    	List<Map<String, Object>> watched = select.findWatchedAnimeInfoBy3(uid);
     	
-    	int watchingKazu = useranime.UserWatchingAnime(uid);
-    	
-//    	if (watching == null) {
-    		model.addAttribute("showwatch", "true");
-    		model.addAttribute("watchingKazu", watchingKazu);
-    		model.addAttribute("watching", watching);
-//        	model.addAttribute("watched", watched);
-//		}else {
-//			model.addAttribute("showwatch", "false");
-			model.addAttribute("watch", "空空的 >.< 该用户还没有订阅信息");
-//		}
-    	
+		int watchingKazu = useranime.UserWatchingAnime(uid);
+		int watchedKazu = useranime.UserWatchedAnime(uid);
+    	//对home页面进行控制
+    	if (watchingKazu != 0) {
+    		model.addAttribute("showwatching", "true");
+			model.addAttribute("watchingKazu", watchingKazu);
+			model.addAttribute("watching", watching);
+		}else {
+			model.addAttribute("showwatching", "false");
+			model.addAttribute("watchingKazu", 0);
+		}
+		if (watchedKazu != 0) {
+			model.addAttribute("showwatched", "true");
+			model.addAttribute("watchedKazu", watchedKazu);
+    		model.addAttribute("watched", watched);
+		} else {
+			model.addAttribute("showwatched", "false");
+			model.addAttribute("watchedKazu", 0);
+		}
+		if (watchingKazu + watchedKazu == 0) {
+			model.addAttribute("watchinfo", "空空的 >.< 该用户还没有订阅信息");
+		}
     	model.addAttribute("userinfo", map);
-    	
-    	
-    	
+		
+		ShowHome sss = new ShowHome();
     	try {
     		String UID = session.getAttribute("USERUID").toString();
     		String URL = session.getAttribute("USERURL").toString();
@@ -62,34 +72,39 @@ public class Home {
     			/*
     			 * 以登录，访问自己的界面
     			 */
-    			model.addAttribute("button_edit", "true");
-    			model.addAttribute("button_message", "false");
+				Model model0 = sss.showHome(model, 0);
+				model = model0;
 				return "user/home";
 			}else {
 				/*
 				 * 以登录，访问他人页面
 				 */
-				model.addAttribute("button_edit", "false");
-    			model.addAttribute("button_message", "true");
-    			//显示留言
+				Model model0 = sss.showHome(model, 1);
+				model = model0;
 				return "user/home";
 			}	
 		} catch (NullPointerException e) {
 			/*
 			 * 未登录
 			 */
-			model.addAttribute("button_edit", "false");
-			model.addAttribute("button_message", "false");
-			model.addAttribute("login", "false");
+			Model model0 = sss.showHome(model, 2);
+			model = model0;
 			return "user/home";
 		}
     }
-    
+	
+	/**
+	 * 进行登录用
+	 */
     @RequestMapping(value = "/id/{url}", method = RequestMethod.POST)
     public void homepost(@PathVariable("url") String url, HttpSession session, Model model) {
     	homeid(url, session, model);
     }
-    
+    /**
+	 * http://localhost/id/
+	 * 可以返回个人home页（如果登录过了）
+	 * 或是首页
+	 */
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     public String homeget(HttpSession session) {
     	try {
@@ -105,12 +120,14 @@ public class Home {
 			return "redirect:/sign_in";
 		}
     }
-    
+    /**
+	 * 获取背景图片
+	 */
     @RequestMapping(value = "/id/getbackimg", method = RequestMethod.GET)
     @ResponseBody
     public String getpic(String url) {
     	Map<String, Object>map = user.showUserByURL(url);
-    	return map.get("back_pic").toString();
+    	return map.get("backpic").toString();
     }
 }
 

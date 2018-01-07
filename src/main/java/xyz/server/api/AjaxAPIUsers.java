@@ -22,7 +22,9 @@ public class AjaxAPIUsers {
 	private CommentsDao comm;
 	@Autowired
 	private UserDao user;
-	
+	/**
+	 * 获取用户的留言
+	 */
 	@RequestMapping(value = "/comments/{url}", method = RequestMethod.GET)
 	public List<Map<String, Object>> getComm(@PathVariable("url")String url){
 		Map<String, Object> map = user.showUserByURL(url);

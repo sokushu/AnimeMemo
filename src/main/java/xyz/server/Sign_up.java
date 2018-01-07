@@ -1,9 +1,5 @@
 package xyz.server;
 
-import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -27,22 +23,23 @@ public class Sign_up {
 	
 	@RequestMapping(value = "/sign_up", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> signUpPost(@Valid Users user, BindingResult result, HttpServletResponse res) {
+	public String signUpPost(@Valid Users user, BindingResult result, HttpServletResponse res) {
+		try {
+			//人为制造空指针
+			String username = users.findUserByUsername(user.getUsername()).get("username").toString();
+			String url = users.showUserByURL(user.getUrl()).get("url").toString();
+			return "用户名或URL已经被占用，" + "您输入的是" + username + "，和" + url;
+		} catch (Exception e) {
 		//进行表单验证
 		if (result.hasErrors()) {
-			Map<String, String>maperror = new Hashtable<>();
-			for(int i = 0; i < result.getAllErrors().size(); i++){
-				maperror.put(result.getFieldError().getField(), result.getFieldError().getDefaultMessage());
-			}
-			return maperror;
+			//返回一条错误信息
+			return result.getFieldError().getDefaultMessage();
 		}else{
 			//添加用户注册信息
 			users.addUser(user);
-			try {
-				//进行页面跳转
-				res.sendRedirect("/sign_in");
-			} catch (IOException e) {}
-			return null;
+			//返回验证信息
+			return "true";
+		}
 		}
 	}
 	/**

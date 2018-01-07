@@ -22,4 +22,11 @@ public class User_AnimeSql {
 			WHERE("uid = #{uid} and animeid = #{animeid}");
 		}}.toString();
 	}
+	public String updatanumber(){
+		return new SQL(){{
+			UPDATE("user_anime");
+			SET("number = #{number}");
+			WHERE("uid = #{uid} and animeid = #{animeid}");
+		}}.toString();
+	}
 }

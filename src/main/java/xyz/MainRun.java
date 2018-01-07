@@ -32,15 +32,26 @@ public class MainRun {
 	/**
 	 * 图片文件存放路径
 	 */
-	public static String filePath = "/home/miri/Work/000/";
-
+	public static String filePath = "/home/BanGuMiKiRoKu/000/";
 	/**
-	 * 主运行Main方法
+	 * 静态资源存放路径，例如文章等
 	 */
+	public static String filePath1 = "/home/BanGuMiKiRoKu/static/";
+
+
+//==============================================
+// 运行的Main方法
+//  .   ____          _            __ _ _
+//  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+//  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+//  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+//   '  |____| .__|_| |_|_| |_\__, | / / / /
+//  =========|_|==============|___/=/_/_/_/
+//  :: Spring Boot ::        (v1.5.8.RELEASE)
+//==============================================
 	public static void main(String[] args) {
 		SpringApplication.run(MainRun.class, args);
 	}
-
 	/**
 	 * 设置错误页面
 	 */
@@ -66,9 +77,22 @@ public class MainRun {
 			public void customize(ConfigurableEmbeddedServletContainer container) {
 				// TODO Auto-generated method stub
 				/**
-				 * 3600秒
+				 * 设置失效时间为3600秒（1小时）
 				 */
 				container.setSessionTimeout(3600);
+			}
+		};
+	}
+	/**
+	 * 设置端口号
+	 */
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer2(){
+		return new EmbeddedServletContainerCustomizer(){
+		
+			@Override
+			public void customize(ConfigurableEmbeddedServletContainer container) {
+				container.setPort(80);
 			}
 		};
 	}
@@ -83,6 +107,7 @@ public class MainRun {
 			//addResourceHandler中的是访问路径，可以修改为其他的字符串
         	//addResourceLocations中的是实际路径
 			registry.addResourceHandler("/img/**").addResourceLocations("file:" + MainRun.filePath);
+			registry.addResourceHandler("/static/**").addResourceLocations("file:" + MainRun.filePath1);
 			registry.addResourceHandler("/file/**").addResourceLocations("classpath:/file/");
 			registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
 			super.addResourceHandlers(registry);

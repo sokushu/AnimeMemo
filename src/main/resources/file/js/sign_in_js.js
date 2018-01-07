@@ -34,26 +34,27 @@ $("#sendinfo").click(function() {
 
 });
 
-$('#login').click(function() {
+$('#sign_inbut').click(function() {
 
     var username = $('#username').val().trim()
     var password = $('#password').val().trim()
     if (username == "" || password == "") {
-        $('#showmessage').html("请完整填写用户名和密码")
+        $('#passworderror').html("请完整填写用户名和密码")
         return false;
     }
+    // 对用户名密码进行验证
     $.ajax({
         url: "/ajaxs/sign_in",
         type: "POST",
         data: {
-            username: username,
-            password: password
+            "username": username,
+            "password": password
         },
         success: function(data) {
             if (data == true) {
-                $('#form_sign_in').submit()
+                $('#sign_inform').submit()
             } else {
-                $('#showmessage').html("用户或密码错误")
+                $('#passworderror').html("用户或密码错误")
                 return false;
             }
         }

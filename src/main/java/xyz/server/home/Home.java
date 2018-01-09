@@ -25,9 +25,8 @@ public class Home {
 	private SELECT select;
 	@Autowired
 	private User_AnimeDao useranime;
-	/*
-     * 
-     */
+	
+	/**用于显示用户的个人主页 */
     @RequestMapping(value = "/id/{url}", method = RequestMethod.GET)
     public String homeid(@PathVariable("url") String url, HttpSession session, Model model) {
     	Map<String, Object>map = user.showUserByURL(url);
@@ -93,9 +92,7 @@ public class Home {
 		}
     }
 	
-	/**
-	 * 进行登录用
-	 */
+	/**用户登录用 */
     @RequestMapping(value = "/id/{url}", method = RequestMethod.POST)
     public void homepost(@PathVariable("url") String url, HttpSession session, Model model) {
     	homeid(url, session, model);
@@ -108,21 +105,16 @@ public class Home {
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     public String homeget(HttpSession session) {
     	try {
-			/**
-			 * 得到用户的url
-			 */
-    		String URL = session.getAttribute("USERURL").toString();
+			/**得到用户的URL，如果未登录则出错 */
+			String URL = session.getAttribute("USERURL").toString();
+			/**跳转到用户个人页面 */
     		return "redirect:/id/" + URL;
 		} catch (Exception e) {
-			/**
-			 * 未登录
-			 */
+			/**如果出错，则是未登录的情况，返回登录页 */
 			return "redirect:/sign_in";
 		}
     }
-    /**
-	 * 获取背景图片
-	 */
+    /**获取用户页的背景图片 */
     @RequestMapping(value = "/id/getbackimg", method = RequestMethod.GET)
     @ResponseBody
     public String getpic(String url) {

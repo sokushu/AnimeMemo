@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import xyz.bangumi.mysql.bean.Anime;
 import xyz.bangumi.mysql.dao.AnimeDao;
@@ -30,8 +29,8 @@ public class Addbangumi {
 	@Autowired
 	private AnimeDao animedao;
 	
+	/**对动画进行添加操作 */
 	@RequestMapping(value = "/id/{username}/addbangumi", method = RequestMethod.POST)
-	@ResponseBody
 	public Map<String, String> addbangumiPost(@PathVariable("username")String username, @Valid Anime anime, BindingResult result, 
 	HttpServletResponse res) {
 		if (result.hasErrors()) {
@@ -40,17 +39,18 @@ public class Addbangumi {
 			 */
 			Map<String, String> maperr = new HashMap<>();
 			maperr.put(result.getFieldError().getField(), result.getFieldError().getDefaultMessage());
+			/**返回错误信息 */
 			return maperr;
 		} else {
+			/**正确的情况下，写入数据库 */
 			animedao.insert(anime);
 			/**
 			 * 跳转回添加页面
 			 */
 			try {
+				/**跳转回添加前的页面 */
 				res.sendRedirect("/id/" + username + "/addbangumi");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (IOException e) {}
 			return null;
 		}
 	}

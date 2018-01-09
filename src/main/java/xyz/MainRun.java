@@ -32,7 +32,8 @@ public class MainRun {
 	/**
 	 * 图片文件存放路径
 	 */
-	public static String filePath = "/home/BanGuMiKiRoKu/000/";
+	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
+	public static String filePath = "/home/miri/Work/000/";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */
@@ -92,7 +93,7 @@ public class MainRun {
 		
 			@Override
 			public void customize(ConfigurableEmbeddedServletContainer container) {
-				container.setPort(80);
+				container.setPort(8080);
 			}
 		};
 	}

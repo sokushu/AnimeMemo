@@ -13,7 +13,10 @@ public class Sign_out {
 	
 	@RequestMapping(value = "/sign_out", method = RequestMethod.GET)
 	public String sign_out(HttpSession session) {
+		/**用户退出 */
+		/**消除Session */
 		session.invalidate();
+		/**返回首页 */
 		return "redirect:/";
 	}
 

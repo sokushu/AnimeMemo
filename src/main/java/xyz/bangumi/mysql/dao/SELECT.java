@@ -65,4 +65,5 @@ public interface SELECT {
 	 */
 	@Select("SELECT b.anime_id,b.anime_info,b.anime_name,b.anime_number,b.anime_class,b.anime_pic,a.number FROM user_anime a,anime b WHERE a.animeid = b.anime_id and uid = #{uid} and b.anime_id = #{animeid}")
 	public Map<String, Object> findIsdingyue(@Param("uid")String uid, @Param("animeid")String animeid);
+	
 }

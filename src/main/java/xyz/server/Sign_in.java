@@ -9,17 +9,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import xyz.bangumi.mysql.dao.UserDao;
+import xyz.server.home.Test;
 
 @Controller
 @EnableAutoConfiguration
-public class Sign_in {
+public class Sign_in{
 	
 	@Autowired
 	private UserDao user;
-	
+
 	@RequestMapping(value = "/sign_in", method = RequestMethod.POST)
 	public void sign_in(String username, String password, HttpSession session, HttpServletResponse response) throws IOException {
 		try {
@@ -48,7 +50,7 @@ public class Sign_in {
 	}
 	
 	@RequestMapping(value = "/sign_in", method = RequestMethod.GET)
-	public String sign_in_get() {
+	public String sign_in_get(Model model) {
 		return "users/sign_in";
 	}
 }

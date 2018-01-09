@@ -107,9 +107,7 @@ public class FileUpLoad {
 		}
     	return null;
     }
-    /**
-     * 拿到数据ID
-     */
+    /**拿到数据的 动画ID 或 用户ID */
     private void getdatasave(String getpath, String data, HttpSession session, String from) {
     	if (getpath.equals("/bangumi/")) {
     		String animeid = from.substring(from.indexOf("bangumi/") + 8).substring(0, from.substring(from.indexOf("bangumi/") + 8).indexOf("/"));

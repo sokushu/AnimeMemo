@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 得到记事
+ * 实现方法，将Html文本保存到硬盘中。
+ * 然后将保存路径信息存储到数据库中。
+ * 读取时将文本文件渲染到Html中
  */
 // @Controller
 public class JishiGet {
 
     // @Autowired
     // private User_articleDao user_articDao;
-
+    /**得到记事 */
     @RequestMapping(value = "id/{url}/jishi/{jishiID}", method = RequestMethod.GET)
     public String get(@PathParam("url") String url,
     @PathParam("jishiID") String jishiID, Model model

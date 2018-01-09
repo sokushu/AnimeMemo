@@ -30,16 +30,16 @@ public class Sign_up {
 			String url = users.showUserByURL(user.getUrl()).get("url").toString();
 			return "用户名或URL已经被占用，" + "您输入的是" + username + "，和" + url;
 		} catch (Exception e) {
-		//进行表单验证
-		if (result.hasErrors()) {
-			//返回一条错误信息
-			return result.getFieldError().getDefaultMessage();
-		}else{
-			//添加用户注册信息
-			users.addUser(user);
-			//返回验证信息
-			return "true";
-		}
+			//进行表单验证
+			if (result.hasErrors()) {
+				//返回一条错误信息
+				return result.getFieldError().getDefaultMessage();
+			}else{
+				//添加用户注册信息
+				users.addUser(user);
+				//返回验证信息
+				return "true";
+			}
 		}
 	}
 	/**

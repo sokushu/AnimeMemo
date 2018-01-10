@@ -1,4 +1,4 @@
-package xyz.server;
+package xyz.server.index;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;

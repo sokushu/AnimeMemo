@@ -1,4 +1,4 @@
-package xyz.server.admin;
+package xyz.bangumi.core;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

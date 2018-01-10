@@ -1,4 +1,4 @@
-package xyz.server;
+package xyz.server.index;
 
 import java.io.File;
 import java.io.IOException;

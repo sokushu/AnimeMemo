@@ -16,7 +16,6 @@ import xyz.bangumi.mysql.bean.Anime;
 import xyz.bangumi.mysql.dao.AnimeDao;
 import xyz.bangumi.mysql.dao.SELECT;
 import xyz.bangumi.mysql.dao.User_AnimeDao;
-import xyz.server.admin.Properties;
 
 @Controller
 @EnableAutoConfiguration

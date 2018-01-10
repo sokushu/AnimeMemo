@@ -120,6 +120,30 @@ public class Home {
     public String getpic(String url) {
     	Map<String, Object>map = user.showUserByURL(url);
     	return map.get("backpic").toString();
-    }
+	}
+	
+	/*
+	 * 修改个人主页
+	 */
+	@RequestMapping(value = "/id/{url}/edit", method = RequestMethod.GET)
+	public String edit(@PathVariable("url")String url, Model model) {
+		Map<String, Object>map = user.showUserByURL(url);
+		model.addAttribute(map);
+		return "/user/edit";
+	}
+	
+	/*
+	 * 使用ajax进行提交
+	 */
+	@RequestMapping(value = "/id/{url}/edit", method = RequestMethod.POST)
+	public String edit1(@PathVariable("url")String url, Users users, HttpSession session) {
+		String uid = session.getAttribute("USERUID").toString();
+		Map<String, Object>map = user.showUserByURL(url);
+		if (map.get("uid").equals(uid)) {
+			user.updataUser(users, uid);
+			return "true";
+		}
+		return "false";
+	}
 }
 

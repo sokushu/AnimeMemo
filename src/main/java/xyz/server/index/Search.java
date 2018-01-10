@@ -1,4 +1,4 @@
-package xyz.server;
+package xyz.server.index;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package xyz.server;
+package xyz.server.index;
 
 import java.io.IOException;
 import java.util.Map;
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import xyz.bangumi.mysql.dao.UserDao;
-import xyz.server.home.Test;
 
 @Controller
 @EnableAutoConfiguration

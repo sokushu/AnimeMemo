@@ -1,4 +1,4 @@
-package xyz.server.home.bangumi;
+package xyz.server.home;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;

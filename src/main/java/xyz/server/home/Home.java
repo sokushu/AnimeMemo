@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import xyz.bangumi.mysql.bean.Users;
 import xyz.bangumi.mysql.dao.SELECT;
 import xyz.bangumi.mysql.dao.UserDao;
 import xyz.bangumi.mysql.dao.User_AnimeDao;

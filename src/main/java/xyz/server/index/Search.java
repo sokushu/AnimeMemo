@@ -31,6 +31,7 @@ public class Search {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.GET)
 	public String search(String w, Model model, String page) {
+		/**搜索各种信息，动画，用户等 */
 		if (page == null||page.equals("")) {
 			int Page = 1;
 			se(Page, model, w);

@@ -1,4 +1,4 @@
-package xyz.server.home;
+package xyz.server.bangumi;
 
 /**
  * 对动画标签进行修改定义

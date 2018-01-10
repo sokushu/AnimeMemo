@@ -1,4 +1,4 @@
-package xyz.bangumi.test;
+package xyz.server.test;
 
 import java.util.List;
 import java.util.Map;

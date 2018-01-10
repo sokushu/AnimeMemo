@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import xyz.bangumi.filter.UN_SIGN_IN;
+import xyz.server.filter.Un_Sign_in;
 /**
  * 运行类
  * 配置
@@ -122,7 +122,7 @@ public class MainRun {
 	class FilterSet extends WebMvcConfigurerAdapter{
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(new UN_SIGN_IN())
+			registry.addInterceptor(new Un_Sign_in())
 			.addPathPatterns("/id/*/edit")
 			.addPathPatterns("/bangumi/*/*")
 			;

@@ -1,12 +1,14 @@
-package xyz.bangumi.filter;
+package xyz.server.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-public class UN_SIGN_IN implements HandlerInterceptor {
+/**
+ * 用户未登录使用的类
+ */
+public class Un_Sign_in implements HandlerInterceptor {
 
 	//>>>>>>>>>>在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）
 	@Override
@@ -42,5 +44,4 @@ public class UN_SIGN_IN implements HandlerInterceptor {
 			return false;
 		}
 	}
-
 }

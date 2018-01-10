@@ -24,9 +24,7 @@ public class Sign_in{
 	@RequestMapping(value = "/sign_in", method = RequestMethod.POST)
 	public void sign_in(String username, String password, HttpSession session, HttpServletResponse response) throws IOException {
 		try {
-			/*
-			 * 读取用户信息
-			 */
+			/**读取用户数据 */
 			Map<String, Object> readUser = user.findUserByUsername(username);
 			if (readUser!=null) {
 				if (readUser.get("password").equals(password)) {

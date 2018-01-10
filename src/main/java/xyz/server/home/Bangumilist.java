@@ -67,6 +67,7 @@ public class Bangumilist {
 		return "user/bangumilist";
 	}
 	
+	/**已经看过得动画 */
 	@RequestMapping(value = "/id/{url}/bangumi/watched", method = RequestMethod.GET)
 	public String GetWatched(@PathVariable("url")String url, Model model, String page) {
 		
@@ -98,6 +99,7 @@ public class Bangumilist {
 		return "user/watched";
 	}
 
+	/**正在看的动画 */
 	@RequestMapping(value = "/id/{url}/bangumi/watching", method = RequestMethod.GET)
 	public String GetWatching(@PathVariable("url")String url, Model model) {
 		

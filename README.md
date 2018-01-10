@@ -7,7 +7,7 @@ VSCode Eclipse 都可以继续开发。
 先到这里吧，等以后在更新。
 以下是下次几个版本后将会使用的框架
 
-<dependency>  
+<!--<dependency>  
     <groupId>org.springframework.boot</groupId>  
     <artifactId>spring-boot-starter-security</artifactId>  
-</dependency>
+</dependency>-->

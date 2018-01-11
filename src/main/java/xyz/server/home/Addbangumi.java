@@ -1,11 +1,9 @@
 package xyz.server.home;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -31,27 +29,24 @@ public class Addbangumi {
 	
 	/**对动画进行添加操作 */
 	@RequestMapping(value = "/id/{username}/addbangumi", method = RequestMethod.POST)
-	public Map<String, String> addbangumiPost(@PathVariable("username")String username, @Valid Anime anime, BindingResult result, 
+	public String addbangumiPost(@PathVariable("username")String username, Anime anime, BindingResult result, 
 	HttpServletResponse res) {
 		if (result.hasErrors()) {
 			/**
 			 * 拿到错误信息
 			 */
 			Map<String, String> maperr = new HashMap<>();
+			result.getFieldErrors();
 			maperr.put(result.getFieldError().getField(), result.getFieldError().getDefaultMessage());
 			/**返回错误信息 */
-			return maperr;
+			return "maperr";
 		} else {
 			/**正确的情况下，写入数据库 */
 			animedao.insert(anime);
 			/**
 			 * 跳转回添加页面
 			 */
-			try {
-				/**跳转回添加前的页面 */
-				res.sendRedirect("/id/" + username + "/addbangumi");
-			} catch (IOException e) {}
-			return null;
+			return "redirect:/id/" + username + "/addbangumi";
 		}
 	}
 	

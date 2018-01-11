@@ -24,39 +24,21 @@
             </div>
         </div>
     </header>
-    <!-- =================================================================== -->
+    <!-- 动画表单的主体 -->
     <div class="container">
         <div class="row">
             <div class="col m2"></div>
-            <div class="col m8">
+            <div class="col m8 s12">
                 <div class="row">
-                    <form action="">
-                        <div class="file-field input-field">
-                            <div class="btn">
-                                <span>封面</span>
-                                <input type="file" />
-                            </div>
-                            <div class="file-path-wrapper row">
-                                <div class="col s6">
-                                    <input class="file-path validate" type="text" />
-                                </div>
-                                <div class="col s6">
-                                    <button class="waves-effect waves-light btn purple lighten-2">上传</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="row">
-                    <form class="col s12" th:action="@{/id/{url}/addbangumi(url=${url})}" method="POST">
+                    <form th:action="@{/id/{url}/addbangumi(url=${url})}" class="col s12" method="POST">
                         <div class="row">
-                            <div class="input-field col s6">
-                                <input id="animename" type="text" class="validate" name="anime_name" />
+                            <div class="input-field col s12 m6">
+                                <input id="animename" type="text" name="anime_name" />
                                 <label for="animename">动画名</label>
                             </div>
-                            <div class="input-field col s6">
-                                <input id="number" type="text" class="validate" name="anime_number" />
-                                <label for="number">动画集数</label>
+                            <div class="input-field col s12 m6">
+                                <input id="animenumber" type="text" name="anime_number" />
+                                <label for="animenumber">动画集数</label>
                             </div>
                         </div>
                         <div class="row">
@@ -72,6 +54,7 @@
                             </div>
                             <div class="input-field col s6">
                                 <input type="text" class="datepicker" />
+                                <label for="number">放送日期</label>
                                 <script type="text/javascript">
                                     $('.datepicker').pickadate({
                                         selectMonths: true, // Creates a dropdown to control month
@@ -89,7 +72,6 @@
                                         closeOnSelect: false // Close upon selecting a date,
                                     });
                                 </script>
-                                <label for="number">放送日期</label>
                             </div>
                         </div>
                         <div class="row">
@@ -104,75 +86,10 @@
                                 <label for="icon_prefix3">备注信息</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <label>详细数据 选填</label>
-                                <ul class="collapsible" data-collapsible="expandable">
-                                    <li class="">
-                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>动画详细数据</div>
-                                        <div class="collapsible-body" style="display: none;height: auto;">
-                                            <div class="row">
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">监督</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">音乐制作</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">角色设计</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">作画监督</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">动画制作公司</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">网站</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">原作</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">片头曲</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">片头曲演唱者</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">片尾曲</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="animename" type="text" class="validate" name="anime_name" />
-                                                    <label for="animename">片尾曲演唱者</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="">
-                                        <div class="collapsible-header"><i class="material-icons">whatshot</i>我该怎么填 ？ 帮帮我！！（帮助文档）</div>
-                                        <div class="collapsible-body" style="display: none;">
-                                            <div class="row">
-                                                <h5>我该怎么写？帮帮我呀</h5>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col s6">
-                                <button class="waves-effect waves-light btn red darken-3 col s12">提交数据</button>
+                                <button class="waves-effect waves-light btn red darken-3 col s12" type="submit">提交数据</button>
                             </div>
                             <div class="col s6">
                                 <button type="reset" class="waves-effect waves-light btn blue darken-1 col s12">清除数据</button>

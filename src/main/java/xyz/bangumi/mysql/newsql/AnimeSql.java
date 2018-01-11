@@ -14,45 +14,66 @@ public class AnimeSql {
 			VALUES("anime_class", "#{anime_class}");
 			VALUES("anime_info", "#{anime_info}");
 			//===============以上是必写项目===============
-			if (anime.getAnime_pic()!=null||anime.getAnime_pic().trim()!="") {
-				VALUES("anime_pic", "#{anime_pic}");
-			}
-			if (anime.getAnime_info2()!=null||anime.getAnime_info2().trim()!="") {
-				VALUES("anime_info2", "#{anime_info2}");
-			}
-			if (anime.getAnime_info_daoyan()!=null||anime.getAnime_info_daoyan().trim()!="") {
-				VALUES("anime_info_daoyan", "#{anime_info_daoyan}");
-			}
-			if (anime.getAnime_info_music()!=null||anime.getAnime_info_music().trim()!="") {
-				VALUES("anime_info_music", "#{anime_info_music}");
-			}
-			if (anime.getAnime_info_de()!=null||anime.getAnime_info_de().trim()!="") {
-				VALUES("anime_info_de", "#{anime_info_de}");
-			}
-			if (anime.getAnime_info_anime()!=null||anime.getAnime_info_anime().trim()!="") {
-				VALUES("anime_info_anime", "#{anime_info_anime}");
-			}
-			if (anime.getAnime_info_site()!=null||anime.getAnime_info_site().trim()!="") {
-				VALUES("anime_info_site", "#{anime_info_site}");
-			}
-			if (anime.getAnime_info_date()!=null||anime.getAnime_info_date().trim()!="") {
-				VALUES("anime_info_date", "#{anime_info_date}");
-			}
-			if (anime.getAnime_info_from()!=null||anime.getAnime_info_from().trim()!="") {
-				VALUES("anime_info_from", "#{anime_info_from}");
-			}
-			if (anime.getAnime_info_op()!=null||anime.getAnime_info_op().trim()!="") {
-				VALUES("anime_info_op", "#{anime_info_op}");
-			}
-			if (anime.getAnime_info_opsonger()!=null||anime.getAnime_info_opsonger().trim()!="") {
-				VALUES("anime_info_opsonger", "#{anime_info_opsonger}");
-			}
-			if (anime.getAnime_info_ed()!=null||anime.getAnime_info_ed().trim()!="") {
-				VALUES("anime_info_ed", "#{anime_info_ed}");
-			}
-			if (anime.getAnime_info_edsonger()!=null||anime.getAnime_info_edsonger().trim()!="") {
-				VALUES("anime_info_edsonger", "#{anime_info_edsonger}");
-			}
+			try {
+				if (anime.getAnime_info_edsonger()!=null && anime.getAnime_info_edsonger().trim()!="") {
+					VALUES("anime_info_edsonger", "#{anime_info_edsonger}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_opsonger()!=null && anime.getAnime_info_opsonger().trim()!="") {
+					VALUES("anime_info_opsonger", "#{anime_info_opsonger}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_ed()!=null && anime.getAnime_info_ed().trim()!="") {
+					VALUES("anime_info_ed", "#{anime_info_ed}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_op()!=null && anime.getAnime_info_op().trim()!="") {
+					VALUES("anime_info_op", "#{anime_info_op}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_from()!=null && anime.getAnime_info_from().trim()!="") {
+					VALUES("anime_info_from", "#{anime_info_from}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_date()!=null && anime.getAnime_info_date().trim()!="") {
+					VALUES("anime_info_date", "#{anime_info_date}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_site()!=null && anime.getAnime_info_site().trim()!="") {
+					VALUES("anime_info_site", "#{anime_info_site}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_anime()!=null && anime.getAnime_info_anime().trim()!="") {
+					VALUES("anime_info_anime", "#{anime_info_anime}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_de()!=null && anime.getAnime_info_de().trim()!="") {
+					VALUES("anime_info_de", "#{anime_info_de}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_music()!=null && anime.getAnime_info_music().trim()!="") {
+					VALUES("anime_info_music", "#{anime_info_music}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info_daoyan()!=null && anime.getAnime_info_daoyan().trim()!="") {
+					VALUES("anime_info_daoyan", "#{anime_info_daoyan}");
+				}
+			} catch (Exception e) {}
+			try {
+				if (anime.getAnime_info2() != null && anime.getAnime_info2().trim() != "") {
+					VALUES("anime_info2", "#{anime_info2}");
+				}
+			} catch (Exception e) {}
 		}}.toString();
 	}
 	public String selectfromindex() {

@@ -67,18 +67,18 @@
                     </li>
                     <li class="collection-item" th:text="'集数：' + ${anime_number}"></li>
                     <li class="collection-item" th:text="'类型：' + ${anime_class}"></li>
-                    <li class="collection-item" th:text="'监督：' + ${anime_info_daoyan}"></li>
-                    <li class="collection-item" th:text="'音乐：' + ${anime_info_music}"></li>
-                    <li class="collection-item" th:text="'角色设计：' + ${anime_info_de}"></li>
-                    <li class="collection-item" th:text="'作画监督：' + ${anime_info_pic}"></li>
-                    <li class="collection-item" th:text="'制作公司：' + ${anime_info_anime}"></li>
-                    <li class="collection-item" th:text="'网站：' + ${anime_info_site}"></li>
-                    <li class="collection-item" th:text="'放送日期：' + ${anime_info_data}"></li>
-                    <li class="collection-item" th:text="'原作：' + ${anime_info_from}"></li>
-                    <li class="collection-item" th:text="'片头曲：' + ${anime_info_op}"></li>
-                    <li class="collection-item" th:text="'演唱者：' + ${anime_info_opsonger}"></li>
-                    <li class="collection-item" th:text="'片尾曲：' + ${anime_info_ed}"></li>
-                    <li class="collection-item" th:text="'演唱者：' + ${anime_info_edsonger}"></li>
+                    <li class="collection-item" th:unless="${anime_info_daoyan} == null or ${anime_info_daoyan} == ''" th:text="'监督：' + ${anime_info_daoyan}"></li>
+                    <li class="collection-item" th:unless="${anime_info_music} == null or ${anime_info_music} == ''" th:text="'音乐：' + ${anime_info_music}"></li>
+                    <li class="collection-item" th:unless="${anime_info_de} == null or ${anime_info_de} == ''" th:text="'角色设计：' + ${anime_info_de}"></li>
+                    <li class="collection-item" th:unless="${anime_info_pic} == null or ${anime_info_pic} == ''" th:text="'作画监督：' + ${anime_info_pic}"></li>
+                    <li class="collection-item" th:unless="${anime_info_anime} == null or ${anime_info_anime} == ''" th:text="'制作公司：' + ${anime_info_anime}"></li>
+                    <li class="collection-item" th:unless="${anime_info_site} == null or ${anime_info_site} == ''" th:text="'网站：' + ${anime_info_site}"></li>
+                    <li class="collection-item" th:unless="${anime_info_data} == null or ${anime_info_data} == ''" th:text="'放送日期：' + ${anime_info_data}"></li>
+                    <li class="collection-item" th:unless="${anime_info_from} == null or ${anime_info_from} == ''" th:text="'原作：' + ${anime_info_from}"></li>
+                    <li class="collection-item" th:unless="${anime_info_op} == null or ${anime_info_op} == ''" th:text="'片头曲：' + ${anime_info_op}"></li>
+                    <li class="collection-item" th:unless="${anime_info_opsonger} == null or ${anime_info_opsonger} == ''" th:text="'OP演唱者：' + ${anime_info_opsonger}"></li>
+                    <li class="collection-item" th:unless="${anime_info_ed} == null or ${anime_info_ed} == ''" th:text="'片尾曲：' + ${anime_info_ed}"></li>
+                    <li class="collection-item" th:unless="${anime_info_edsonger} == null or ${anime_info_edsonger} == ''" th:text="'ED演唱者：' + ${anime_info_edsonger}"></li>
                 </ul>
             </div>
             <div class="col s12 m9">
@@ -112,6 +112,8 @@
         </div>
     </div>
     <script type="text/javascript" src="/file/js/bangumi_js.js"></script>
+    <script type='text/javascript' src="/file/js/bangumi_js_unsignin.js" th:unless="${isSign_in} == 'true'"></script>
+    <script type='text/javascript' src="/file/js/bangumi_js_signin.js" th:unless="${isSign_in} == 'false'"></script>
     <!-- ============================================================================ -->
 
     <footer class="page-footer">

@@ -1,5 +1,8 @@
 package xyz.server.bangumi;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -27,11 +30,15 @@ public class Bangumi{
 	private User_AnimeDao useranime;
 	@Autowired
 	private SELECT select;
-	@Autowired
-	private AnimeDao animedao;
 
+	/**如果输入了bangumi，暂时返回错误页面 */
+	@RequestMapping(value = "/bangumi")
+	public String bangumi(){
+		return "bangumi/bangumierror";
+	}
 	/**
-	 * 查看动画数据
+	 * 查看动画数据，
+	 * 对页面进行控制。
 	 * @param animeid
 	 * @param model
 	 * @return
@@ -39,13 +46,23 @@ public class Bangumi{
 	@RequestMapping(value = "/bangumi/{animeid}", method = RequestMethod.GET)
 	public String bangumilist(@PathVariable("animeid")String animeid, Model model, HttpSession session) {
 		
+		/**验证输入的是否是数字 */
+		if (isInt(animeid) == 0) {
+			return "bangumi/bangumierror";
+		} 
+		/**数据库查询动画资料 */
 		Map<String, Object> aa = anime.findByAnimeID(animeid);
-		/*
-		 * 可用的数据：anime类中的字段
-		 */
+
+		/**判断是否有实际数据返回 */
+		if (aa == null || aa.size() == 0 || aa.toString().trim().equals("")) {
+			/**无数据，返回错误页面 */
+			return "bangumi/bangumierror";
+		}
+		/** 可用的数据：anime类中的字段*/
 		model.addAllAttributes(aa);
 		//判断是否是已定阅的动画
 		try {
+			/**是否已登录 */
 			String UID = session.getAttribute("USERUID").toString();
 			Map<String, Object>isdingyue = select.findIsdingyue(UID, animeid);
 			String theanimeid = isdingyue.get("anime_id").toString();
@@ -53,6 +70,7 @@ public class Bangumi{
 				//已定阅的情况
 				model.addAttribute("isdingyue", "true");
 			}else{
+				/**未订阅的情况 */
 				model.addAttribute("isdingyue", "false");
 			}
 			//找出现在看得集数
@@ -64,13 +82,16 @@ public class Bangumi{
 				//送到页面进行高亮处理
 				model.addAttribute("watchednumber", watchednumberint);
 			} catch (Exception e) {}
-		} catch (Exception e) {}
-    	return "bangumi/bangumi";
+			/**显示登录后才会显示的项目 */
+			model.addAttribute("isSign_in", "true");
+		} catch (Exception e) {
+			/**未登录的情况 */
+			/**不显示登录后才显示的项目 */
+			model.addAttribute("isSign_in", "false");
+		}
+		return "bangumi/bangumi";
 	}
-	
-	/*
-	 * ajax进行请求
-	 */
+	/**使用ajax请求 */
 	/**
 	 * 订阅动画
 	 * @return
@@ -79,15 +100,25 @@ public class Bangumi{
 	@ResponseBody
 	public boolean bangumiSubscriber(@PathVariable("animeid")String animeid, HttpSession session) {
 		try{
+			/**判断是否是数字 */
+			if (isInt(animeid) == 0) {
+				return false;
+			}
 			/**得到用户ID */
 			String uid = session.getAttribute("USERUID").toString();
+
+			Map<String, Object>map = anime.findByAnimeID(animeid);
+
+			/**判断是否有数据 */
+			if (map == null || map.size() == 0 || map.toString().trim().equals("")) {
+				return false;
+			}
 			boolean flag = isDingYueed(uid, animeid);
 			if (flag) {
 				/**非法订阅的情况，停止程序执行 */
 				return false;
 			}else{
 				/**未订阅的情况,订阅动画 */
-				Map<String, Object>map = anime.findByAnimeID(animeid);
 				String a = map.get("anime_number").toString();
 				useranime.add(animeid, uid, a);
 			}
@@ -103,11 +134,36 @@ public class Bangumi{
 	public String banguminumberupdata(@PathVariable("animeid")String animeid, 
 	@PathVariable("animenumber")String animenumber, HttpSession session){
 		try {
+			/**判断是否是数字 */
+			int a = isInt(animenumber);//请求更新的动画集数
+			if (isInt(animeid) == 0 && a == 0) {
+				return "bangumi/bangumierror";
+			}
+			/**得到用户ID */
 			String UID = session.getAttribute("USERUID").toString();
+
+			/**对用户请求的集数进行验证 */
+			Map<String, Object>animeMap = anime.findByAnimeID(animeid);
+			/**是否能够请求到数据 */
+			if (animeMap == null || animeMap.size() == 0 || animeMap.toString().trim().equals("")) {
+				/**无数据，返回错误页面 */
+				return "bangumi/bangumierror";
+			}
 			/**如果没有订阅就直接点击对动画进行更新的策略 */
 			if (isDingYueed(UID, animeid)) {
-				/**如果返回true则是已经订阅 */
-				useranime.updatabumber(animeid, animenumber, UID);
+				/**已经订阅的情况 */
+				/**查询动画总集数 */
+				String allnumber = animeMap.get("anime_number").toString();
+				/**装换数据 */
+				int allnumberint = isInt(allnumber);
+				/**如果请求集数超过总集数 */
+				if (allnumberint < a) {
+					//更新的集数是动画的最终话
+					useranime.updatabumber(animeid, allnumber, UID);
+				}else{
+					//更新的集数是请求集数
+					useranime.updatabumber(animeid, animenumber, UID);
+				}
 			}else{
 				/**如果没订阅则会无动作 */
 			}
@@ -117,8 +173,24 @@ public class Bangumi{
 			return "redirect:/sign_in";
 		}
 	}
+	/**
+	 * 判断输入的String字符串是否是数字，如果不是，返回0
+	 */
+	private int isInt(String number){
+		try {
+			int a = new Integer(number);
+			return a;
+		} catch (Exception e) {
+			//TODO: handle exception
+			return 0;
+		}
+	}
+	/**使用ajax进行动画更新 */
+	@RequestMapping(value = "/bangumi/{animeid}/{animenumber}", method = RequestMethod.POST)
+	public String BanguminumberupdataPOST(){
+		return "";
+	}
 
-	/**判断是否是空 */
 	private boolean isDingYueed(String uid, String animeid){
 		try {
 			/**判断动画是否已定阅（非法订阅） */
@@ -139,8 +211,8 @@ public class Bangumi{
 	 * 对动画进行修改操作
 	 */
 	@RequestMapping(value = "/bangumi/{animeid}/bangumiedit", method = RequestMethod.POST)
-	public String edit(@PathVariable("animeid")String animeid, Anime anime) {
-		animedao.updata(animeid, anime);
+	public String edit(@PathVariable("animeid")String animeid, Anime anime0) {
+		anime.updata(animeid, anime0);
 		return "redirect:/bangumi/{" + animeid + "}";
 	}
 	/**
@@ -148,8 +220,50 @@ public class Bangumi{
 	 */
 	@RequestMapping(value = "/bangumi/{animeid}/bangumiedit", method = RequestMethod.GET)
 	public String bangumiedit(@PathVariable("animeid")String animeid, Model model) {
-		Map<String, Object> map = animedao.findByAnimeID(animeid);
+		Map<String, Object> map = anime.findByAnimeID(animeid);
 		model.addAllAttributes(map);
 		return "/bangumi/bangumiedit";
+	}
+
+	/**
+	 * 这里显示所有的动画
+	 * @return
+	 */
+	@RequestMapping(value = "/bangumi/list", method = RequestMethod.GET)
+	public String list(Model model, String page) {
+		
+		int Page = page(page);
+		
+		PageHelper.startPage(Page, 20);
+		List<Map<String, Object>>list = anime.returnAllAnime();
+		PageInfo<Map<String, Object>> pageinfo = new PageInfo<>(list);
+		
+		model.addAttribute("data", list);
+		
+		model.addAttribute("pagefirst", 1);
+		//上一页
+		model.addAttribute("pageone", pageinfo.getPrePage());
+		//当前页
+		model.addAttribute("pagenow", pageinfo.getPageNum());
+		//下一页
+		model.addAttribute("pagetwo", pageinfo.getNextPage());
+		//最后一页
+		model.addAttribute("pagelast", pageinfo.getNavigateLastPage());
+		model.addAttribute("kazu", pageinfo.getTotal());
+		//
+		model.addAttribute("isnext", pageinfo.isHasNextPage());
+		model.addAttribute("ispre", pageinfo.isHasPreviousPage());
+		
+		return "/bangumi/bangumilist";
+	}
+	
+	private int page(String page) {
+		try {
+			Integer a = new Integer(page);
+			return a;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
 	}
 }

@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
 import xyz.bangumi.mysql.dao.SELECT;
 import xyz.bangumi.mysql.dao.UserDao;
 import xyz.bangumi.mysql.dao.User_AnimeDao;
@@ -132,14 +129,14 @@ public class Bangumilist {
 		return "user/watching";
 	}
 
-	private int page(String page) {
-		try {
-			Integer a = new Integer(page);
-			return a;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return 0;
-		}
-	}
+	// private int page(String page) {
+	// 	try {
+	// 		Integer a = new Integer(page);
+	// 		return a;
+	// 	} catch (Exception e) {
+	// 		// TODO: handle exception
+	// 		return 0;
+	// 	}
+	// }
 	
 }

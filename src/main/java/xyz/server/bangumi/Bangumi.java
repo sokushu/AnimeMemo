@@ -2,15 +2,17 @@ package xyz.server.bangumi;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -205,65 +207,6 @@ public class Bangumi{
 			//TODO: handle exception
 			/**如果出错证明没有订阅 */
 			return false;
-		}
-	}
-	/**
-	 * 对动画进行修改操作
-	 */
-	@RequestMapping(value = "/bangumi/{animeid}/bangumiedit", method = RequestMethod.POST)
-	public String edit(@PathVariable("animeid")String animeid, Anime anime0) {
-		anime.updata(animeid, anime0);
-		return "redirect:/bangumi/{" + animeid + "}";
-	}
-	/**
-	 * 得到动画的修改页面
-	 */
-	@RequestMapping(value = "/bangumi/{animeid}/bangumiedit", method = RequestMethod.GET)
-	public String bangumiedit(@PathVariable("animeid")String animeid, Model model) {
-		Map<String, Object> map = anime.findByAnimeID(animeid);
-		model.addAllAttributes(map);
-		return "/bangumi/bangumiedit";
-	}
-
-	/**
-	 * 这里显示所有的动画
-	 * @return
-	 */
-	@RequestMapping(value = "/bangumi/list", method = RequestMethod.GET)
-	public String list(Model model, String page) {
-		
-		int Page = page(page);
-		
-		PageHelper.startPage(Page, 20);
-		List<Map<String, Object>>list = anime.returnAllAnime();
-		PageInfo<Map<String, Object>> pageinfo = new PageInfo<>(list);
-		
-		model.addAttribute("data", list);
-		
-		model.addAttribute("pagefirst", 1);
-		//上一页
-		model.addAttribute("pageone", pageinfo.getPrePage());
-		//当前页
-		model.addAttribute("pagenow", pageinfo.getPageNum());
-		//下一页
-		model.addAttribute("pagetwo", pageinfo.getNextPage());
-		//最后一页
-		model.addAttribute("pagelast", pageinfo.getNavigateLastPage());
-		model.addAttribute("kazu", pageinfo.getTotal());
-		//
-		model.addAttribute("isnext", pageinfo.isHasNextPage());
-		model.addAttribute("ispre", pageinfo.isHasPreviousPage());
-		
-		return "/bangumi/bangumilist";
-	}
-	
-	private int page(String page) {
-		try {
-			Integer a = new Integer(page);
-			return a;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return 0;
 		}
 	}
 }

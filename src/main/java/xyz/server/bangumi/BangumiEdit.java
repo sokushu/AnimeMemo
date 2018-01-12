@@ -22,7 +22,7 @@ public class BangumiEdit {
 	@RequestMapping(value = "/bangumi/{animeid}/bangumiedit", method = RequestMethod.POST)
 	public String edit(@PathVariable("animeid")String animeid, Anime anime0) {
 		anime.updata(animeid, anime0);
-		return "redirect:/bangumi/{" + animeid + "}";
+		return "redirect:/bangumi/" + animeid;
 	}
 	/**
 	 * 得到动画的修改页面

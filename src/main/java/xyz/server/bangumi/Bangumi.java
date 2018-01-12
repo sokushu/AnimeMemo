@@ -1,25 +1,20 @@
 package xyz.server.bangumi;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.bangumi.mysql.bean.Anime;
 import xyz.bangumi.mysql.dao.AnimeDao;
 import xyz.bangumi.mysql.dao.SELECT;
+import xyz.bangumi.mysql.dao.UserDao;
 import xyz.bangumi.mysql.dao.User_AnimeDao;
 
 @Controller
@@ -32,6 +27,8 @@ public class Bangumi{
 	private User_AnimeDao useranime;
 	@Autowired
 	private SELECT select;
+	@Autowired
+	private UserDao user;
 
 	/**如果输入了bangumi，暂时返回错误页面 */
 	@RequestMapping(value = "/bangumi")
@@ -66,6 +63,10 @@ public class Bangumi{
 		try {
 			/**是否已登录 */
 			String UID = session.getAttribute("USERUID").toString();
+			/**
+			 * 查询登录用户信息
+			 */
+			Map<String, Object>userInfo = user.findUser(UID);
 			Map<String, Object>isdingyue = select.findIsdingyue(UID, animeid);
 			String theanimeid = isdingyue.get("anime_id").toString();
 			if (theanimeid.equals(animeid)) {
@@ -85,6 +86,7 @@ public class Bangumi{
 				model.addAttribute("watchednumber", watchednumberint);
 			} catch (Exception e) {}
 			/**显示登录后才会显示的项目 */
+			model.addAttribute("user", userInfo);
 			model.addAttribute("isSign_in", "true");
 		} catch (Exception e) {
 			/**未登录的情况 */
@@ -187,12 +189,31 @@ public class Bangumi{
 			return 0;
 		}
 	}
-	/**使用ajax进行动画更新 */
+	/**
+	 * 使用ajax进行动画更新
+	 *  */
 	@RequestMapping(value = "/bangumi/{animeid}/{animenumber}", method = RequestMethod.POST)
 	public String BanguminumberupdataPOST(){
 		return "";
 	}
 
+	/**
+	 * 添加动画标签信息
+	 *  */
+	@RequestMapping(value = "/bangumi/{animeid}/tag", method = RequestMethod.POST)
+	public boolean addTagInfo(){
+		return true;
+	}
+
+	/**
+	 * 从数据库中查询动画的标签
+	 *  */
+	public List<Map<String, Object>> ReturnTag(){
+		return null;
+	}
+	/**
+	 * 判断动画是否订阅
+	 */
 	private boolean isDingYueed(String uid, String animeid){
 		try {
 			/**判断动画是否已定阅（非法订阅） */

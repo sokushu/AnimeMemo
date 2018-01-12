@@ -30,8 +30,11 @@
         <a id="menu" class="btn btn-floating btn-large cyan"><i class="material-icons">menu</i></a>
         <ul>
             <li>
-                <a href="#!" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="个人主页">
-                    <img src="/img/000222.jpg" alt="" class="circle responsive-img" />
+                <a th:unless="${isSign_in} == 'false'" th:href="'/id/' + ${user.url}" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="个人主页">
+                    <img th:src="${user.userpic}" alt="" class="circle responsive-img" />
+                </a>
+                <a th:unless="${isSign_in} == 'true'" href="/sign_in" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="登录">
+                    <i class="material-icons">account_circle</i>
                 </a>
             </li>
             <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="个人主页"><i class="material-icons">add</i></a></li>
@@ -41,7 +44,7 @@
         </ul>
     </div>
 
-    <!-- ====================================================================== -->
+    <!-- ==========================最上面的显示效果============================= -->
     <header style="height: 300px;position: relative;width: 100%;">
         <div class="card large" style="position: absolute;z-index: -999;margin-top: 0px;width: 100%;">
             <div class="card-image" style="width: 100%;position:relative;">
@@ -56,13 +59,25 @@
         <div class="row">
             <div class="col s12 m3">
                 <ul class="collection with-header">
-                    <li class="collection-item"><img class="responsive-img" alt="" th:src="@{${anime_pic}}" /></li>
+                    <li class="collection-item center"><img class="responsive-img" alt="" th:src="@{${anime_pic}}" /></li>
                     <li class="collection-header">
-                        <h4 th:text="${anime_name}">动画名</h4><br/>
+                        <h4 th:text="${anime_name}" class="center">动画名</h4><br/>
                         <div class="row">
-                            <div class="col s6"><a class="waves-effect waves-teal btn-flat col s12" href="#!">编辑</a></div>
-                            <div class="col s6"><a class="waves-effect waves-teal btn-flat col s12" id="addbangumitouser" th:unless="${isdingyue} == 'true'">订阅</a></div>
-                            <div class="col s6"><a class="waves-effect waves-teal btn-flat col s12" th:unless="${isdingyue} != 'true'">已定阅</a></div>
+                            <div class="col s6 m12 l12 xl6">
+                                <a class="waves-effect waves-teal btn-flat col s12 center cyan lighten-4" id="animeedit">
+                                    <b>编辑</b>
+                                </a>
+                            </div>
+                            <div class="col s6 m12 l12 xl6">
+                                <a class="waves-effect waves-teal btn-flat col s12 center cyan lighten-4" id="addbangumitouser" th:unless="${isdingyue} == 'true'">
+                                    <b>订阅</b>
+                                </a>
+                            </div>
+                            <div class="col s6 m12 l12 xl6">
+                                <a class="waves-effect waves-teal btn-flat col s12 center cyan lighten-4" id="dingyueed" th:unless="${isdingyue} != 'true'">
+                                    <b>已定阅</b>
+                                </a>
+                            </div>
                         </div>
                     </li>
                     <li class="collection-item" th:text="'集数：' + ${anime_number}"></li>
@@ -85,23 +100,52 @@
                 <div>
                     <ul class="collection with-header">
                         <li class="collection-header">
-                            <h4>剧情简介</h4>
+                            <div class="row">
+                                <h5>剧情简介</h5>
+                            </div>
                         </li>
                         <li class="collection-item">
                             <p th:text="${anime_info}">剧情</p>
                         </li>
                         <li class="collection-header">
-                            <h4>剧集</h4>
+                            <div class="row">
+                                <h5 class="col s7 m9 l9">剧集</h5>
+                                <a th:unless="${isSign_in} == 'false'" class="waves-effect waves-teal btn-flat center cyan lighten-4">编辑</a>
+                            </div>
                         </li>
                         <li class="collection-item">
                             <div class="row">
-                                <div class="col s2" th:each="i : ${#numbers.sequence(1, anime_number)}">
+                                <div class="col xl2 l3 m4 s6" th:each="i : ${#numbers.sequence(1, anime_number)}">
                                     <a th:href="@{/bangumi/{animeid}/{animenumber}(animeid=${anime_id},animenumber=${i})}" th:text="'第' + ${i} + '集'" th:class="(${i} == ${watchednumber})?('waves-effect waves-light btn pink darken-1 col s12'):('waves-effect waves-light btn orange darken-3 col s12')"></a>
                                 </div>
                             </div>
                         </li>
                         <li class="collection-header">
-                            <h4>标签</h4>
+                            <div class="row">
+                                <h5 class="col s7 m9 l9">标签</h5>
+                                <a th:unless="${isSign_in} == 'false'" class="waves-effect waves-teal btn-flat center cyan lighten-4">编辑</a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <p th:text="${anime_info}">标签</p>
+                        </li>
+                        <li class="collection-header">
+                            <div class="row">
+                                <h5 class="col s7 m9 l9">备注</h5>
+                                <a th:unless="${isSign_in} == 'false'" class="waves-effect waves-teal btn-flat center cyan lighten-4">编辑</a>
+                            </div>
+
+                        </li>
+                        <li class="collection-item">
+                            <p>哇，这个动画片太好看了，今晚一定要通宵看完啊<br/> 哇，BD只卖10块钱啊，买买买啊 <a href="/bangumi/1044">链接</a>
+                                <br/>这里是几百字限制的备注。直接存入数据库。
+                            </p>
+                        </li>
+                        <li class="collection-header">
+                            <div class="row">
+                                <h5 class="col s7 m9 l9">记事</h5>
+                                <a th:unless="${isSign_in} == 'false'" class="waves-effect waves-teal btn-flat center cyan lighten-4">编辑</a>
+                            </div>
                         </li>
                         <li class="collection-item">
                             <p th:text="${anime_info}">标签</p>
@@ -121,7 +165,7 @@
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">啦啦啦</h5>
-                    <p class="grey-text text-lighten-4">一个个人做的小破站。使用了点有趣的技术。<br/> 2017年11月14日
+                    <p class="grey-text text-lighten-4">个人做的小站。使用了点有趣的技术。<br/> 2018年1月13日
                     </p>
                 </div>
                 <div class="col l4 offset-l2 s12">

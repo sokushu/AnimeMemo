@@ -46,17 +46,19 @@
             <div class="col s12 m9">
                 <div class="col s12 m7">
                     <h2 th:text="${userinfo.pageusername}">用户名</h2>
-                    <p>自定义信息</p>
+                    <p th:text="${userinfo.info}">自定义信息</p>
                 </div>
                 <div class="col s12 m5" style="padding-bottom: 20px;">
-                    <div class="row pink lighten-4" th:unless="${userinfo.url} != 'look'">
+                    <div class="row pink lighten-4" th:unless="${userinfo.url} != 'Neptune-Noiregukneevaasuka'">
                         <div class="col s12 m4" style="padding: 5px;">
                             <img class="responsive-img" alt="" src="/file/img/page/000222.jpg" />
                         </div>
                         <div class="col s12 m8">
                             <div>
-                                <ul>站长荣耀</ul>
-                                <ul>这位是站长哦</ul>
+                                <ul>大人物</ul>
+                                <ul>这是我哦0.0
+                                    <a href="https://steamcommunity.com/id/Neptune-Noire/">我的Steam个人资料</a>
+                                </ul>
                             </div>
                         </div>
                     </div>

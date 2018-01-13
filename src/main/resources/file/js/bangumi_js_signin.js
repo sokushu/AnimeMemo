@@ -11,7 +11,7 @@ $('#addbangumitouser').click(function() {
         type: "POST",
         data: theid,
         success: function(data) {
-            if (data == "true") {
+            if (data == true) {
                 $('#addbangumitouser').html('已定阅')
                 Materialize.toast('订阅成功，记得来更新！', 10000)
             }

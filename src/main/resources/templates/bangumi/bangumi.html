@@ -156,8 +156,7 @@
         </div>
     </div>
     <script type="text/javascript" src="/file/js/bangumi_js.js"></script>
-    <script type='text/javascript' src="/file/js/bangumi_js_unsignin.js" th:unless="${isSign_in} == 'true'"></script>
-    <script type='text/javascript' src="/file/js/bangumi_js_signin.js" th:unless="${isSign_in} == 'false'"></script>
+    <script type='text/javascript' th:src="(${isSign_in} == 'true')?('/file/js/bangumi_js_signin.js'):('/file/js/bangumi_js_unsignin.js')"></script>
     <!-- ============================================================================ -->
 
     <footer class="page-footer">

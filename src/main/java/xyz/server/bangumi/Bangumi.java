@@ -73,6 +73,8 @@ public class Bangumi{
 			if (isdingyue == null || isdingyue.toString().trim().equals("") || isdingyue.size() == 0) {
 				/**未订阅的情况 */
 				model.addAttribute("isdingyue", "false");
+				model.addAttribute("user", userInfo);
+				model.addAttribute("isSign_in", "true");
 			}else{
 				String theanimeid = isdingyue.get("anime_id").toString();
 				if (theanimeid.equals(animeid)) {
@@ -90,7 +92,7 @@ public class Bangumi{
 				} catch (Exception e) {}
 				/**显示登录后才会显示的项目 */
 				model.addAttribute("user", userInfo);
-				model.addAttribute("isSign_in", "true"); //BUG : 实际上是订阅了没有(已修复)
+				model.addAttribute("isSign_in", "true");
 			}
 		} catch (Exception e) {
 			/**未登录的情况 */

@@ -59,6 +59,8 @@ public class Bangumi{
 		}
 		/** 可用的数据：anime类中的字段*/
 		model.addAllAttributes(aa);
+
+
 		//判断是否是已定阅的动画
 		try {
 			/**是否已登录 */
@@ -67,27 +69,29 @@ public class Bangumi{
 			 * 查询登录用户信息
 			 */
 			Map<String, Object>userInfo = user.findUser(UID);
-			Map<String, Object>isdingyue = select.findIsdingyue(UID, animeid);
-			String theanimeid = isdingyue.get("anime_id").toString();
-			if (theanimeid.equals(animeid)) {
-				//已定阅的情况
-				model.addAttribute("isdingyue", "true");
-			}else{
+			Map<String, Object>isdingyue = select.findIsdingyue(UID, animeid); //如果没有订阅这里会出现空指针错误，即便登录也会显示未登录
+			if (isdingyue == null || isdingyue.toString().trim().equals("") || isdingyue.size() == 0) {
 				/**未订阅的情况 */
 				model.addAttribute("isdingyue", "false");
+			}else{
+				String theanimeid = isdingyue.get("anime_id").toString();
+				if (theanimeid.equals(animeid)) {
+					//已定阅的情况
+					model.addAttribute("isdingyue", "true");
+				}
+				//找出现在看得集数
+				String watchednumber = isdingyue.get("number").toString();
+				try {
+					//将String装换int
+					Integer item = new Integer(watchednumber);
+					int watchednumberint = item.intValue();
+					//送到页面进行高亮处理
+					model.addAttribute("watchednumber", watchednumberint);
+				} catch (Exception e) {}
+				/**显示登录后才会显示的项目 */
+				model.addAttribute("user", userInfo);
+				model.addAttribute("isSign_in", "true"); //BUG : 实际上是订阅了没有(已修复)
 			}
-			//找出现在看得集数
-			String watchednumber = isdingyue.get("number").toString();
-			try {
-				//将String装换int
-				Integer item = new Integer(watchednumber);
-				int watchednumberint = item.intValue();
-				//送到页面进行高亮处理
-				model.addAttribute("watchednumber", watchednumberint);
-			} catch (Exception e) {}
-			/**显示登录后才会显示的项目 */
-			model.addAttribute("user", userInfo);
-			model.addAttribute("isSign_in", "true");
 		} catch (Exception e) {
 			/**未登录的情况 */
 			/**不显示登录后才显示的项目 */

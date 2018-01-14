@@ -5,17 +5,23 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import xyz.bangumi.mysql.bean.Anime;
 import xyz.bangumi.mysql.dao.AnimeDao;
 
 /**
  * BangumiAddBangumi
  */
+@Controller
+@EnableAutoConfiguration
 public class BangumiAddBangumi {
 
     @Autowired

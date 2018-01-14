@@ -2,6 +2,8 @@ package xyz.server.bangumi;
 
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import xyz.bangumi.mysql.dao.AnimeDao;
 /**
  * 对动画数据的编辑
  */
+@Controller
+@EnableAutoConfiguration
 public class BangumiEdit {
 
     @Autowired

@@ -122,15 +122,15 @@ public class MainRun {
 	/**
 	 * 过滤器的配置
 	 */
-	@Configuration
-	class FilterSet extends WebMvcConfigurerAdapter{
-		@Override
-		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(new Un_Sign_in())
-			.addPathPatterns("/id/*/edit")
-			.addPathPatterns("/bangumi/*/*")
-			;
-			super.addInterceptors(registry);
-		}
-	}
+	// @Configuration
+	// class FilterSet extends WebMvcConfigurerAdapter{
+	// 	@Override
+	// 	public void addInterceptors(InterceptorRegistry registry) {
+	// 		registry.addInterceptor(new Un_Sign_in())
+	// 		.addPathPatterns("/id/*/edit")
+	// 		.addPathPatterns("/bangumi/*/*")
+	// 		;
+	// 		super.addInterceptors(registry);
+	// 	}
+	// }
 }

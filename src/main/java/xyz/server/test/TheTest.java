@@ -1,8 +1,5 @@
 package xyz.server.test;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -11,15 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import xyz.bangumi.mysql.bean.Anime;
-import xyz.bangumi.mysql.dao.SELECT;
 import xyz.bangumi.mysql.newsql.AnimeSql;
 
 @Controller
 @EnableAutoConfiguration
 public class TheTest {
-
-	@Autowired
-	private SELECT select;
 	
 //	@RequestMapping(value = "/test/mysql", method = RequestMethod.GET)
 //	@ResponseBody

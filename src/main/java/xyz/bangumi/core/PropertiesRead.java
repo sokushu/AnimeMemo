@@ -40,8 +40,8 @@ public class PropertiesRead {
         return model;
     }
 
-    @RequestMapping(value = "/admin/properties", method = RequestMethod.POST)
     /**写入文件 */
+    @RequestMapping(value = "/admin/properties", method = RequestMethod.POST)
     public boolean Write(String keyString, String valueString){
         try {
             FileOutputStream fos = new FileOutputStream("file", true);

@@ -32,8 +32,10 @@ public class MainRun {
 	/**
 	 * 图片文件存放路径
 	 */
+	//实际服务器
 	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
-	public static String filePath = "/home/miri/Work/000/";
+	//Windows10 调试
+	public static String filePath = "E:\\Work\\MyProject\\000\\";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */

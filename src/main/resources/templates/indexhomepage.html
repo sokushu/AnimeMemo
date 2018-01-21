@@ -40,7 +40,7 @@
 
 <body>
     <div class="had-container blue lighten-3">
-        <header style="position: relative;" id="index_header">
+        <header style="position: relative;" id="index_header" th:unless="${issign_in} == 'true'">
             <div class="klkl  hide-on-med-and-down" style="padding: 20px;">
                 <form action="/sign_in" method="post" id="form_sign_in">
                     <div class="row">
@@ -74,8 +74,8 @@
             <div class="nav-wrapper">
 
                 <ul id="nav-mobile" class="right">
-                    <li id="nav_sign_up"><a href="/sign_up">注册</a></li>
-                    <li id="nav_sign_in"><a class="waves-effect waves-light btn" href="/sign_in">登录</a></li>
+                    <li id="nav_sign_up" th:unless="${issign_in} == 'true'"><a href="/sign_up">注册</a></li>
+                    <li id="nav_sign_in" th:unless="${issign_in} == 'true'"><a class="waves-effect waves-light btn" href="/sign_in">登录</a></li>
                     <li><a href="/bangumi/addbangumi">添加动画</a></li>
                     <li><a href="badges.html">番剧列表</a></li>
                     <li><a href="collapsible.html">发现点好玩的</a></li>
@@ -84,7 +84,6 @@
             </div>
         </nav>
     </div>
-    <script type="text/javascript" src="/file/js/index_hide_login.js"></script>
     <!-- =================================下面这部分是按钮====================================== -->
 
     <div class="fixed-action-btn click-to-toggle">

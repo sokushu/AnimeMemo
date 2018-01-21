@@ -11,3 +11,7 @@ VSCode Eclipse 都可以继续开发。
     <groupId>org.springframework.boot</groupId>  
     <artifactId>spring-boot-starter-security</artifactId>  
 </dependency>-->
+
+已使用https://www.cloudflare.com CDN进行加速，
+用户名mapyajapan@yahoo.co.jp
+密码：guk8neevaasuka

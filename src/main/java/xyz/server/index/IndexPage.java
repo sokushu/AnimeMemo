@@ -19,6 +19,7 @@ public class IndexPage {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session){
         try {
+            /**将会改改首页 */
             session.getAttribute("USERURL");
             model.addAttribute("issign_in", "true");
             return "indexhomepage";

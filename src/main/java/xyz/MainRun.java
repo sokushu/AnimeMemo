@@ -15,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import xyz.server.filter.Un_Sign_in;
 /**
  * 运行类
  * 配置
@@ -36,8 +34,8 @@ public class MainRun {
 	//实际服务器
 	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
 
-	//Windows10 调试
-	public static String filePath = "E:\\Work\\MyProject\\000\\";
+	//调试
+	public static String filePath = "/home/miri/Work-Anime-Memo/Anime-Memo/000/";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */
@@ -114,7 +112,6 @@ public class MainRun {
 			registry.addResourceHandler("/img/**").addResourceLocations("file:" + MainRun.filePath);
 			registry.addResourceHandler("/static/**").addResourceLocations("file:" + MainRun.filePath1);
 			registry.addResourceHandler("/file/**").addResourceLocations("classpath:/file/");
-			registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
 			super.addResourceHandlers(registry);
 		}
 	}

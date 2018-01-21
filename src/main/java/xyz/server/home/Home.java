@@ -70,24 +70,24 @@ public class Home {
     		if (URL.equals(url) && UID.equals(map.get("uid").toString())) {
     			/*
     			 * 以登录，访问自己的界面
-    			 */
-				Model model0 = sss.showHome(model, 0);
-				model = model0;
+    			 */ 
+				model.addAttribute("logined", "true");
+            	model.addAttribute("isme", "true");
 				return "user/home";
 			}else {
 				/*
 				 * 以登录，访问他人页面
 				 */
-				Model model0 = sss.showHome(model, 1);
-				model = model0;
+				model.addAttribute("logined", "true");
+            	model.addAttribute("isme", "false");
 				return "user/home";
 			}	
 		} catch (NullPointerException e) {
 			/*
 			 * 未登录
 			 */
-			Model model0 = sss.showHome(model, 2);
-			model = model0;
+			model.addAttribute("logined", "false");
+            model.addAttribute("isme", "false");
 			return "user/home";
 		}
     }

@@ -1,4 +1,4 @@
-package xyz.server.filter;
+package xyz.bangumi.core.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

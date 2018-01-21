@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import xyz.bangumi.mysql.dao.UserDao;
 
 @Controller
@@ -65,6 +67,26 @@ public class Sign_in{
 			response.sendRedirect("/sign_in");
 		}
 		
+	}
+
+	/**
+	 * Ajax进行验证用
+	 */
+	@RequestMapping(value = "/sign_in", method = RequestMethod.PUT)
+	@ResponseBody
+	public String Sign_inTest(String username, String password){
+
+		Map<String, Object>readuser = user.findUserByUsername(username);
+		if (readuser != null) {
+			String Mapusername = readuser.get("username").toString();
+			String Mappassword = readuser.get("password").toString();
+			if (Mapusername.equals(username) && Mappassword.equals(password)) {
+				//验证成功
+				return "true";
+			}
+			return "用户名或密码不正确";
+		}
+		return "用户名或密码不正确";
 	}
 	
 	@RequestMapping(value = "/sign_in", method = RequestMethod.GET)

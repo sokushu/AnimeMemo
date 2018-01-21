@@ -32,10 +32,10 @@ public class MainRun {
 	 */
 	
 	//实际服务器
-	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
+	public static String filePath = "/home/BanGuMiKiRoKu/000/";
 
 	//调试
-	public static String filePath = "/home/miri/Work-Anime-Memo/Anime-Memo/000/";
+	//public static String filePath = "/home/miri/Work-Anime-Memo/Anime-Memo/000/";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */
@@ -95,7 +95,7 @@ public class MainRun {
 		
 			@Override
 			public void customize(ConfigurableEmbeddedServletContainer container) {
-				container.setPort(8080);
+				container.setPort(80);
 			}
 		};
 	}

@@ -12,7 +12,6 @@ import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 /**
@@ -31,11 +30,11 @@ public class MainRun {
 	 * 图片文件存放路径
 	 */
 	
-	//实际服务器
-	public static String filePath = "/home/BanGuMiKiRoKu/000/";
+	//实际服务器/home/miri/BanGuMiKiRoKu/000
+	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
 
 	//调试
-	//public static String filePath = "/home/miri/Work-Anime-Memo/Anime-Memo/000/";
+	public static String filePath = "/home/miri/BanGuMiKiRoKu/000/";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */
@@ -95,7 +94,7 @@ public class MainRun {
 		
 			@Override
 			public void customize(ConfigurableEmbeddedServletContainer container) {
-				container.setPort(80);
+				container.setPort(8080);
 			}
 		};
 	}

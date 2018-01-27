@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import xyz.InfoData;
 import xyz.bangumi.mysql.dao.UserDao;
 
 @Controller
@@ -40,25 +41,24 @@ public class Sign_in{
 			Map<String, Object> readUser = user.findUserByUsername(username);
 			if (readUser != null) {
 				if (readUser.get("password").equals(password)) {
-					// if (from.equals("home")) {
-					session.setAttribute("USERURL", readUser.get("url")); 
-					session.setAttribute("USERUID", readUser.get("uid"));
-					session.setAttribute("USERNAME", readUser.get("username"));
 					
-//					return "redirect:/id/" + readUser.get("url");
-					// 重定向到个人主页
+					session.setAttribute(InfoData.Session_USERUID, readUser.get("uid"));
+					session.setAttribute(InfoData.Session_USERNAME, readUser.get("username"));
+					//如果获取url出错，就使用uid定位主页
+					try {
+						@SuppressWarnings("unused")
+						String userurl = readUser.get("url").toString();
+						session.setAttribute(InfoData.Session_USERURL, readUser.get("url")); 
+					} catch (Exception e) {
+						session.setAttribute(InfoData.Session_USERMETHOD, "ID");
+						response.sendRedirect("/home/"+ readUser.get("uid"));
+					}
+					
+					session.setAttribute(InfoData.Session_USERMETHOD, "URL");
+					
 					response.sendRedirect("/id/"+ readUser.get("url"));
 					return;
-	// 				}else{
-	// 					session.setAttribute("USERURL", readUser.get("url")); 
-	// 					session.setAttribute("USERUID", readUser.get("uid"));
-	// 					session.setAttribute("USERNAME", readUser.get("username"));
-						
-	// //					return "redirect:/id/" + readUser.get("url");
-	// 					// 重定向到个人主页
-	// 					response.sendRedirect(lesgo);
-	// 					return;
-	// 				}
+
 				}
 				response.sendRedirect("/sign_in");
 			}

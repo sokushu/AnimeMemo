@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import xyz.bangumi.core.bangumi.BangumiCore;
 import xyz.bangumi.mysql.dao.AnimeDao;
 import xyz.bangumi.mysql.dao.SELECT;
 import xyz.bangumi.mysql.dao.UserDao;
@@ -19,7 +21,7 @@ import xyz.bangumi.mysql.dao.User_AnimeDao;
 
 @Controller
 @EnableAutoConfiguration
-public class Bangumi{
+public class Bangumi extends BangumiCore{
 	
 	@Autowired
 	private AnimeDao anime;
@@ -33,7 +35,7 @@ public class Bangumi{
 	/**如果输入了bangumi，暂时返回错误页面 */
 	@RequestMapping(value = "/bangumi")
 	public String bangumi(){
-		return "bangumi/bangumierror";
+		return BangumiError;
 	}
 	/**
 	 * 查看动画数据，
@@ -47,7 +49,7 @@ public class Bangumi{
 		
 		/**验证输入的是否是数字 */
 		if (isInt(animeid) == 0) {
-			return "bangumi/bangumierror";
+			return BangumiError;
 		} 
 		/**数据库查询动画资料 */
 		Map<String, Object> aa = anime.findByAnimeID(animeid);
@@ -55,7 +57,7 @@ public class Bangumi{
 		/**判断是否有实际数据返回 */
 		if (aa == null || aa.size() == 0 || aa.toString().trim().equals("")) {
 			/**无数据，返回错误页面 */
-			return "bangumi/bangumierror";
+			return BangumiError;
 		}
 		/** 可用的数据：anime类中的字段*/
 		model.addAllAttributes(aa);
@@ -99,7 +101,7 @@ public class Bangumi{
 			/**不显示登录后才显示的项目 */
 			model.addAttribute("isSign_in", "false");
 		}
-		return "bangumi/bangumi";
+		return BangumiShow;
 	}
 	/**使用ajax请求 */
 	/**
@@ -147,7 +149,7 @@ public class Bangumi{
 			/**判断是否是数字 */
 			int a = isInt(animenumber);//请求更新的动画集数
 			if (isInt(animeid) == 0 && a == 0) {
-				return "bangumi/bangumierror";
+				return BangumiError;
 			}
 			/**得到用户ID */
 			String UID = session.getAttribute("USERUID").toString();
@@ -157,7 +159,7 @@ public class Bangumi{
 			/**是否能够请求到数据 */
 			if (animeMap == null || animeMap.size() == 0 || animeMap.toString().trim().equals("")) {
 				/**无数据，返回错误页面 */
-				return "bangumi/bangumierror";
+				return BangumiError;
 			}
 			/**如果没有订阅就直接点击对动画进行更新的策略 */
 			if (isDingYueed(UID, animeid)) {

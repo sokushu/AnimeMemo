@@ -7,9 +7,6 @@ import java.io.IOException;
 
 import javax.websocket.server.PathParam;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +27,7 @@ public class Jishi {
     /**
      * 添加记事
      */
-    @RequestMapping(value = "id/{url}/jishi", method = RequestMethod.POST)
+    @RequestMapping(value = "/id/{url}/article", method = RequestMethod.POST)
     public String add(@PathParam("url") String url, String jishiString){
         try {
             //创建URL文件夹
@@ -49,6 +46,17 @@ public class Jishi {
             return "";
         }
     }
+    @RequestMapping(value = "/home/{url}/article", method = RequestMethod.POST)
+    public String add1(){
+        return "";
+    }
+    /**
+     * 添加记事
+     */
+    @RequestMapping(value = "/id/{url}/article", method = RequestMethod.PUT)
+    public String addajax(){
+        return "";
+    }
     private String newfile(String url)throws IOException{
         String path = MainRun.filePath1 + "jishi/" + url + "/";
         File filename = new File(path);
@@ -59,6 +67,10 @@ public class Jishi {
         }
         //已经有这个路径了
         return path;
+    }
+    @RequestMapping(value = "/home/{url}/article", method = RequestMethod.PUT)
+    public String addajax1(){
+        return "";
     }
     private boolean writetxt(String jishiString, String path)throws FileNotFoundException{
         //创建文件
@@ -72,9 +84,9 @@ public class Jishi {
     // @Autowired
     // private User_articleDao user_articDao;
     /**得到记事 */
-    @RequestMapping(value = "id/{url}/jishi/{jishiID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{url}/article-{articleid}", method = RequestMethod.GET)
     public String get(@PathParam("url") String url,
-    @PathParam("jishiID") String jishiID, Model model
+    @PathParam("articleid") String articleid, Model model
     ){
         //从数据库中查找硬盘路径
         // String jishi = user_articDao.loadjishi();
@@ -91,5 +103,17 @@ public class Jishi {
             //返回一个记事本网页
             return "jishi";
         }
+    }
+    @RequestMapping(value = "/home/{url}/article-{articleid}", method = RequestMethod.GET)
+    public String get1(){
+        return "";
+    }
+    @RequestMapping(value = "/id/{url}/article-{articleid}", method = RequestMethod.POST)
+    public String edit(){
+        return "";
+    }
+    @RequestMapping(value = "/home/{url}/article-{articleid}", method = RequestMethod.POST)
+    public String edit1(){
+        return "";
     }
 }

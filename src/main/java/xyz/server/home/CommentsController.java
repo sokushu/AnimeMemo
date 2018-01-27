@@ -28,19 +28,33 @@ public class CommentsController {
 	private UserDao user;
 	@Autowired
 	private CommentsDao comm;
-
+	/**
+	 * 添加用户留言
+	 */
 	@RequestMapping(value = "/id/{url}/comm", method = RequestMethod.POST)
 	@ResponseBody
 	public String addcomm(String comm, HttpSession session, @PathVariable("url")String url) {
-		String commuid = session.getAttribute("USERUID").toString();
-		Map<String, Object>map = user.showUserByURL(url);
-		String uid = map.get("uid").toString();
-		String pic = map.get("user_pic").toString();
-		String name = map.get("name").toString();
-		this.comm.addComm(uid, commuid, comm, name, pic);
-		return "true";
+		try {
+			String commuid = session.getAttribute("USERUID").toString();
+
+			Map<String, Object>map = user.showUserByURL(url);
+
+			String uid = map.get("uid").toString();
+			String pic = map.get("user_pic").toString();
+			String name = map.get("name").toString();
+
+			this.comm.addComm(uid, commuid, comm, name, pic);
+			return "true";
+		} catch (Exception e) {
+			//TODO: handle exception
+			return "用户未登录";
+		}
+		
 	}
-	
+	/**
+	 * 得到留言
+	 * 使用ajax
+	 */
 	@RequestMapping(value = "/id/{url}/comm", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> returnComm(@PathVariable("url")String url,String page){

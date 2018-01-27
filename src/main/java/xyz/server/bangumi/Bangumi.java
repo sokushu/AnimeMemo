@@ -1,6 +1,5 @@
 package xyz.server.bangumi;
 
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import xyz.InfoData;
 import xyz.bangumi.core.bangumi.BangumiCore;
 import xyz.bangumi.mysql.dao.AnimeDao;
 import xyz.bangumi.mysql.dao.SELECT;
@@ -48,7 +48,7 @@ public class Bangumi extends BangumiCore{
 	public String bangumilist(@PathVariable("animeid")String animeid, Model model, HttpSession session) {
 		
 		/**验证输入的是否是数字 */
-		if (isInt(animeid) == 0) {
+		if (StringToNum(animeid) == 0) {
 			return BangumiError;
 		} 
 		/**数据库查询动画资料 */
@@ -113,7 +113,7 @@ public class Bangumi extends BangumiCore{
 	public boolean bangumiSubscriber(@PathVariable("animeid")String animeid, HttpSession session) {
 		try{
 			/**判断是否是数字 */
-			if (isInt(animeid) == 0) {
+			if (StringToNum(animeid) == 0) {
 				return false;
 			}
 			/**得到用户ID */
@@ -147,10 +147,13 @@ public class Bangumi extends BangumiCore{
 	@PathVariable("animenumber")String animenumber, HttpSession session){
 		try {
 			/**判断是否是数字 */
-			int a = isInt(animenumber);//请求更新的动画集数
-			if (isInt(animeid) == 0 && a == 0) {
+			int a = StringToNum(animenumber);//请求更新的动画集数
+			if (StringToNum(animeid) == 0) {
 				return BangumiError;
+			}else if (a == 0) {
+				return "redirect:/bangumi/" + animeid;
 			}
+
 			/**得到用户ID */
 			String UID = session.getAttribute("USERUID").toString();
 
@@ -167,7 +170,7 @@ public class Bangumi extends BangumiCore{
 				/**查询动画总集数 */
 				String allnumber = animeMap.get("anime_number").toString();
 				/**装换数据 */
-				int allnumberint = isInt(allnumber);
+				int allnumberint = StringToNum(allnumber);
 				/**如果请求集数超过总集数 */
 				if (allnumberint < a) {
 					//更新的集数是动画的最终话
@@ -186,38 +189,40 @@ public class Bangumi extends BangumiCore{
 		}
 	}
 	/**
-	 * 判断输入的String字符串是否是数字，如果不是，返回0
-	 */
-	private int isInt(String number){
-		try {
-			int a = new Integer(number);
-			return a;
-		} catch (Exception e) {
-			//TODO: handle exception
-			return 0;
-		}
-	}
-	/**
 	 * 使用ajax进行动画更新
 	 *  */
 	@RequestMapping(value = "/bangumi/{animeid}/{animenumber}", method = RequestMethod.POST)
-	public String BanguminumberupdataPOST(){
-		return "";
-	}
+	@ResponseBody
+	public String BanguminumberupdataPOST(@PathVariable("animeid")String animeid,@PathVariable("animenumber")String animenumber, HttpSession session){
 
-	/**
-	 * 添加动画标签信息
-	 *  */
-	@RequestMapping(value = "/bangumi/{animeid}/tag", method = RequestMethod.POST)
-	public boolean addTagInfo(){
-		return true;
-	}
+		int a = StringToNum(animenumber);
+		if (StringToNum(animeid) == 0) {
+			return "false";
+		}else if (a == 0) {
+			return "false";
+		}else{
 
-	/**
-	 * 从数据库中查询动画的标签
-	 *  */
-	public List<Map<String, Object>> ReturnTag(){
-		return null;
+			String useruid = session.getAttribute(InfoData.Session_USERUID).toString();
+			Map<String, Object>animeMap = anime.findByAnimeID(animeid);
+
+			if (animeMap == null || animeMap.size() == 0 || animeMap.toString().trim().equals("")) {
+				return BangumiError;
+			}
+			if (isDingYueed(useruid, animeid)) {
+				
+				String allnumber = animeMap.get("anime_number").toString();
+				int allnumberint = StringToNum(allnumber);
+				if (allnumberint < a) {
+					useranime.updatabumber(animeid, allnumber, useruid);
+				}else{
+					useranime.updatabumber(animeid, animenumber, useruid);
+				}
+				return "true";
+			}else{
+				return "还没有订阅动画哦";
+			}
+
+		}
 	}
 	/**
 	 * 判断动画是否订阅

@@ -5,7 +5,9 @@ package xyz.bangumi.core.catcherr;
  */
 public class Error extends Exception{
     
-    public Error(String string){
+    private static final long serialVersionUID = 1L;
+
+	public Error(String string){
         System.err.println(string);
     }
 }

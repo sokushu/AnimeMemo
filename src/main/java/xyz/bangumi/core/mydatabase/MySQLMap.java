@@ -10,7 +10,9 @@ import java.util.Set;
  */
 public class MySQLMap<K, V> extends Hashtable implements Map{
 
-    public MySQLMap(){
+    private static final long serialVersionUID = 1L;
+
+	public MySQLMap(){
         super();
     }
 

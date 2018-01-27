@@ -40,4 +40,12 @@ public class HomeEdit {
 		}
 		return "false";
 	}
+	@RequestMapping(value = "/home/{url}/edit", method = RequestMethod.GET)
+	public String edit2(@PathVariable("url")String url, Model model){
+		return "";
+	}
+	@RequestMapping(value = "/home/{url}/edit", method = RequestMethod.POST)
+	public String edit3(@PathVariable("url")String url, Users users, HttpSession session){
+		return "";
+	}
 }

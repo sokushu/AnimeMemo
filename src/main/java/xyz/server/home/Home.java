@@ -96,7 +96,7 @@ public class Home extends HomeCore {
 			model.addAttribute("watchedKazu", 0);
 		}
 		if (watchingKazu + watchedKazu == 0) {
-			model.addAttribute("watchinfo", "空空的 >.< 该用户还没有订阅信息");
+			model.addAttribute("watchinfo", "空空的 >.< 该用户还没有订阅信息"); 
 		}
 		model.addAttribute("userinfo", map);
 		

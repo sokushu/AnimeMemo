@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminSign_in {
 
     /**禁止登录名单 */
-    List<String> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
     /**管理员用户名 */
-    public String adminName = "Nekomimi";
+    private String adminName = "Nekomimi";
     /**管理员密码 */
-    public String adminPassword = "guk8ne";
+    private String adminPassword = "guk8ne";
     private int i = 0;
     @RequestMapping(value = "/admin/sign_in", method = RequestMethod.POST)
     public String Sign_in(String username, String password, HttpSession session){

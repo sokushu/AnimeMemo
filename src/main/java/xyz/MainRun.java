@@ -30,7 +30,7 @@ public class MainRun {
 	 * 图片文件存放路径
 	 */
 	
-	//实际服务器/home/miri/BanGuMiKiRoKu/000
+	//实际服务器
 	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
 
 	//调试

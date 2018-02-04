@@ -34,7 +34,7 @@ public class MainRun {
 	//public static String filePath = "/home/BanGuMiKiRoKu/000/";
 
 	//调试
-	public static String filePath = "/home/miri/BanGuMiKiRoKu/000/";
+	public static String filePath = "E:\\Work\\MyProject\\000\\";
 	/**
 	 * 静态资源存放路径，例如文章等
 	 */

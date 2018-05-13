@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.InfoData;
-import moe.MainRun;
 import moe.neptunenoire.mysql.bean.Anime;
 import moe.neptunenoire.mysql.bean.Users;
 import moe.neptunenoire.mysql.dao.MaiKissReo;

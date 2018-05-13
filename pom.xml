@@ -3,17 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>xyz.bangumi</groupId>
+	<groupId>moe.NeptuneNoire</groupId>
 	<artifactId>BanGuMiKiRoKu</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.2</version>
 
 	<name>BanGuMiKiRoKu</name>
-	<description>TheProject BangumiKiroku of 1.5.1</description>
+	<description>TheProject BangumiKiroku of 1.5.2</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>2.0.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -36,7 +36,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -62,6 +65,61 @@
 		    <artifactId>pagehelper-spring-boot-starter</artifactId>
 		    <version>1.2.3</version>
 		</dependency>
+		<dependency>  
+			<groupId>org.jsoup</groupId>  
+			<artifactId>jsoup</artifactId>  
+			<version>1.11.2</version>  
+		</dependency>
+		<!-- 搜索引擎开始 -->
+		<!--对分词索引查询解析-->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>7.1.0</version>
+		</dependency>
+
+		<!--高亮 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-highlighter</artifactId>
+			<version>7.1.0</version>
+		</dependency>
+
+		<!--smartcn 中文分词器 SmartChineseAnalyzer  smartcn分词器 需要lucene依赖 且和lucene版本同步-->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-smartcn</artifactId>
+			<version>7.1.0</version>
+		</dependency>
+
+		<!--ik-analyzer 中文分词器-->
+		<dependency>
+			<groupId>cn.bestwu</groupId>
+			<artifactId>ik-analyzers</artifactId>
+			<version>5.1.0</version>
+		</dependency>
+
+		<!--MMSeg4j 分词器-->
+		<dependency>
+			<groupId>com.chenlb.mmseg4j</groupId>
+			<artifactId>mmseg4j-solr</artifactId>
+			<version>2.4.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.solr</groupId>
+					<artifactId>solr-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- 搜索引擎结束 -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

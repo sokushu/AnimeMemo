@@ -1,0 +1,58 @@
+<th:block th:fragment="badges">
+
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">&nbsp;LILYS.MOE</a>
+            <a id="badges_nav_div_a_button-collapse" href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+
+                <th:block th:fragment="navselete">
+                    <th:block th:if="${issign_in} == true">
+                        <li>
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label class="indigo-text text-darken-4">
+                            在首页显示我的计划表：关
+                            <input type="checkbox">
+                            <span class="lever"></span>
+                            开
+                            </label>
+                            </div>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${issign_in} == false">
+                        <li><a href="/sign_in">登陆</a></li>
+                        <li><a href="/sign_up">注册</a></li>
+                    </th:block>
+
+                    <th:block th:if="${issign_in} == true">
+                        <li><a href="sass.html">添加新番</a></li>
+                    </th:block>
+
+                    <li><a href="javascript:toast()">电影</a></li>
+                    <li><a href="javascript:toast()">小说</a></li>
+                    <li><a href="javascript:toast()">漫画</a></li>
+                    <li><a href="javascript:toast()">游戏</a></li>
+
+                </th:block>
+
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <div th:replace="pats/badges :: navselete">
+                    <!-- 这里是上面的重复，直接使用上面的模块了 -->
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        $(document).ready(function() {
+            $("#badges_nav_div_a_button-collapse").sideNav();
+        })
+
+        function toast() {
+            Materialize.toast('新功能正在赶来的路上 >.< 33', 4000)
+        }
+    </script>
+
+</th:block>

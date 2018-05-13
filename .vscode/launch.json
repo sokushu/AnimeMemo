@@ -9,16 +9,11 @@
             "name": "Debug (Launch)-MainRun<BanGuMiKiRoKu>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "xyz.MainRun",
+            "console": "internalConsole",
+            "stopOnEntry": true,
+            "mainClass": "moe.MainRun",
             "projectName": "BanGuMiKiRoKu",
             "args": ""
-        },
-        {
-            "type": "java",
-            "name": "Debug (Attach)",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 8080
         }
     ]
 }

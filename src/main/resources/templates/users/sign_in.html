@@ -2,16 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <th:block th:replace="pats/head :: head">
+        <!-- 引入头部文件 -->
+    </th:block>
+    <link href="/css/mycss/backimg.css" rel="stylesheet">
     <title>用户登录</title>
 
-    <link href="/file/css/runtime/materialize.min.css" rel="stylesheet" />
-    <link href="/file/css/runtime/000.css" rel="stylesheet" />
-    <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
-    <link href="/file/css/backimg.css" rel="stylesheet" />
 
 </head>
 
@@ -87,6 +83,10 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
             <a id="sendinfo" class="modal-action modal-close waves-effect waves-green btn-flat red darken-1"><b style="color: #ffebee;">发送</b></a>
         </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div th:replace="pats/footer :: footer">
+        <!-- 页脚的布局 -->
     </div>
     <!-- js部分代码 -->
     <script type='text/javascript' src="/file/js/sign_in_js.js"></script>

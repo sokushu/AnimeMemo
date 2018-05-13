@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import moe.neptunenoire.util.MD5Coding;
+
 @Controller
 @EnableAutoConfiguration
 public class TheTest {
@@ -38,12 +40,8 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
 	public String adada(String id,String url){
-		{
-			{
-				url = "200";
-			}
-		}
-		return url;
+		
+		return MD5Coding.coding("username", "password", 765124356894L);
 	}
 	
 	@RequestMapping(value = test + "add", method = RequestMethod.GET)

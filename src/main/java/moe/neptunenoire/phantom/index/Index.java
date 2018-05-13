@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,9 @@ import moe.neptunenoire.IndexServer;
 import moe.neptunenoire.mysql.bean.Users;
 import moe.neptunenoire.mysql.dao.MaiKissReo;
 import moe.neptunenoire.mysql.dao.MySQL;
+import moe.neptunenoire.util.MD5Coding;
 import moe.neptunenoire.util.StringCheck;
+import moe.neptunenoire.util.UserID;
 
 /**
  * Index
@@ -69,6 +73,75 @@ public class Index extends StringCheck {
      * 用户注册
      * ==============================================================
      */
+    protected String signUpPost(Users user) {
+
+        StringBuffer sb = new StringBuffer();
+
+		try {
+			//人为制造空指针
+            String username = maireo.User_FindUserByUsername(user.getUsername()).get("username").toString();
+            
+            String url = maireo.User_FindUserByShowByURL(user.getUrl()).get("url").toString();
+            //返回一个错误信息
+			return ""; 
+		} catch (Exception e) {
+            //我这里的想法是，使用正则表达式，对录入的数据进行检查
+
+            String email = user.getEmail();
+            String username = user.getUsername();
+            String url = user.getUrl();
+
+            String email_RegEx = "^[a-zA-Z_]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$";
+            String username_RegEx = "^[A-Za-z][A-Za-z1-9_-]+$";
+            String url_RegEx = "";
+
+            Matcher emailMatcher = Pattern.compile(email_RegEx).matcher(email);;
+            Matcher usernameMatcher = Pattern.compile(username_RegEx).matcher(username);
+            Matcher urlMatcher = Pattern.compile(url_RegEx).matcher(url);
+
+            if (!emailMatcher.find()) {
+                //返回错误信息，想直接返回html代码
+                sb.append("");
+            }
+            if (!usernameMatcher.find()) {
+                //返回错误信息
+                sb.append("");
+            }
+            if (!urlMatcher.find()) {
+                //返回错误信息
+                sb.append("");
+            }
+
+            //生成UID
+            UserID userid = new UserID(username);
+            user.setUid(userid.GetlongCode());
+
+            //如果全部通过，则进行注册
+            maireo.User_AddUser(user);
+
+			return isNull(sb.toString()) ? "true" : sb.toString();
+		}
+    }
+    
+
+    /**
+     * 使用Ajax进行登陆
+     */
+    protected boolean Sign_inajaxImpl(String username, String password){
+        Map<String, Object>readuser = mysql.User_FindUserByUsername(username);
+		if (isNull(readuser) == false) {
+			String Mapusername = readuser.get("username").toString();
+			String Mappassword = readuser.get("password").toString();
+			if (Mapusername.equals(username) && Mappassword.equals(password)) {
+				//验证成功
+				return true;
+			}else{
+                return false;
+            }
+		}else{
+            return false;
+        }
+    }
     /**
      * 用户的注册
      * @param users
@@ -99,7 +172,7 @@ public class Index extends StringCheck {
      */
     /**
      * ==============================================================
-     * 登陆
+     * 登陆  
      * ==============================================================
      */
     protected int sign_inimpl(String username, String password, HttpSession session, HttpHeaders headers, Model model){ 
@@ -108,7 +181,7 @@ public class Index extends StringCheck {
             // 找到用户信息
             if (isNull(userInfo) == false) {
                 // 找到用户名 验证密码
-                if (((String)(userInfo.get("password"))).equals(password)) {
+                if (((String)(userInfo.get("password"))).equals(MD5Coding.coding(username, password, (long)(userInfo.get("password"))))) {
                     session.setAttribute(InfoData.Session_USERNAME, userInfo.get("username"));
                     session.setAttribute(InfoData.Session_UserPageName, userInfo.get("pageusername"));
                     session.setAttribute(InfoData.Session_UserBickPic, userInfo.get("backpic"));

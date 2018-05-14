@@ -59,16 +59,6 @@ public class IndexServer extends Index {
     }
 
     /**
-     * 文件上传
-     */
-    @RequestMapping(value = fileupload, method = RequestMethod.POST)
-    @ResponseBody
-    public String upload(HttpServletRequest request, HttpServletResponse response, 
-    @RequestHeader HttpHeaders headers, HttpSession session){
-		return uploadImpl(request, response, headers, session);
-    }
-
-    /**
      * 用户注册
      * @param user 用户注册数据
      * @return 注册成功或失败
@@ -80,7 +70,7 @@ public class IndexServer extends Index {
     }
 
     /**
-     * 显示登陆页面
+     * 显示注册页面
      */
     @RequestMapping(value = sign_up, method = RequestMethod.GET)
 	public String signUpGet() {
@@ -115,6 +105,25 @@ public class IndexServer extends Index {
 		return showSign_in;
     }
 
+    /**
+     * 退出登录
+     */
+    @RequestMapping(value = sign_out, method = RequestMethod.GET)
+	public String sign_out(HttpSession session) {
+		signOut(session);
+		return "redirect:" + index;
+    }
+
+    /**
+     * 文件上传
+     */
+    @RequestMapping(value = fileupload, method = RequestMethod.POST)
+    @ResponseBody
+    public String upload(HttpServletRequest request, HttpServletResponse response, 
+    @RequestHeader HttpHeaders headers, HttpSession session){
+		return uploadImpl(request, response, headers, session);
+    }
+
 	/**
      * 使用Ajax进行登陆验证
      */
@@ -122,15 +131,6 @@ public class IndexServer extends Index {
 	@ResponseBody
 	public boolean Sign_inajax(String username, String password){
         return Sign_inajaxImpl(username, password);
-    }
-    
-    /**
-     * 退出登录
-     */
-    @RequestMapping(value = sign_out, method = RequestMethod.GET)
-	public String sign_out(HttpSession session) {
-		session.invalidate();
-		return "redirect:" + index;
     }
     
     /**

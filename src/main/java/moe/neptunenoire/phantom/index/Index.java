@@ -83,11 +83,16 @@ public class Index extends StringCheck {
 
 		try {
 			//人为制造空指针
-            String username = maireo.User_FindUserByUsername(user.getUsername()).get("username").toString();
-            
-            String url = maireo.User_FindUserByShowByURL(user.getUrl()).get("url").toString();
+            Map<String, Object> username = maireo.User_FindUserByUsername(user.getUsername());
+            Map<String, Object> url = maireo.User_FindUserByShowByURL(user.getUrl());
             //返回一个错误信息
-			return ""; 
+			if (username != null && url != null) {
+                return "用户名URL已被占用";
+            }else if (url != null) {
+                return "URL已被占用";
+            }else{
+                return "用户名已被占用";
+            }
 		} catch (Exception e) {
             //我这里的想法是，使用正则表达式，对录入的数据进行检查
 
@@ -105,15 +110,15 @@ public class Index extends StringCheck {
 
             if (!emailMatcher.find()) {
                 //返回错误信息，想直接返回html代码
-                sb.append("");
+                sb.append("邮箱不正确");
             }
             if (!usernameMatcher.find()) {
                 //返回错误信息
-                sb.append("");
+                sb.append("用户名格式不正确");
             }
             if (!urlMatcher.find()) {
                 //返回错误信息
-                sb.append("");
+                sb.append("url格式不正确");
             }
 
             //生成UID
@@ -258,6 +263,21 @@ public class Index extends StringCheck {
     /**
      * ==============================================================
      * 登陆 结束
+     * ==============================================================
+     */
+    /**
+     * ==============================================================
+     * 登陆用户退出
+     * ==============================================================
+     */
+    protected void signOut(HttpSession session){
+        if (session.getAttribute(InfoData.Session_USERUID) != null) {
+            session.invalidate();
+        }
+    }
+    /**
+     * ==============================================================
+     * 登陆用户退出 结束
      * ==============================================================
      */
     /**

@@ -26,7 +26,11 @@ public interface MaiKissReo {
      * =====================================================================
      */
 
-
+    /**
+     * 得到所有的动画数据
+     */
+    @SelectProvider(type = SqlBuilder.class, method = "Anime_FindAllAnime")
+    public List<Map<String, Object>> Anime_FindAllAnime();
     /**
      * 根据动画ID查找
      */

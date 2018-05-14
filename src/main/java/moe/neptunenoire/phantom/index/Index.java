@@ -104,7 +104,7 @@ public class Index extends StringCheck {
             String username_RegEx = "^[A-Za-z][A-Za-z1-9_-]+$";
             String url_RegEx = "";
 
-            Matcher emailMatcher = Pattern.compile(email_RegEx).matcher(email);;
+            Matcher emailMatcher = Pattern.compile(email_RegEx).matcher(email);
             Matcher usernameMatcher = Pattern.compile(username_RegEx).matcher(username);
             Matcher urlMatcher = Pattern.compile(url_RegEx).matcher(url);
 

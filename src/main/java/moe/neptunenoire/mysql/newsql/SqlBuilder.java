@@ -15,6 +15,12 @@ public class SqlBuilder extends StringCheck {
      * 动画查找
      * =====================================================================
      */
+    public String Anime_FindAllAnime(){
+        return new SQL(){{
+            SELECT("*");
+            FROM("anime");
+        }}.toString();
+    }
     public String Anime_FindByAnimeID(){
         return new SQL(){{
             SELECT("*");

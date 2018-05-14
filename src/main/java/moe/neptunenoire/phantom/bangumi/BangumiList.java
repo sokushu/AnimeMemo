@@ -1,6 +1,8 @@
 package moe.neptunenoire.phantom.bangumi;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,12 @@ public class BangumiList extends StringCheck {
     @Autowired
     private HttpSession session;
 
+    /** 所有的动画列表 */
+    Stream<Map<String, Object>> AllAnime = null;
+
+    public BangumiList(){
+        AllAnime = maiReo.Anime_FindAllAnime().stream();
+    }
     /**
      * 处理新番表数据
      * 
@@ -31,5 +39,7 @@ public class BangumiList extends StringCheck {
 
         return null;
     }
+
+    
     
 }

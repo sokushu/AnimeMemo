@@ -26,6 +26,7 @@ public class BangumiList extends StringCheck {
     Stream<Map<String, Object>> AllAnime = null;
 
     public BangumiList(){
+        // 得到所有的动画数据，准备进行处理
         AllAnime = maiReo.Anime_FindAllAnime().stream();
     }
     /**
@@ -40,6 +41,6 @@ public class BangumiList extends StringCheck {
         return null;
     }
 
-    
+
     
 }

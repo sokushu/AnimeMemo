@@ -65,8 +65,14 @@ public class IndexServer extends Index {
      */
     @RequestMapping(value = sign_up, method = RequestMethod.POST)
     public String sign_up(Users user , Model model){
-        // 如果注册成功 ：如果注册失败
-        return signUp(user) ? "redirect:" + sign_in : signNo(model, showSign_up);
+        int code = signUpPost(user);
+        {
+            {
+                model.addAttribute("haserror", code != 200 ? true:false);
+                model.addAttribute("error", signNo(code));
+            }
+        }
+        return code != 200 ? showSign_up : "redirect:" + sign_in;
     }
 
     /**

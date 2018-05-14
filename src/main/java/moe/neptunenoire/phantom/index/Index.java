@@ -2,6 +2,7 @@ package moe.neptunenoire.phantom.index;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +78,7 @@ public class Index extends StringCheck {
      * 用户注册
      * ==============================================================
      */
-    protected String signUpPost(Users user) {
+    protected int signUpPost(Users user) {
 
         StringBuffer sb = new StringBuffer();
 
@@ -87,11 +88,11 @@ public class Index extends StringCheck {
             Map<String, Object> url = maireo.User_FindUserByShowByURL(user.getUrl());
             //返回一个错误信息
 			if (username != null && url != null) {
-                return "用户名URL已被占用";
+                return 100;
             }else if (url != null) {
-                return "URL已被占用";
+                return 101;
             }else{
-                return "用户名已被占用";
+                return 102;
             }
 		} catch (Exception e) {
             //我这里的想法是，使用正则表达式，对录入的数据进行检查
@@ -125,10 +126,12 @@ public class Index extends StringCheck {
             UserID userid = new UserID(username);
             user.setUid(userid.GetlongCode());
 
+            user.setPassword(MD5Coding.coding(user.getUsername(), user.getPassword(), user.getUid()));
+
             //如果全部通过，则进行注册
             maireo.User_AddUser(user);
 
-			return isNull(sb.toString()) ? "true" : sb.toString();
+			return isNull(sb.toString()) ? 200 : 201;
 		}
     }
     
@@ -152,27 +155,22 @@ public class Index extends StringCheck {
         }
     }
     /**
-     * 用户的注册
-     * @param users
-     */
-    protected boolean signUp(Users users){
-        try {
-            maireo.User_AddUser(users);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * 用户注册失败后的提示信息
      * @param model
      * @param returnUrl
      */
-    protected String signNo(Model model, String returnUrl){
-        model.addAttribute("haserror", true);
-        model.addAttribute("error", "注册失败");
-        return returnUrl;
+    protected String signNo(int errorCode){
+        Map<Integer, String> errorinfo = new HashMap<Integer, String>(){
+            private static final long serialVersionUID = 1L;
+			{
+                put(100, "error");
+                put(101, "error");
+                put(102, "error");
+                put(200, "error");
+                put(201, "error");
+            }
+        };
+        return errorinfo.get(errorCode);
     }
     /**
      * ==============================================================

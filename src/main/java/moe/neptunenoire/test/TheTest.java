@@ -8,7 +8,9 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -34,14 +36,36 @@ public class TheTest {
 	@Autowired
 	public HttpSession session;
 
+	List<Map<String, String>> list = new ArrayList<Map<String, String>>(){
+		private static final long serialVersionUID = 1L;
+		{
+			for (int i = 0; i < 50000; i++) {
+				Map<String, String> map = new HashMap<>();
+				map.put("uid", String.valueOf(i));
+				map.put("username", "I'm "+i);
+				map.put("key", "value" + i);
+				map.put("name", "name " + i);
+				map.put("from", "name " + i);
+				map.put("music", "name " + i);
+				map.put("info", "name " + i);
+				map.put("url", "name " + i);
+				map.put("num", "name " + i);
+				map.put("kd", "name " + i);
+				map.put("ff", "name " + i);
+				map.put("ffd", "name " + i);
+				map.put("bn", "namemap.put(\"name\", \"name \" + i); " + i);
+				add(map);
+			}
+		}
+	};
 	public TheTest(){
 		
 	}
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
-	public String adada(String id,String url){
+	public List<Map<String, String>> adada(String id){
 		
-		return MD5Coding.coding("username", "password", 765124356894L);
+		return list.stream().filter(var->var.get("uid").equals(id)).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = test + "add", method = RequestMethod.GET)

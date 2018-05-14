@@ -7,11 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import moe.neptunenoire.mysql.dao.MaiKissReo;
+import moe.neptunenoire.util.StringCheck;
 
 /**
  * 新番表
  */
-public class BangumiList {
+public class BangumiList extends StringCheck {
 
     @Autowired
     private MaiKissReo maiReo;

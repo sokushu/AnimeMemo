@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.InfoData;
 import moe.neptunenoire.mysql.dao.MySQL;
-import moe.neptunenoire.util.StringCheck;
+import moe.neptunenoire.phantom.bangumi.BangumiList;
 
 /**
  * 显示TAG，文章，小记事。
@@ -23,7 +23,7 @@ import moe.neptunenoire.util.StringCheck;
  */
 @Controller
 @EnableAutoConfiguration
-public class Bangumi extends StringCheck{
+public class Bangumi extends BangumiList{
 	
 	/**
 	 * URL路由

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import org.springframework.ui.Model;
 import moe.InfoData;
 import moe.MainRun;
 import moe.neptunenoire.IndexServer;
+import moe.neptunenoire.mysql.bean.Anime;
 import moe.neptunenoire.mysql.bean.Users;
 import moe.neptunenoire.mysql.dao.MaiKissReo;
 import moe.neptunenoire.mysql.dao.MySQL;
@@ -219,6 +223,9 @@ public class Index extends StringCheck {
             put(403, "未知原因，登陆失败");
         }
     };
+    /**
+     * 相应的代码，返回相应的错误信息
+     */
     protected String getCodeinfo(int code){
         return codeInfo.get(code);
     }
@@ -229,6 +236,9 @@ public class Index extends StringCheck {
             put(403, "redirect:" + IndexServer.sign_in);
         }
     };
+    /**
+     * 相应的代码，返回相应的页面
+     */
     protected String code(int code, HttpSession session){
         if (code != 200) {
             return codeurl.get(code);
@@ -349,5 +359,65 @@ public class Index extends StringCheck {
      * 文件上传 结束
      * ==============================================================
      */
-    
+    /**
+     * ==============================================================
+     * 添加番组数据
+     * ==============================================================
+     */
+    protected String addbangumiPostImpl(Anime anime){
+        return "";
+    }
+    /**
+     * ==============================================================
+     * 添加番组数据 结束
+     * ==============================================================
+     */
+    /**
+     * ==============================================================
+     * 搜索
+     * ==============================================================
+     */
+    protected String searchImpl(String w, Model model, String page) {
+		/**搜索各种信息，动画，用户等 */
+        int Page = StringToNum(page);
+
+        PageHelper.startPage(Page, 9);
+		/**对动画进行搜索 */
+		List<Map<String, Object>>search = mysql.Anime_SearchAnime(w);
+		if (search.size() == 0) {
+			/**如果没有搜索结果的情况 */
+			model.addAttribute("ishas", "false");
+			/**还需要对HTML文件进行进一步的加工 */
+		}else{
+			/**如果有搜索结果的话 */
+			/**对返回的结果进行分页（使用了一个分页插件） */
+			PageInfo<Map<String, Object>> pageinfo = new PageInfo<>(search);
+			/**用来指示是否有搜索结果 */
+			model.addAttribute("ishas", "true");
+			model.addAttribute("title", w);
+			model.addAttribute("list", search);
+			
+			//分页信息
+			//得到第一页
+			model.addAttribute("pagefirst", 1);
+			//上一页
+			model.addAttribute("pageone", pageinfo.getPrePage());
+			//当前页
+			model.addAttribute("pagenow", pageinfo.getPageNum());
+			//下一页
+			model.addAttribute("pagetwo", pageinfo.getNextPage());
+			//最后一页
+			model.addAttribute("pagelast", pageinfo.getNavigateLastPage());
+			model.addAttribute("kazu", pageinfo.getTotal());
+			model.addAttribute("isnext", pageinfo.isHasNextPage());
+			model.addAttribute("ispre", pageinfo.isHasPreviousPage());
+        }
+        
+		return "search";
+    }
+    /**
+     * ==============================================================
+     * 搜索 结束
+     * ==============================================================
+     */
 }

@@ -1,17 +1,9 @@
 package moe.neptunenoire;
 
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -21,13 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import moe.InfoData;
 import moe.neptunenoire.mysql.bean.Anime;
 import moe.neptunenoire.mysql.bean.Users;
-import moe.neptunenoire.mysql.dao.MaiKissReo;
-import moe.neptunenoire.mysql.dao.MySQL;
 import moe.neptunenoire.phantom.index.Index;
-import moe.neptunenoire.util.UserID;
 
 @Controller
 @EnableAutoConfiguration
@@ -158,7 +146,7 @@ public class IndexServer extends Index {
      * 番组，-》动画，电影小说等
      */
     @RequestMapping(value = Server + "/add", method = RequestMethod.GET)
-    public String addBangumi(){
+    public String addBangumi(Model model){
         return "add_data";
     }
     
@@ -177,7 +165,7 @@ public class IndexServer extends Index {
      */
     @RequestMapping(value = Server + "/admin", method = RequestMethod.POST)
     public String admin(String adminusername, String adminpassword, HttpSession session){
-        return adminImpl(adminusername, adminpassword, session);
+        return "adminImpl(adminusername, adminpassword, session);";
     }
     
     /** 
@@ -187,113 +175,6 @@ public class IndexServer extends Index {
     public String showAdmin(){
         return "";
     }
-    /**
-     * ==============================================================
-     * 代码实现
-     * ==============================================================
-     */
-
-    @Autowired
-    private MySQL mysql;
-    @Autowired
-    private MaiKissReo maireo;
-
-    /**
-     * ==============================================================
-     * 管理员登陆
-     * ==============================================================
-     */
-    // 闲的无聊，写一下很复杂的验证
-    private String adminImpl(String adminusername, String adminpassword, HttpSession session) {
-        // 管理员用户名
-        String user = "miru";
-        // 管理员密码
-        String pass = "guk8ne";
-        // 进行验证
-        if (user.equals(adminusername) && pass.equals(adminpassword)) {
-            try {
-                // 读取Session中的权限信息
-                String yuri = session.getAttribute(InfoData.Session_USERYURI).toString();
-                // 管理员登陆
-                if (InfoData.Yuri_yuri.equals(yuri)) {
-                    session.setAttribute(InfoData.Yuri_yuri, InfoData.OnLine);
-                }
-            } catch (Exception e) {
-                // 刁民也想尝试登陆？拦下
-                return "redirect:/";
-            }
-        }
-        return "";
-    }
-    /**
-     * ==============================================================
-     * 添加网站数据用
-     * 
-     * 添加例如动画数据，电影漫画数据，小说数据等
-     * ==============================================================
-     */
-    private String addbangumiPostImpl(Anime anime){
-        /**
-         * 电视类
-         * 动画，电影，剧场版，电视剧
-         */
-        // if ("".equals(type)) {
-            
-        
-        // }
-        /**
-         * 书报类
-         * 漫画，小说，杂志
-         */
-        // if ("condition".equals(type)) {
-            
-        // }
-        
-        maireo.Anime_AddAnime(anime);
-        return "OK";
-    }
-    /**
-     * ==============================================================
-     * 搜索
-     * ==============================================================
-     */
-    private String searchImpl(String w, Model model, String page) {
-		/**搜索各种信息，动画，用户等 */
-        int Page = StringToNum(page);
-
-        PageHelper.startPage(Page, 9);
-		/**对动画进行搜索 */
-		List<Map<String, Object>>search = mysql.Anime_SearchAnime(w);
-		if (search.size() == 0) {
-			/**如果没有搜索结果的情况 */
-			model.addAttribute("ishas", "false");
-			/**还需要对HTML文件进行进一步的加工 */
-		}else{
-			/**如果有搜索结果的话 */
-			/**对返回的结果进行分页（使用了一个分页插件） */
-			PageInfo<Map<String, Object>> pageinfo = new PageInfo<>(search);
-			/**用来指示是否有搜索结果 */
-			model.addAttribute("ishas", "true");
-			model.addAttribute("title", w);
-			model.addAttribute("list", search);
-			
-			//分页信息
-			//得到第一页
-			model.addAttribute("pagefirst", 1);
-			//上一页
-			model.addAttribute("pageone", pageinfo.getPrePage());
-			//当前页
-			model.addAttribute("pagenow", pageinfo.getPageNum());
-			//下一页
-			model.addAttribute("pagetwo", pageinfo.getNextPage());
-			//最后一页
-			model.addAttribute("pagelast", pageinfo.getNavigateLastPage());
-			model.addAttribute("kazu", pageinfo.getTotal());
-			model.addAttribute("isnext", pageinfo.isHasNextPage());
-			model.addAttribute("ispre", pageinfo.isHasPreviousPage());
-        }
-        
-		return "search";
-    }
+    
     
 }

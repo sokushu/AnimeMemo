@@ -21,20 +21,24 @@ import moe.neptunenoire.util.StringCheck;
 @Component
 public class BangumiList extends StringCheck {
 
-    @Autowired
+    /** 数据库类 */
     private MaiKissReo maiReo;
 
+    /** 得到用户的Session */
     @Autowired
     private HttpSession session;
 
+    private String school;
+
     /** 所有的动画列表 */
-    // @Autowired
-    // AppConfig AllAnime;
+    private Stream<Map<String, Object>> AllAnime;
 
     /** 数据初始化 */
-    public BangumiList(){
+    @Autowired
+    public BangumiList(MaiKissReo maiReo){
+        this.maiReo = maiReo;
         // 得到所有的动画数据，准备进行处理
-        // AllAnime = maiReo.Anime_FindAllAnime().stream();
+        AllAnime = this.maiReo.Anime_FindAllAnime().stream();
     }
     /**
      * 处理新番表数据
@@ -50,11 +54,10 @@ public class BangumiList extends StringCheck {
 
     /** 获取一部动画 */
     public Map<String, Object> getAnime(Integer animeID, String infoType) {
-        // List<Map<String, Object>> item = AllAnime.filter(var -> 
-        //     ((Integer)(var.get("anime_id"))) == animeID
-        // ).collect(Collectors.toList());
-        // return item.size() > 0 ? item.get(0) : null;
-        return null;
+        List<Map<String, Object>> item = AllAnime.filter(var -> 
+            ((Integer)(var.get("anime_id"))) == animeID
+        ).collect(Collectors.toList());
+        return item.size() > 0 ? item.get(0) : null;
     }
     
 }

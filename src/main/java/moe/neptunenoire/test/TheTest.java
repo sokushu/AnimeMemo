@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import moe.neptunenoire.mysql.dao.MaiKissReo;
 import moe.neptunenoire.util.MD5Coding;
 
 @Controller
@@ -33,8 +35,13 @@ public class TheTest {
 
 	public String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
+	public MaiKissReo session;
+
 	@Autowired
-	public HttpSession session;
+	public TheTest(MaiKissReo session){
+		this.session = session;
+		session.Anime_FindAllAnime();
+	}
 
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody

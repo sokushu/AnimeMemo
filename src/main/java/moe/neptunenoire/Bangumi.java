@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.InfoData;
+import moe.neptunenoire.mysql.dao.MaiKissReo;
 import moe.neptunenoire.mysql.dao.MySQL;
 import moe.neptunenoire.phantom.bangumi.BangumiList;
 
@@ -25,6 +26,11 @@ import moe.neptunenoire.phantom.bangumi.BangumiList;
 @EnableAutoConfiguration
 public class Bangumi extends BangumiList{
 	
+	@Autowired
+	public Bangumi(MaiKissReo maiReo){
+		super(maiReo);
+	}
+
 	/**
 	 * URL路由
 	 */

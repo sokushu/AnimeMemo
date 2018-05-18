@@ -1,4 +1,4 @@
-package moe;
+package moe.neptunenoire;
 
 
 import java.util.Map;

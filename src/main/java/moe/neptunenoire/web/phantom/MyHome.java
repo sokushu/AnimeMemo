@@ -2,11 +2,13 @@ package moe.neptunenoire.web.phantom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.lucene.queryparser.flexible.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import moe.neptunenoire.InfoData;
@@ -14,7 +16,7 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 
 /**
  * 我的个人主页
- * 
+ *
  */
 public class MyHome {
 
@@ -27,10 +29,7 @@ public class MyHome {
     private MaiKissReo maiReo;
 
     /** 用户缓存 */
-    private static Map<String, Map<String, Object>> map = new HashMap<>();
-    
-    /** 用户缓存 */
-    private static List<String> list = new ArrayList<>();
+    final private static Map<String, Map<String, Object>> userMap = new LinkedHashMap<>();
 
     /**
      * 进行运行时的
@@ -40,17 +39,17 @@ public class MyHome {
 
     }
 
-    /** 
+    /**
      * 单纯访客访问
      * （包含未登录用户）
      * @param url 访问地址
      * @param type 访问的类型（id？home？）
-     * 
+     *
      * @return 返回 处理好的数据，在Controller中渲染
      */
-    public List<String> showMyHome(String url, String type){
-        
-        /** 
+    public Map<String, Object> showMyHome(String url, String type){
+
+        /**
          * 将要以何种方式打开
          * hostname/id/url
          * hostname/home/7123456789
@@ -71,11 +70,7 @@ public class MyHome {
         /** 访问的这个页面是否是自己的 False 否 True 是 */
         boolean isMe = false;
 
-        /**
-         * 用于返回数据的LIST
-         * 【0】：
-         */
-        List<String> returnList = new ArrayList<>();
+        Map<String, Object> returnMap = new HashMap<>();
         //==============================================================
         // Session检查
         try {
@@ -92,7 +87,13 @@ public class MyHome {
 
         // 如果访问的是自己的页面
         if (uurl != null && url.equals(uurl)) {
-            
+        	isMe = true;
+
+        	Map<String, Object> userinfo = getUserInfo(uurl);
+        	if (userinfo == null) {
+				sess
+			}
+        	returnMap.put("", isMe);
         }
 
         // Home的方式
@@ -107,8 +108,11 @@ public class MyHome {
                         saveUserInfo(url, userinfo);
                     }
                 }
+                returnMap = userinfo;
+                return userinfo;
             } catch (Exception e) {
                 // 出错的情况，一般是不存在
+            	return null;
             }
         }
         // id的方式
@@ -123,9 +127,10 @@ public class MyHome {
                         saveUserInfo(url, userInfo);
                     }
                 }
-                userInfo.get("key");
+                return userInfo;
             } catch (Exception e) {
                 // 出错的情况，一般是不存在
+            	return null;
             }
         }
 
@@ -141,25 +146,29 @@ public class MyHome {
     }
 
     /**
-     * 
+     *
      */
     public static void saveUserInfo(String url, Map<String, Object> map){
-        synchronized(list){
-            // 只缓存1000条数据
-            for (int i = list.size(); i >= 1000; i--) {
-                MyHome.map.remove(list.remove(0));
-            }
-            list.add(url);
-            MyHome.map.put(url, map);
+        synchronized(userMap){
+        	int NowData = userMap.size();
+        	if (NowData >= 1000) {
+        		List<String> list = new ArrayList<>(userMap.keySet());
+        		list = list.subList(1000, NowData);
+                // 只缓存1000条数据
+                for (String var : list) {
+					userMap.remove(var);
+				}
+			}
+            userMap.put(url, map);
         }
     }
 
     /**
-     * 
+     *
      */
     public static Map<String, Object> getUserInfo(String url){
-        synchronized(map){
-            return map.get(url);
+        synchronized(userMap){
+            return userMap.get(url);
         }
     }
 }

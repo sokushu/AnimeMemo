@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.ui.Model;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.MainRun;
@@ -50,7 +50,7 @@ public class Index extends StringCheck {
 
     /** 首页动画的缓存 */
     private List<Map<String, Object>> animeList = null;
-    /** 
+    /**
      * 判断用户是否已经登陆
      * @param session SESSION
      */
@@ -61,7 +61,7 @@ public class Index extends StringCheck {
         return false;
     }
 
-    /** 
+    /**
      * 显示首页的最新动画
      * @return 返回首页最新添加的8部动画
      */
@@ -103,7 +103,7 @@ public class Index extends StringCheck {
 
             String email_RegEx = "^[a-zA-Z_]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$";
             String username_RegEx = "^[A-Za-z][A-Za-z1-9_-]+$";
-            String url_RegEx = "";
+            String url_RegEx = "^[a-z]";
 
             Matcher emailMatcher = Pattern.compile(email_RegEx).matcher(email);
             Matcher usernameMatcher = Pattern.compile(username_RegEx).matcher(username);
@@ -134,7 +134,7 @@ public class Index extends StringCheck {
 			return isNull(sb.toString()) ? 200 : 201;
 		}
     }
-    
+
 
     /**
      * 使用Ajax进行登陆
@@ -179,10 +179,10 @@ public class Index extends StringCheck {
      */
     /**
      * ==============================================================
-     * 登陆  
+     * 登陆
      * ==============================================================
      */
-    protected int sign_inimpl(String username, String password, HttpSession session, HttpHeaders headers, Model model){ 
+    protected int sign_inimpl(String username, String password, HttpSession session, HttpHeaders headers, Model model){
         try {
             Map<String, Object> userInfo = maireo.User_FindUserByUsername(username);
             // 找到用户信息
@@ -292,7 +292,7 @@ public class Index extends StringCheck {
     * @throws ServletException
     * @throws IOException
     */
-    protected String uploadImpl(HttpServletRequest request, HttpServletResponse response, 
+    protected String uploadImpl(HttpServletRequest request, HttpServletResponse response,
             HttpHeaders headers, HttpSession session){
         String from = headers.get("Referer").toString();
         //文件保存的目录
@@ -307,19 +307,19 @@ public class Index extends StringCheck {
         if (getPath==null) {
             return "false";
         }
-        
+
         String savePath = rootpath + getPath;
-        // 如果文件存放路径不存在，则创建一个  
+        // 如果文件存放路径不存在，则创建一个
         File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {  
-            fileSaveDir.mkdirs();  
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdirs();
         }
-        
+
         try {
         for (Part part : request.getParts()) {
             String t_ext = extractFileName(part).substring(extractFileName(part).lastIndexOf(".") + 1);
             long filename = System.currentTimeMillis();
-            part.write(savePath + "img" + filename +"."+t_ext);  
+            part.write(savePath + "img" + filename +"."+t_ext);
             /*
             * 将上传的图片的路径信息保存到数据库中
             */
@@ -334,17 +334,17 @@ public class Index extends StringCheck {
         return "true";
     }
 
-    private String extractFileName(Part part) {  
-        String contentDisp = part.getHeader("content-disposition");  
-        String[] items = contentDisp.split(";");  
-        for (String s : items) {  
-            if (s.trim().startsWith("filename")) {  
-                return s.substring(s.indexOf("=") + 2, s.length()-1);  
-            }  
-        }  
-        return "";  
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
-    
+
     /**
      * 判断是从那里来的请求
      * @param from
@@ -383,6 +383,10 @@ public class Index extends StringCheck {
      * ==============================================================
      */
     protected String addbangumiPostImpl(Anime anime){
+    	/**
+    	 * 对数据进行检查
+    	 */
+    	String animeName = anime.getAnime_name();
         return "";
     }
     /**
@@ -414,7 +418,7 @@ public class Index extends StringCheck {
 			model.addAttribute("ishas", "true");
 			model.addAttribute("title", w);
 			model.addAttribute("list", search);
-			
+
 			//分页信息
 			//得到第一页
 			model.addAttribute("pagefirst", 1);
@@ -430,7 +434,7 @@ public class Index extends StringCheck {
 			model.addAttribute("isnext", pageinfo.isHasNextPage());
 			model.addAttribute("ispre", pageinfo.isHasPreviousPage());
         }
-        
+
 		return "search";
     }
     /**

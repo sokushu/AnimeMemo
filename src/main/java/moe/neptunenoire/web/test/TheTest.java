@@ -1,8 +1,8 @@
 package moe.neptunenoire.web.test;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -23,10 +23,14 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
 	public String adada(String id){
-		List<String> a = new ArrayList<>();
+		String a = "a a a a a cc";
+		int bbb = 0;
 
-		a.add("e");
-		return a.get(2);
-		
+		Matcher matcher = Pattern.compile("a").matcher(a);
+		while (matcher.find()) {
+			a = a.replaceAll("a", "b");
+			bbb ++;
+		}
+		return a+ " ===" +bbb;
 	}
 }

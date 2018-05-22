@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.lucene.queryparser.flexible.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import moe.neptunenoire.InfoData;
@@ -91,7 +90,7 @@ public class MyHome {
 
         	Map<String, Object> userinfo = getUserInfo(uurl);
         	if (userinfo == null) {
-				sess
+//				sess
 			}
         	returnMap.put("", isMe);
         }

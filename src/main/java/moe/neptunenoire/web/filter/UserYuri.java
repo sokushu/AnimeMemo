@@ -19,6 +19,9 @@ public class UserYuri implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
+		System.out.println("HELLO");
+
 		// 得到Session
 		HttpSession session = request.getSession();
 		if (session != null) {
@@ -28,7 +31,7 @@ public class UserYuri implements HandlerInterceptor {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 //>>>>>>>>>>请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）
@@ -37,7 +40,7 @@ public class UserYuri implements HandlerInterceptor {
 			ModelAndView modelAndView) throws Exception {
 		// 如果Model不是空的话
 		if (modelAndView != null) {
-			
+
 
 
 		}
@@ -46,8 +49,8 @@ public class UserYuri implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		
+
 	}
 
-    
+
 }

@@ -1,5 +1,6 @@
 package moe.neptunenoire.web.util;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -7,8 +8,12 @@ import java.util.Map;
  * 对用户输入数据进行检查，防止进行攻击
  */
 public class StringCheck {
-    
-    /** 判断是否是数字 */
+
+    /**
+     * 判断是否是数字
+     * @param num
+     * @return
+     */
     public boolean isNumber(String num){
         try {
             @SuppressWarnings("unused")
@@ -18,28 +23,49 @@ public class StringCheck {
             return false;
         }
     }
-    /** 字符串转数字 */
-    public int StringToNum(String num){
-        if (isNull(num) == false) {
-            try {
-                Integer a = new Integer(num);
-                return a;
-            } catch (Exception e) {
-                return 0;
-            }
-        }
-        return 0;
-    }
+
+    /**
+     *
+     * @param num
+     * @return
+     */
     public String NumToString(int num){
         return String.valueOf(num);
     }
+
+    /**
+     *
+     * @param num
+     * @return
+     */
     public String booleanToString(boolean num){
         return String.valueOf(num);
     }
+
+    /**
+     *
+     * @param num
+     * @return
+     */
     public String doubleToString(double num){
         return String.valueOf(num);
     }
-    /** 
+
+    /**
+     * 字符串转数字
+     * @param num
+     * @return
+     */
+    public int StringToNum(String str) {
+    	try {
+    		return new Integer(str).intValue();
+		} catch (Exception e) {
+			return 0;
+		}
+
+    }
+
+    /**
      * 检查是否有非法字符
      * 如果有的话，返回true
      */
@@ -52,42 +78,77 @@ public class StringCheck {
         }
         return false;
     }
+
     /**
      * 检查字符串是否为空
+     * <pre>
+     * str = ""; 	//true
+     * str = " "; 	//false
+     * str = null;	//true
+     * </pre>
      */
-    public static boolean isNull(String str){
+    public boolean isNull(String str){
         if (str == null) {
             return true;
         }else{
             return (str.trim()).length() > 0 ? false : true;
         }
     }
-    public static boolean isNull(List<?> list){
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+    public boolean isNull(List<?> list){
         if (list == null) {
             return true;
         }else{
             return list.size() > 0 ? false : true;
         }
     }
-    public static boolean isNull(Map<?,?> map){
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    public boolean isNull(Map<?,?> map){
         if (map == null) {
             return true;
         }else{
             return map.size() > 0 ? false : true;
         }
     }
-    public static boolean isNull(Long long1){
-        if (long1 == null) {
-            return true;
-        }else{
-            return false; 
-        }
+
+    /**
+     *
+     * @param long1
+     * @return
+     */
+    public boolean isNull(Long long1){
+        return long1 == null ? true : false;
     }
-    public static boolean isNull(Integer inte){
+
+    /**
+     *
+     * @param inte
+     * @return
+     */
+    public boolean isNull(Integer inte){
         if (inte == null) {
             return true;
         }else{
             return false;
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    public String getNowTime() {
+    	return LocalDateTime.now().toString();
+    }
+
 }

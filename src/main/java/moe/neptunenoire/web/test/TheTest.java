@@ -33,4 +33,9 @@ public class TheTest {
 		}
 		return a+ " ===" +bbb;
 	}
+
+	@RequestMapping(value = "/exit", method = RequestMethod.GET)
+	public void exit() {
+		System.exit(0);
+	}
 }

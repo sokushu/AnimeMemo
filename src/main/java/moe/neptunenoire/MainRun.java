@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import moe.neptunenoire.web.ThreadRun;
+
 /**
  * 运行类
  * 配置
@@ -38,6 +40,11 @@ public class MainRun {
 	 * Main方法
 	 */
 	public static void main(String[] args) {
+
+		ThreadRun back = new ThreadRun();
+		Thread backThread = new Thread(back, "backThread - 1");
+		backThread.start();
+
 		SpringApplication.run(MainRun.class, args);
 	}
 }

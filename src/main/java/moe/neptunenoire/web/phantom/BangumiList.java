@@ -8,8 +8,6 @@ import java.util.stream.Stream;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import moe.neptunenoire.web.mysql.MaiKissReo;
@@ -43,7 +41,7 @@ public class BangumiList extends StringCheck {
     }
     /**
      * 处理新番表数据
-     * 
+     *
      * 新番表就是将所有的新番集合起来，
      * 进度，各种信息的集中管理
      * @return 返回的是处理好的新番表数据
@@ -55,10 +53,10 @@ public class BangumiList extends StringCheck {
 
     /** 获取一部动画 */
     public Map<String, Object> getAnime(Integer animeID, String infoType) {
-        List<Map<String, Object>> item = AllAnime.filter(var -> 
+        List<Map<String, Object>> item = AllAnime.filter(var ->
             ((Integer)(var.get("anime_id"))) == animeID
         ).collect(Collectors.toList());
         return item.size() > 0 ? item.get(0) : null;
     }
-    
+
 }

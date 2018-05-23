@@ -44,13 +44,14 @@ public class FileReadAndLoad {
      * 需要输入要操作文件的路径
      */
     public FileReadAndLoad(String Path){
-        if (Path == null) {
+    	String newPath = PathCHK(Path);
+        if (newPath == null) {
             this.file = new File(MainRun.filePath1);
             if (this.file.exists()) {
     			this.file.mkdirs();
     		}
         }
-        File file = new File(Path);
+        File file = new File(newPath);
         //判断是否存在文件夹
         if (file.exists() == false) {
             file.mkdirs();
@@ -66,12 +67,11 @@ public class FileReadAndLoad {
     private String PathCHK(String FilePath) {
     	if (FilePath == null) {
 			return null;
-		}else if (FilePath.endsWith(File.pathSeparator)) {
-
-		}{
-
+		}else if (FilePath.endsWith(File.separator)) {
+			return FilePath;
+		}else {
+			return FilePath + File.separator;
 		}
-    	return null;
     }
 
     /**
@@ -228,8 +228,24 @@ public class FileReadAndLoad {
     	return null;
     }
 
-    public void WriteProperties() {
+    /**
+     *
+     * @param FileName
+     * @param text
+     * @throws IOException
+     */
+    public void WriteProperties(String FileName, Map<String, String> text) throws IOException {
     	prop = new Properties();
+    	try {
+            FileOutputStream fos = new FileOutputStream("file", true);
+            for (String var : text.keySet()) {
+            	prop.setProperty(var, text.get(var));
+			}
+            prop.store(fos, "The New properties file");
+            fos.close();
+		} catch (IOException e) {
+            throw e;
+        }
     }
 
 }

@@ -77,9 +77,10 @@ public class FileReadAndLoad {
     /**
      * 读取图片，视频，音频等其他内容
      * @param FileName
+     * @return
      */
-    public void ReadFileRich(String FileName){
-
+    public byte[] ReadToByte(String FileName){
+    	return null;
     }
 
 

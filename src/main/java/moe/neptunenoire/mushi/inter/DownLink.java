@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.inter;
+package moe.neptunenoire.mushi.inter;
 
 /**
  * 任务分配器接口

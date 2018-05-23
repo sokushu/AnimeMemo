@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.cotllor;
+package moe.neptunenoire.mushi.cotllor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -6,9 +6,9 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import moe.neptunenoire.mushi.maikissreo.down.Download;
-import moe.neptunenoire.mushi.maikissreo.html.Html;
-import moe.neptunenoire.mushi.maikissreo.inter.Htmls;
+import moe.neptunenoire.mushi.down.Download;
+import moe.neptunenoire.mushi.html.Html;
+import moe.neptunenoire.mushi.inter.Htmls;
 
 /**
  * 控制器，
@@ -22,12 +22,12 @@ public final class Controller {
     private String startUrl = null;
     /** 是否启用多线程 */
     private boolean thread = true;
-    /** 
+    /**
      * 最大限制下载进程数
      * 针对某些网站的策略，例如不能同时下载超过4个图片的网站
      */
     private int threadNum = 4;
-    /** 
+    /**
      * 设置连接解析，下载的限制数目，到这个数目则会停止运行
      * 例如100个下载链接，如果设置90则会下载其中的90个数据
      * 如果设为0则为无限制
@@ -39,7 +39,7 @@ public final class Controller {
     private String fileName = null;
     /** 下载文件目录中如果有同名文件是否覆盖 */
     private boolean isCover = false;
-    /** 
+    /**
      * 使用自定义的规则
      * 如果设置自定义规则的Html解析器，则会使用
      */
@@ -50,7 +50,7 @@ public final class Controller {
      *  不启用则会将匹配的数据写入文本文件
      */
     private boolean isDownLoad = true;
-    /** 
+    /**
      * 是否将信息保存进MySQL数据库
      * 适合字段，文本的保存
      */
@@ -66,7 +66,7 @@ public final class Controller {
     public void Run(){
         if (thread) {
             ExecutorService threadPool = Executors.newCachedThreadPool();
-        
+
             Download down = new Download(savePath, fileName, isCover);
             DownLinkKubaru downLinkKubaru = new DownLinkKubaru();
             /** 开始解析 */
@@ -83,7 +83,7 @@ public final class Controller {
                 });
             }
             if (isDownLoad) {
-                /** 
+                /**
                  * 循环等待解析连接
                  * 如果分配器中没有任何数据，就一直等待直到有数据
                  */
@@ -111,7 +111,7 @@ public final class Controller {
             Download down = new Download(savePath, fileName, isCover);
             /** 初始化分配器 */
             DownLinkKubaru downLinkKubaru = new DownLinkKubaru();
-            /** 
+            /**
              * 判断是否设置自定义html解析器
              * 来决定初始化Html解析器的方式
              */

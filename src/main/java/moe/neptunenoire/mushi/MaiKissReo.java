@@ -1,6 +1,6 @@
 package moe.neptunenoire.mushi;
 
-import moe.neptunenoire.mushi.maikissreo.cotllor.Controller;
+import moe.neptunenoire.mushi.cotllor.Controller;
 
 /**
  * MaiKissReo

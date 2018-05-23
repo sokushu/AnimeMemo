@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.down;
+package moe.neptunenoire.mushi.down;
 
 /**
  * 文件的下载

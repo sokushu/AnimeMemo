@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.html;
+package moe.neptunenoire.mushi.html;
 
 import java.io.IOException;
 
@@ -6,9 +6,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import moe.neptunenoire.mushi.utils;
-import moe.neptunenoire.mushi.maikissreo.inter.DownLink;
-import moe.neptunenoire.mushi.maikissreo.inter.HtmlLinkFinder;
-import moe.neptunenoire.mushi.maikissreo.inter.Htmls;
+import moe.neptunenoire.mushi.inter.DownLink;
+import moe.neptunenoire.mushi.inter.HtmlLinkFinder;
+import moe.neptunenoire.mushi.inter.Htmls;
 
 
 /**

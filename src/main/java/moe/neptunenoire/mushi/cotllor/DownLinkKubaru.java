@@ -1,9 +1,9 @@
-package moe.neptunenoire.mushi.maikissreo.cotllor;
+package moe.neptunenoire.mushi.cotllor;
 
 import java.util.LinkedList;
 
 import moe.neptunenoire.mushi.utils;
-import moe.neptunenoire.mushi.maikissreo.inter.DownLink;
+import moe.neptunenoire.mushi.inter.DownLink;
 
 /**
  * 任务分配器

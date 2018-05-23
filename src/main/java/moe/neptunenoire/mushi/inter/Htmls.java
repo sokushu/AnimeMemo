@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.inter;
+package moe.neptunenoire.mushi.inter;
 
 /**
  * 实现这个接口，即可自定义解析规则

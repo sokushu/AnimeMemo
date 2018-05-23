@@ -18,10 +18,21 @@ public class UserID {
     public static final int StringType = 0;
     public static final int LongType = 1;
 
+    /**
+     *
+     * @param username
+     */
     public UserID(String username){
         this.username = username;
         this.UserID = GetCode();
     }
+
+    /**
+     *
+     * @param userid
+     * @param type
+     * @throws Exception
+     */
     public UserID(Object userid, int type) throws Exception{
         if (type == StringType) {
             try {
@@ -44,6 +55,7 @@ public class UserID {
             }
         }
     }
+
     /**
      * 生成UserID結果
      */
@@ -82,22 +94,36 @@ public class UserID {
         return new Long(userid);
     }
 
+    /**
+     *
+     */
     @Override
     public String toString() {
         return UserIDStr;
     }
+
+    /**
+     *
+     * @return
+     */
     public long GetlongCode(){
         return UserID;
     }
+
+    /**
+     *
+     * @return
+     */
     public int GetHashCode(){
         return hashcode;
     }
+
     /**
      * 返回一個集合，包含解析結果
      */
     public Map<String, Object> UnCode(){
         Map<String, Object>code = new HashMap<>();
-        
+
         String b = UserIDStr.substring(3, 5);
         if (b.substring(0, 1).equals("0")) {
             b = b.substring(1);

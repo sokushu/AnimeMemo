@@ -11,8 +11,11 @@ public class MD5Coding {
 
     /**
      * 对密码进行加密
+     * @param username
+     * @param password
+     * @param uid
+     * @return
      */
-
     public static String coding(String username, String password, long uid){
 
         try {
@@ -28,7 +31,7 @@ public class MD5Coding {
             e.printStackTrace();
             return null;
 		}
-        
+
     }
-    
+
 }

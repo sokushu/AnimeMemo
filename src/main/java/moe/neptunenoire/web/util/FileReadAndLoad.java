@@ -232,4 +232,29 @@ public class FileReadAndLoad {
         }
     }
 
+    /**
+     *
+     * @param FileName
+     * @param html
+     */
+    public void HtmlWrite(String FileName, String html) {
+    	html = html.replaceAll("", "");
+    }
+
+    /**
+     *
+     * @param FileName
+     * @return
+     */
+    public String HtmlReader(String FileName) {
+    	return null;
+    }
+
+    public void ReadXML(String FileName) {
+
+    }
+
+    public void WriteXML() {
+
+    }
 }

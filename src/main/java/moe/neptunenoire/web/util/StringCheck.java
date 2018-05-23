@@ -88,11 +88,7 @@ public class StringCheck {
      * </pre>
      */
     public boolean isNull(String str){
-        if (str == null) {
-            return true;
-        }else{
-            return (str.trim()).length() > 0 ? false : true;
-        }
+        return str == null ? true : (str.trim()).length() > 0 ? false : true;
     }
 
     /**
@@ -101,11 +97,7 @@ public class StringCheck {
      * @return
      */
     public boolean isNull(List<?> list){
-        if (list == null) {
-            return true;
-        }else{
-            return list.size() > 0 ? false : true;
-        }
+        return list == null ? true : list.size() > 0 ? false : true;
     }
 
     /**
@@ -114,11 +106,7 @@ public class StringCheck {
      * @return
      */
     public boolean isNull(Map<?,?> map){
-        if (map == null) {
-            return true;
-        }else{
-            return map.size() > 0 ? false : true;
-        }
+        return map == null ? true : map.size() > 0 ? false : true;
     }
 
     /**
@@ -131,20 +119,16 @@ public class StringCheck {
     }
 
     /**
-     *
+     * 检查时候是Null
      * @param inte
      * @return
      */
     public boolean isNull(Integer inte){
-        if (inte == null) {
-            return true;
-        }else{
-            return false;
-        }
+        return inte == null ? true : false;
     }
 
     /**
-     *
+     * 获得当前时间
      * @return
      */
     public String getNowTime() {

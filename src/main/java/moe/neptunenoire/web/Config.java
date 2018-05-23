@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+/**
+ * 配置设置类
+ */
 @Component
 public class Config {
 	@Configuration

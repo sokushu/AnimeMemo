@@ -41,10 +41,12 @@ public class MainRun {
 	 */
 	public static void main(String[] args) {
 
+		/** 在后方运行的背景线程 */
 		ThreadRun back = new ThreadRun();
 		Thread backThread = new Thread(back, "backThread - 1");
 		backThread.start();
 
+		/** 启动Spring boot */
 		SpringApplication.run(MainRun.class, args);
 	}
 }

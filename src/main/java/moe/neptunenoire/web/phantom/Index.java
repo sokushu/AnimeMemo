@@ -39,13 +39,13 @@ import moe.neptunenoire.web.util.UserID;
 public class Index extends StringCheck {
 
     // 数据库操作
-    @Autowired
+	@Autowired
     private MySQL mysql;
 
     /**
      * 数据库的相关操作
      */
-    @Autowired
+	@Autowired
     private MaiKissReo maireo;
 
     /** 首页动画的缓存 */

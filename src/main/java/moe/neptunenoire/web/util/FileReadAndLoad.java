@@ -1,5 +1,6 @@
 package moe.neptunenoire.web.util;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,10 +8,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,6 +34,9 @@ public class FileReadAndLoad {
      */
     public FileReadAndLoad(){
         this.file = new File(MainRun.filePath1);
+        if (this.file.exists()) {
+			this.file.mkdirs();
+		}
     }
 
     /**
@@ -38,13 +46,32 @@ public class FileReadAndLoad {
     public FileReadAndLoad(String Path){
         if (Path == null) {
             this.file = new File(MainRun.filePath1);
+            if (this.file.exists()) {
+    			this.file.mkdirs();
+    		}
         }
         File file = new File(Path);
         //判断是否存在文件夹
         if (file.exists() == false) {
-            file.mkdir();
+            file.mkdirs();
         }
         this.file = file;
+    }
+
+    /**
+     *
+     * @param FilePath
+     * @return
+     */
+    private String PathCHK(String FilePath) {
+    	if (FilePath == null) {
+			return null;
+		}else if (FilePath.endsWith(File.pathSeparator)) {
+
+		}{
+
+		}
+    	return null;
     }
 
     /**
@@ -171,5 +198,38 @@ public class FileReadAndLoad {
     	return str == null ? false : str.length() >= 3 ? true : false;
     }
 
+    /**
+     *
+     */
+    Properties prop = null;
+
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
+    public Map<String, String> ReadProperties(String FileName) throws IOException{
+    	prop = new Properties();
+    	Map<String, String> map = new HashMap<>();
+    	String key = null;
+
+    	/**对文件进行读取 */
+    	try (InputStream in = new BufferedInputStream(new FileInputStream(this.file.getPath() + FileName))){
+            prop.load(in);
+
+            Iterator<String> it = prop.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+            	key = it.next();
+                map.put(key, prop.getProperty(key));
+            }
+        } catch (IOException e) {
+        	throw e;
+        }
+    	return null;
+    }
+
+    public void WriteProperties() {
+    	prop = new Properties();
+    }
 
 }

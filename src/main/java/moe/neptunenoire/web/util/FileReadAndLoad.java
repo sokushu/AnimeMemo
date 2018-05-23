@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +31,7 @@ public class FileReadAndLoad {
         this.file = new File(MainRun.filePath1);
     }
 
-    /** 
+    /**
      * 使用自定义的路径
      * 需要输入要操作文件的路径
      */
@@ -46,9 +47,28 @@ public class FileReadAndLoad {
         this.file = file;
     }
 
-    /** 读取图片，视频，音频等其他内容 */
-    public void ReadFileRich(String Path, String FileName){
-        
+    /**
+     *
+     * @param Path
+     */
+    public void changePath(String Path) {
+    	file = new File(Path);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getPath() {
+    	return file.getPath();
+    }
+
+    /**
+     * 读取图片，视频，音频等其他内容
+     * @param FileName
+     */
+    public void ReadFileRich(String FileName){
+
     }
 
 
@@ -60,13 +80,12 @@ public class FileReadAndLoad {
      */
     public List<String> ReadTextByLine(String FileName) throws IOException{
         File readFile = new File(file.getPath() + FileName);
-        if (!readFile.exists()) {
+        if (!readFile.isFile()) {
             throw new FileNotFoundException("未找到文件" + file.getPath() + FileName);
         }
         try (BufferedReader buffedread = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "UTF-8"))){
             return buffedread.lines().collect(Collectors.toList());
         } catch (Exception e) {
-            e.printStackTrace();
             throw e;
         }
     }
@@ -75,7 +94,7 @@ public class FileReadAndLoad {
      * 将文本写入文件当中
      * @throws Exception
      */
-    public void writeText(String FileName, String[] text) throws Exception {
+    public void WriteText(String FileName, String[] text) throws Exception {
         WriteText(FileName, Stream.of(text).collect(Collectors.toList()));
     }
 
@@ -85,15 +104,72 @@ public class FileReadAndLoad {
     public void WriteText(String FileName, List<String> text) throws Exception{
         File writeFile = new File(file.getPath() + FileName);
         if (!writeFile.exists()) {
-            writeFile.mkdirs();
+            writeFile.createNewFile();
         }
         try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFile), "UTF-8"))){
             bufferedWriter.write(
                 String.join(System.lineSeparator(), text)
             );
         } catch (Exception e) {
-            e.printStackTrace();
             throw e;
         }
     }
+
+    /**
+     *
+     * @param FileName
+     * @param split
+     * @return
+     * @throws Exception
+     */
+    public Map<String, String> ReadTextAndSplit(String FileName, String split) throws Exception {
+    	File readFile = new File(file.getPath() + FileName);
+    	if (!readFile.isFile()) {
+			throw new FileNotFoundException("未找到文件" + file.getPath() + FileName);
+		}
+    	try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "UTF-8"))){
+			return br.lines().filter(var->filterEMP(var)).map(var->var.split(split)).collect(Collectors.toMap(var->var[0], var->var[1]));
+		} catch (Exception e) {
+			throw e;
+		}
+    }
+
+    /**
+     *
+     * @param FileName
+     * @param text
+     * @throws IOException
+     */
+    public void WriteTextForMap(String FileName, Map<String, String> text) throws IOException {
+    	File writeFile = new File(file.getPath() + FileName);
+        if (!writeFile.exists()) {
+            writeFile.createNewFile();
+        }
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeFile), "UTF-8"))){
+            for (String var : text.keySet()) {
+				bufferedWriter.write(var+"="+text.get(var)+System.lineSeparator());
+			}
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public File[] listFiles() {
+    	return file.listFiles();
+    }
+
+    /**
+     *
+     * @param str
+     * @return
+     */
+    private boolean filterEMP(String str) {
+    	return str == null ? false : str.length() >= 3 ? true : false;
+    }
+
+
 }

@@ -52,11 +52,11 @@ public class InfoData {
     /**
      * 权限状态
      */
-    public static final String OnLine = "online"; // 相当于True 
-    public static final String offLine = "offline"; // False
+    public static final boolean OnLine = true; // 相当于True
+    public static final boolean offLine = false; // False
 
 
-    /** 
+    /**
      * 拦截器网址保存
      */
     /** 未登录禁止进入 */
@@ -77,13 +77,13 @@ public class InfoData {
                 // 如果有，则返回True，没有则返回False
                 return yuriList.contains(link);
             }else{
-                
+
             }
             return false;
         }
     }
 
-    /** 
+    /**
      * 是否属于需要登陆的网址
      * @param link 网址
      */

@@ -44,34 +44,18 @@ public class FileReadAndLoad {
      * 需要输入要操作文件的路径
      */
     public FileReadAndLoad(String Path){
-    	String newPath = PathCHK(Path);
-        if (newPath == null) {
+        if (Path == null) {
             this.file = new File(MainRun.filePath1);
             if (this.file.exists()) {
     			this.file.mkdirs();
     		}
         }
-        File file = new File(newPath);
+        File file = new File(Path);
         //判断是否存在文件夹
         if (file.exists() == false) {
             file.mkdirs();
         }
         this.file = file;
-    }
-
-    /**
-     *
-     * @param FilePath
-     * @return
-     */
-    private String PathCHK(String FilePath) {
-    	if (FilePath == null) {
-			return null;
-		}else if (FilePath.endsWith(File.separator)) {
-			return FilePath;
-		}else {
-			return FilePath + File.separator;
-		}
     }
 
     /**
@@ -106,9 +90,9 @@ public class FileReadAndLoad {
      * @throws IOException
      */
     public List<String> ReadTextByLine(String FileName) throws IOException{
-        File readFile = new File(file.getPath() + FileName);
+        File readFile = new File(file.getPath() + File.separator + FileName);
         if (!readFile.isFile()) {
-            throw new FileNotFoundException("未找到文件" + file.getPath() + FileName);
+            throw new FileNotFoundException("未找到文件" + file.getPath() + File.separator + FileName);
         }
         try (BufferedReader buffedread = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "UTF-8"))){
             return buffedread.lines().collect(Collectors.toList());
@@ -129,7 +113,7 @@ public class FileReadAndLoad {
      * 将文本写入文件当中
      */
     public void WriteText(String FileName, List<String> text) throws Exception{
-        File writeFile = new File(file.getPath() + FileName);
+        File writeFile = new File(file.getPath() + File.separator + FileName);
         if (!writeFile.exists()) {
             writeFile.createNewFile();
         }
@@ -150,9 +134,9 @@ public class FileReadAndLoad {
      * @throws Exception
      */
     public Map<String, String> ReadTextAndSplit(String FileName, String split) throws Exception {
-    	File readFile = new File(file.getPath() + FileName);
+    	File readFile = new File(file.getPath() + File.separator + FileName);
     	if (!readFile.isFile()) {
-			throw new FileNotFoundException("未找到文件" + file.getPath() + FileName);
+			throw new FileNotFoundException("未找到文件" + file.getPath() + File.separator + FileName);
 		}
     	try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "UTF-8"))){
 			return br.lines().filter(var->filterEMP(var)).map(var->var.split(split)).collect(Collectors.toMap(var->var[0], var->var[1]));
@@ -168,7 +152,7 @@ public class FileReadAndLoad {
      * @throws IOException
      */
     public void WriteTextForMap(String FileName, Map<String, String> text) throws IOException {
-    	File writeFile = new File(file.getPath() + FileName);
+    	File writeFile = new File(file.getPath() + File.separator + FileName);
         if (!writeFile.exists()) {
             writeFile.createNewFile();
         }
@@ -214,7 +198,7 @@ public class FileReadAndLoad {
     	String key = null;
 
     	/**对文件进行读取 */
-    	try (InputStream in = new BufferedInputStream(new FileInputStream(this.file.getPath() + FileName))){
+    	try (InputStream in = new BufferedInputStream(new FileInputStream(this.file.getPath() + File.separator +  FileName))){
             prop.load(in);
 
             Iterator<String> it = prop.stringPropertyNames().iterator();
@@ -222,10 +206,10 @@ public class FileReadAndLoad {
             	key = it.next();
                 map.put(key, prop.getProperty(key));
             }
+            return map;
         } catch (IOException e) {
         	throw e;
         }
-    	return null;
     }
 
     /**

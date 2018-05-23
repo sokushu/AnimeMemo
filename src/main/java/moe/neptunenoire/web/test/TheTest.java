@@ -1,14 +1,16 @@
 package moe.neptunenoire.web.test;
 
+import java.io.IOException;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import moe.neptunenoire.web.util.FileReadAndLoad;
 
 
 @Controller
@@ -23,15 +25,14 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
 	public String adada(String id){
-		String a = "a a a a a cc";
-		int bbb = 0;
-
-		Matcher matcher = Pattern.compile("a").matcher(a);
-		while (matcher.find()) {
-			a = a.replaceAll("a", "b");
-			bbb ++;
+		FileReadAndLoad fileutil = new FileReadAndLoad("E:\\WorkFileSet\\partner\\codeSet\\Code\\JPIppanJouhou-InterBatch\\appl-sde-menkyo\\src\\main\\resources\\");
+		try {
+			Map<String, String> map = fileutil.ReadProperties("query.properties");
+			return map.get(id);
+		} catch (IOException e) {
+			return "no";
 		}
-		return a+ " ===" +bbb;
+
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

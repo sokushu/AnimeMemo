@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo.start;
+package moe.neptunenoire.mushi;
 
 import moe.neptunenoire.mushi.maikissreo.cotllor.Controller;
 

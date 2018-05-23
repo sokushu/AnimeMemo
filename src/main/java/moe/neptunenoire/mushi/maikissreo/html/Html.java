@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import moe.neptunenoire.mushi.maikissreo.utils;
+import moe.neptunenoire.mushi.utils;
 import moe.neptunenoire.mushi.maikissreo.inter.DownLink;
 import moe.neptunenoire.mushi.maikissreo.inter.HtmlLinkFinder;
 import moe.neptunenoire.mushi.maikissreo.inter.Htmls;

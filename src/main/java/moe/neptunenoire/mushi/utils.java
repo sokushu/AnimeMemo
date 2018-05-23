@@ -1,4 +1,4 @@
-package moe.neptunenoire.mushi.maikissreo;
+package moe.neptunenoire.mushi;
 
 /**
  * utils

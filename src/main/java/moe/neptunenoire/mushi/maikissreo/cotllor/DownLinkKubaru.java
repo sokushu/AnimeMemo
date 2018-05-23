@@ -2,7 +2,7 @@ package moe.neptunenoire.mushi.maikissreo.cotllor;
 
 import java.util.LinkedList;
 
-import moe.neptunenoire.mushi.maikissreo.utils;
+import moe.neptunenoire.mushi.utils;
 import moe.neptunenoire.mushi.maikissreo.inter.DownLink;
 
 /**

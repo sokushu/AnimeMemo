@@ -7,4 +7,6 @@ package moe.neptunenoire.web.phantom;
  */
 public class MySystem {
 
+
+
 }

@@ -84,7 +84,15 @@ public class IndexServer extends Index {
      * 显示注册页面
      */
     @RequestMapping(value = sign_up, method = RequestMethod.GET)
-	public String signUpGet() {
+	public String signUpGet(Model model) {
+    	/**
+    	 * 登录页面渲染
+    	 */
+    	{
+    		{
+    			model.addAttribute("bb", "bbc");
+    		}
+    	}
 		return showSign_up;
     }
 

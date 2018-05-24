@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import moe.neptunenoire.web.mysql.MaiKissReo;
 
+/**
+ *
+ * @author M
+ *
+ */
 @Component
 public class DataSet {
 

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,12 +22,7 @@ public class DataSet {
 	/**
 	 * 启动时从数据读取的动画数据
 	 */
-	private static Stream<Map<String, Object>> animeData = null;
-
-	/**
-	 * 启动后新添加的动画数据
-	 */
-	private static List<Map<String, Object>> newAnimeData = new ArrayList<>();
+	private static List<Map<String, Object>> animeData = null;
 
 	/**
 	 * 保存的数据数量
@@ -51,6 +45,16 @@ public class DataSet {
 	}
 
 	/**
+	 *
+	 * @param filter
+	 * @return
+	 */
+	public static Map<String, Object> getUser(Predicate<? super Map<String, Object>> filter){
+		List<Map<String, Object>> list = usersData.stream().filter(filter).collect(Collectors.toList());
+		return list.size() > 0 ? list.get(0) : null;
+	}
+
+	/**
 	 * 得到用户数
 	 * @return
 	 */
@@ -63,7 +67,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static int getAnimeNum() {
-		return (int)animeData.count();
+		return animeData.size();
 	}
 
 	/**
@@ -72,7 +76,7 @@ public class DataSet {
 	 */
 	public static void saveAnimeData(Map<String, Object> data) {
 		synchronized (animeData) {
-			newAnimeData.add(data);
+			animeData.add(data);
 		}
 	}
 
@@ -82,7 +86,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static List<Map<String, Object>> getAnimeData(Predicate<? super Map<String, Object>> filter){
-		return animeData.filter(filter).collect(Collectors.toList());
+		return animeData.stream().filter(filter).collect(Collectors.toList());
 	}
 
 	/**
@@ -103,7 +107,7 @@ public class DataSet {
 	}
 
 	/**
-	 * 数据操作类初始化 
+	 * 数据操作类初始化
 	 * @param maiKissReo
 	 */
 	@Autowired
@@ -116,6 +120,6 @@ public class DataSet {
 	 * @param maiKissReo
 	 */
 	private void initData(MaiKissReo maiKissReo) {
-		animeData = maiKissReo.Anime_FindAllAnime().stream();
+		animeData = maiKissReo.Anime_FindAllAnime();
 	}
 }

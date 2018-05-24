@@ -1,5 +1,7 @@
 package moe.neptunenoire.web.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -52,9 +54,9 @@ public class IndexServer extends Index {
                 // 用户是否登陆 布尔类型(true false)
                 model.addAttribute("issign_in", is_SignIn(session));
                 // 首页轮播图片
-                model.addAttribute("ad", "/img/page/backpic.jpg");  
+                model.addAttribute("ad", "/img/page/backpic.jpg");
             }
-            
+
         }
         return indexFile;
     }
@@ -66,14 +68,16 @@ public class IndexServer extends Index {
      */
     @RequestMapping(value = sign_up, method = RequestMethod.POST)
     public String sign_up(Users user , Model model){
-        int code = signUpPost(user);
+        Map<String, Object> code = signUpPost(user);
         {
             {
-                model.addAttribute("haserror", code != 200 ? true:false);
-                model.addAttribute("error", signNo(code));
+                model.addAttribute("haserror", (boolean)(code.get("hasError")));
+                model.addAttribute("usernameerror", code.get("usernameerror"));
+                model.addAttribute("urlerror", code.get("urlerror"));
+                model.addAttribute("emailerror", code.get("emailerror"));
             }
         }
-        return code != 200 ? showSign_up : "redirect:" + sign_in;
+        return (boolean)(code.get("hasError")) ? showSign_up : "redirect:" + sign_in;
     }
 
     /**
@@ -99,7 +103,7 @@ public class IndexServer extends Index {
         return code(code, session);
     }
 
-    /** 
+    /**
      * 显示登陆页面
      */
     @RequestMapping(value = sign_in, method = RequestMethod.GET)
@@ -126,7 +130,7 @@ public class IndexServer extends Index {
      */
     @RequestMapping(value = fileupload, method = RequestMethod.POST)
     @ResponseBody
-    public String upload(HttpServletRequest request, HttpServletResponse response, 
+    public String upload(HttpServletRequest request, HttpServletResponse response,
     @RequestHeader HttpHeaders headers, HttpSession session){
 		return uploadImpl(request, response, headers, session);
     }
@@ -139,7 +143,7 @@ public class IndexServer extends Index {
 	public boolean Sign_inajax(String username, String password){
         return Sign_inajaxImpl(username, password);
     }
-    
+
     /**
      * 进行动画的搜索操作
      */
@@ -147,7 +151,7 @@ public class IndexServer extends Index {
 	public String Search(String w, Model model, String page){
         return searchImpl(w, model, page);
     }
-    
+
     /**
      * 显示添加数据的页面
      * 番组，-》动画，电影小说等
@@ -156,8 +160,8 @@ public class IndexServer extends Index {
     public String addBangumi(Model model){
         return "add_data";
     }
-    
-    /** 
+
+    /**
      * 添加数据
      * 番组，-》动画，电影小说等
      */
@@ -174,14 +178,14 @@ public class IndexServer extends Index {
     public String admin(String adminusername, String adminpassword, HttpSession session){
         return "adminImpl(adminusername, adminpassword, session);";
     }
-    
-    /** 
+
+    /**
      * 显示管理员登陆页面
      */
     @RequestMapping(value = Server + "/admin", method = RequestMethod.GET)
     public String showAdmin(){
         return "";
     }
-    
-    
+
+
 }

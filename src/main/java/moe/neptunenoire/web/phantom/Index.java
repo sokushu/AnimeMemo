@@ -25,6 +25,7 @@ import com.github.pagehelper.PageInfo;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.MainRun;
 import moe.neptunenoire.web.controller.IndexServer;
+import moe.neptunenoire.web.database.DataSet;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.mysql.MySQL;
 import moe.neptunenoire.web.table.Anime;
@@ -50,6 +51,13 @@ public class Index extends StringCheck {
 
     /** 首页动画的缓存 */
     private List<Map<String, Object>> animeList = null;
+
+    /**
+     * ==============================================================
+     * 首页
+     * ==============================================================
+     */
+
     /**
      * 判断用户是否已经登陆
      * @param session SESSION
@@ -72,28 +80,55 @@ public class Index extends StringCheck {
         }
         return animeList == null ? null : animeList;
     }
-
+    /**
+     * ==============================================================
+     * 首页结束
+     * ==============================================================
+     */
     /**
      * ==============================================================
      * 用户注册
      * ==============================================================
      */
-    protected int signUpPost(Users user) {
+    /**
+     *
+     * @param user
+     * @return
+     */
+    protected Map<String, Object> signUpPost(Users user) {
 
-        StringBuffer sb = new StringBuffer();
+        Map<String, Object> map = new HashMap<>();
+        boolean hasError = false;
 
 		try {
+
+			Map<String, Object> thisusername = DataSet.getUser(var->var.get("username").equals(user.getUsername()));
+
+			Map<String, Object> thisurl = DataSet.getUser(var->var.get("url").equals(user.getUrl()));
+
+			String errorUserName = null;
+			String errorUrl = null;
+
+			if (isNull(thisusername) == true) {
+				thisusername = maireo.User_FindUserByUsername(user.getUsername());
+				if (isNull(thisusername)) {
+					errorUserName = null;
+				}
+			}
+
+			if (isNull(thisurl) == true) {
+				thisurl = maireo.User_FindUserByShowByURL(user.getUrl());
+			}
+
 			//人为制造空指针
-            Map<String, Object> username = maireo.User_FindUserByUsername(user.getUsername());
-            Map<String, Object> url = maireo.User_FindUserByShowByURL(user.getUrl());
+			errorUrl = thisurl.get("url").toString();
+
+			hasError = true;
+			map.put("hasError", hasError);
+			map.put("usernameerror", errorUserName != null ? "用户名已经被占用" : null);
+			map.put("urlerror", errorUrl != null ? "url已经被占用" : null);
             //返回一个错误信息
-			if (username != null && url != null) {
-                return 100;
-            }else if (url != null) {
-                return 101;
-            }else{
-                return 102;
-            }
+            return map;
 		} catch (Exception e) {
             //我这里的想法是，使用正则表达式，对录入的数据进行检查
 
@@ -101,7 +136,7 @@ public class Index extends StringCheck {
             String username = user.getUsername();
             String url = user.getUrl();
 
-            String email_RegEx = "^[a-zA-Z_]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$";
+            String email_RegEx = "^[a-zA-Z_]+[0-9]+@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$";
             String username_RegEx = "^[A-Za-z][A-Za-z1-9_-]+$";
             String url_RegEx = "^[a-z]";
 
@@ -109,17 +144,20 @@ public class Index extends StringCheck {
             Matcher usernameMatcher = Pattern.compile(username_RegEx).matcher(username);
             Matcher urlMatcher = Pattern.compile(url_RegEx).matcher(url);
 
-            if (!emailMatcher.find()) {
-                //返回错误信息，想直接返回html代码
-                sb.append("邮箱不正确");
-            }
-            if (!usernameMatcher.find()) {
+            if (!emailMatcher.matches()) {
                 //返回错误信息
-                sb.append("用户名格式不正确");
+                map.put("emailerror", "邮箱不正确");
+                hasError = true;
             }
-            if (!urlMatcher.find()) {
+            if (!usernameMatcher.matches()) {
                 //返回错误信息
-                sb.append("url格式不正确");
+                map.put("usernameerror", "用户名格式不正确");
+                hasError = true;
+            }
+            if (!urlMatcher.matches()) {
+                //返回错误信息
+            	map.put("urlerror", "url格式不正确");
+            	hasError = true;
             }
 
             //生成UID
@@ -131,29 +169,11 @@ public class Index extends StringCheck {
             //如果全部通过，则进行注册
             maireo.User_AddUser(user);
 
-			return isNull(sb.toString()) ? 200 : 201;
+            map.put("hasError", hasError);
+			return map;
 		}
     }
 
-
-    /**
-     * 使用Ajax进行登陆
-     */
-    protected boolean Sign_inajaxImpl(String username, String password){
-        Map<String, Object>readuser = mysql.User_FindUserByUsername(username);
-		if (isNull(readuser) == false) {
-			String Mapusername = readuser.get("username").toString();
-			String Mappassword = readuser.get("password").toString();
-			if (Mapusername.equals(username) && Mappassword.equals(password)) {
-				//验证成功
-				return true;
-			}else{
-                return false;
-            }
-		}else{
-            return false;
-        }
-    }
     /**
      * 用户注册失败后的提示信息
      * @param model
@@ -181,6 +201,15 @@ public class Index extends StringCheck {
      * ==============================================================
      * 登陆
      * ==============================================================
+     */
+    /**
+     *
+     * @param username
+     * @param password
+     * @param session
+     * @param headers
+     * @param model
+     * @return
      */
     protected int sign_inimpl(String username, String password, HttpSession session, HttpHeaders headers, Model model){
         try {
@@ -226,6 +255,7 @@ public class Index extends StringCheck {
             put(403, "未知原因，登陆失败");
         }
     };
+
     /**
      * 相应的代码，返回相应的错误信息
      */
@@ -257,6 +287,25 @@ public class Index extends StringCheck {
             return "redirect:/id/" + url;
         }
         return "redirect:/";
+    }
+
+    /**
+     * 使用Ajax进行登陆
+     */
+    protected boolean Sign_inajaxImpl(String username, String password){
+        Map<String, Object>readuser = mysql.User_FindUserByUsername(username);
+		if (isNull(readuser) == false) {
+			String Mapusername = readuser.get("username").toString();
+			String Mappassword = readuser.get("password").toString();
+			if (Mapusername.equals(username) && Mappassword.equals(password)) {
+				//验证成功
+				return true;
+			}else{
+                return false;
+            }
+		}else{
+            return false;
+        }
     }
     /**
      * ==============================================================

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.InfoData;
-import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.mysql.MySQL;
 import moe.neptunenoire.web.phantom.BangumiList;
 
@@ -25,11 +24,6 @@ import moe.neptunenoire.web.phantom.BangumiList;
 @Controller
 @EnableAutoConfiguration
 public class Bangumi extends BangumiList{
-	
-	@Autowired
-	public Bangumi(MaiKissReo maiReo){
-		super(maiReo);
-	}
 
 	/**
 	 * URL路由
@@ -72,7 +66,7 @@ public class Bangumi extends BangumiList{
     public int StringToNum(String num) {
         return super.StringToNum(num);
     }
-	
+
 	/**
 	 * 查看动画数据，
 	 * 对页面进行控制。
@@ -81,11 +75,11 @@ public class Bangumi extends BangumiList{
 	 * @return
 	 */
 	private String bangumilist(String animeid, Model model, HttpSession session) {
-		
+
 		/**验证输入的是否是数字 */
 		if (StringToNum(animeid) == 0) {
 			return BangumiError;
-		} 
+		}
 		/**数据库查询动画资料 */
 		Map<String, Object> aa = mysql.Anime_FindByAnimeID(animeid);
 
@@ -171,7 +165,7 @@ public class Bangumi extends BangumiList{
 		}catch(Exception e){
 			return false;
 		}
-		
+
 	}
 
 	/**
@@ -238,7 +232,7 @@ public class Bangumi extends BangumiList{
 				return BangumiError;
 			}
 			if (isDingYueed(useruid, animeid)) {
-				
+
 				String allnumber = animeMap.get("anime_number").toString();
 				int allnumberint = StringToNum(allnumber);
 				if (allnumberint < a) {
@@ -261,7 +255,7 @@ public class Bangumi extends BangumiList{
 			/**判断动画是否已定阅（非法订阅） */
 			/**获取订阅信息 */
 			Map<String, Object>isdingyue = mysql.findIsdingyue(uid, animeid);
-			
+
 			if (isdingyue == null || isdingyue.toString().equals("")) {
 				return false;
 			}else{

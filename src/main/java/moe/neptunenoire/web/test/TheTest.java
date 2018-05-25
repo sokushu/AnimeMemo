@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.util.FileReadAndLoad;
+import moe.neptunenoire.web.util.MuDa;
 
 
 @Controller
@@ -38,5 +39,11 @@ public class TheTest {
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)
 	public void exit() {
 		System.exit(0);
+	}
+
+	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
+	@ResponseBody
+	public String muda(String w) {
+		return MuDa.charPlus(w);
 	}
 }

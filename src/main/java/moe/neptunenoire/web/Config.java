@@ -9,12 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * 配置设置类
  */
 @Component
 public class Config {
+
+	/**
+	 *
+	 * @author M
+	 *
+	 */
 	@Configuration
 	public static class MyInterceptor extends WebMvcConfigurationSupport {
 
@@ -57,5 +64,19 @@ public class Config {
 				new ErrorPage(HttpStatus.NOT_FOUND, "/error.html")
 				);
 		}
+	}
+
+	/**
+	 *
+	 * @author M
+	 *
+	 */
+	@Configuration
+	public class WebSocketConfig {
+	    @Bean
+	    public ServerEndpointExporter serverEndpointExporter() {
+	        return new ServerEndpointExporter();
+	    }
+
 	}
 }

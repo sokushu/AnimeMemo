@@ -3,8 +3,10 @@ package moe.neptunenoire.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import moe.neptunenoire.web.ThreadRun;
 
 /**
  * 这个类是用于在网页中进行系统管理的类
- * 
+ *
  * 例如主机的管理，程序的重新启动，升级，程序的微调整
  */
 @Controller
@@ -55,5 +57,22 @@ public class SystemController {
         System.exit(0);
         return "byebye";
     }
-    
+
+    /**
+     * 内部用于人机交互，将返回结果实时返回给用户
+     * @author M
+     *
+     */
+    @ServerEndpoint(value = "/systemwebsocket/")
+    public class WebSocketServer{
+
+    	private Session session;
+
+    	@OnOpen
+    	public void onOpen(Session session){
+
+    	}
+
+    }
+
 }

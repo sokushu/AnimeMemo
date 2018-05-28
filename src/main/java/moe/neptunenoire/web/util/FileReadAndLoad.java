@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -185,28 +184,22 @@ public class FileReadAndLoad {
 
     /**
      *
-     */
-    Properties prop = null;
-
-    /**
-     *
      * @return
      * @throws IOException
      */
     public Map<String, String> ReadProperties(String FileName) throws IOException{
-    	prop = new Properties();
+    	Properties prop = new Properties();
     	Map<String, String> map = new HashMap<>();
-    	String key = null;
 
     	/**对文件进行读取 */
     	try (InputStream in = new BufferedInputStream(new FileInputStream(this.file.getPath() + File.separator +  FileName))){
+    		//
             prop.load(in);
 
-            Iterator<String> it = prop.stringPropertyNames().iterator();
-            while (it.hasNext()) {
-            	key = it.next();
-                map.put(key, prop.getProperty(key));
-            }
+            prop.stringPropertyNames().forEach(var -> {
+            	map.put(var, prop.getProperty(var, "null"));
+            });
+
             return map;
         } catch (IOException e) {
         	throw e;
@@ -220,7 +213,7 @@ public class FileReadAndLoad {
      * @throws IOException
      */
     public void WriteProperties(String FileName, Map<String, String> text) throws IOException {
-    	prop = new Properties();
+    	Properties prop = new Properties();
     	try {
             FileOutputStream fos = new FileOutputStream("file", true);
             for (String var : text.keySet()) {

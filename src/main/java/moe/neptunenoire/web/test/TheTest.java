@@ -2,6 +2,7 @@ package moe.neptunenoire.web.test;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,17 +24,23 @@ public class TheTest {
 
 	public String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
+	FileReadAndLoad fileutil = new FileReadAndLoad("E:\\WorkFileSet\\partner\\codeSet\\Code\\JPIppanJouhou-InterBatch\\appl-sde-menkyo\\src\\main\\resources\\");
+
+	Map<String, String> map;
+
+	List<String> list;
+
+	public TheTest() {
+		 try {
+			map = fileutil.ReadProperties("BfCustomMsg.properties");
+			list = fileutil.ReadTextByLine("BfCustomMsg.properties");
+		} catch (IOException e) {}
+	}
+
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
-	public String adada(String id){
-		FileReadAndLoad fileutil = new FileReadAndLoad("E:\\WorkFileSet\\partner\\codeSet\\Code\\JPIppanJouhou-InterBatch\\appl-sde-menkyo\\src\\main\\resources\\");
-		try {
-			Map<String, String> map = fileutil.ReadProperties("query.properties");
-			return map.get(id);
-		} catch (IOException e) {
-			return "no";
-		}
-
+	public List<String> adada(String id){
+		return list;
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

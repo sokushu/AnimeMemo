@@ -1,5 +1,6 @@
 package moe.neptunenoire.web.util;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
@@ -190,9 +192,9 @@ public class FileReadAndLoad {
     	Map<String, String> map = new HashMap<>();
 
     	/**对文件进行读取 */
-    	try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(this.file.getPath() + File.separator +  FileName), "UTF-8"))){
+    	try (InputStream in = new BufferedInputStream(new FileInputStream(this.file.getPath() + File.separator +  FileName))){
 
-            prop.load(in);
+            prop.load(new InputStreamReader(in, "UTF-8"));
 
             prop.stringPropertyNames().forEach(var -> {
             	map.put(var, prop.getProperty(var, "null"));
@@ -213,10 +215,11 @@ public class FileReadAndLoad {
     public void WriteProperties(String FileName, Map<String, String> text) throws IOException {
     	Properties prop = new Properties();
     	try {
-            FileOutputStream fos = new FileOutputStream("file", true);
+            FileOutputStream fos = new FileOutputStream("D:\\Test\\proper", true);
             for (String var : text.keySet()) {
             	prop.setProperty(var, text.get(var));
 			}
+
             prop.store(fos, "The New properties file");
             fos.close();
 		} catch (IOException e) {

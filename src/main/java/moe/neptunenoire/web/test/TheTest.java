@@ -39,8 +39,8 @@ public class TheTest {
 
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> adada(String id){
-		return list;
+	public String adada(String id){
+		return map.get(id);
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

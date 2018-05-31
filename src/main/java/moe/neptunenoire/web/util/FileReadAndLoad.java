@@ -220,7 +220,7 @@ public class FileReadAndLoad {
             	prop.setProperty(var, text.get(var));
 			}
 
-            prop.store(fos, "The New properties file");
+            prop.store(new OutputStreamWriter(fos, "UTF-8"), "The New properties file");
             fos.close();
 		} catch (IOException e) {
             throw e;

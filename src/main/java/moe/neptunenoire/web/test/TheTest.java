@@ -2,6 +2,7 @@ package moe.neptunenoire.web.test;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.util.FileReadAndLoad;
-import moe.neptunenoire.web.util.MuDa;
 
 
 @Controller
@@ -24,7 +24,7 @@ public class TheTest {
 
 	public String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
-	FileReadAndLoad fileutil = new FileReadAndLoad("E:\\WorkFileSet\\partner\\codeSet\\Code\\JPIppanJouhou-InterBatch\\appl-sde-menkyo\\src\\main\\resources\\");
+	FileReadAndLoad fileutil = new FileReadAndLoad("D:\\Test");
 
 	Map<String, String> map;
 
@@ -32,8 +32,8 @@ public class TheTest {
 
 	public TheTest() {
 		 try {
-			map = fileutil.ReadProperties("BfCustomMsg.properties");
-			list = fileutil.ReadTextByLine("BfCustomMsg.properties");
+			map = fileutil.ReadProperties("proper");
+			list = fileutil.ReadTextByLine("proper");
 		} catch (IOException e) {}
 	}
 
@@ -51,6 +51,15 @@ public class TheTest {
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
 	public String muda(String w) {
-		return MuDa.charPlus(w);
+		try {
+			fileutil.WriteProperties("", new HashMap<String, String>(){{
+				put("hello", "hi");
+				put("あ", "あいうえお");
+			}});
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return "ok";
 	}
 }

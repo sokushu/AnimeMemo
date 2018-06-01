@@ -5,8 +5,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.mapdb.BTreeMap;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
+import org.mapdb.Serializer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class TheTest {
 
 	FileReadAndLoad fileutil = new FileReadAndLoad("D:\\Test");
 
-	DB db = DBMaker.memoryDB().make();
+	DB db = DBMaker.fileDB("").closeOnJvmShutdown().make();
 
 
 	Map<String, String> map;
@@ -55,7 +57,7 @@ public class TheTest {
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
 	public String muda(String w) {
-
+		BTreeMap<String, Object> da = db.treeMap("da", Serializer.STRING, Serializer.ILLEGAL_ACCESS).createOrOpen();
 		return "ok";
 	}
 }

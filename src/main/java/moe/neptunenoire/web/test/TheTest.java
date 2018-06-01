@@ -2,10 +2,11 @@ package moe.neptunenoire.web.test;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class TheTest {
 	public String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
 	FileReadAndLoad fileutil = new FileReadAndLoad("D:\\Test");
+
+	DB db = DBMaker.memoryDB().make();
+
 
 	Map<String, String> map;
 
@@ -51,15 +55,7 @@ public class TheTest {
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
 	public String muda(String w) {
-		try {
-			fileutil.WriteProperties("", new HashMap<String, String>(){{
-				put("hello", "hi");
-				put("あ", "あいうえお");
-			}});
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+
 		return "ok";
 	}
 }

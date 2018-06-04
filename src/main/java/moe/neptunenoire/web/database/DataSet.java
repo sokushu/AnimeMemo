@@ -45,8 +45,9 @@ public class DataSet {
 	 * @param filter
 	 * @return
 	 */
-	public static Map<String, Object> getUser(Predicate<? super Map<String, Object>> filter){
-		List<Map<String, Object>> list = usersData.stream().filter(filter).collect(Collectors.toList());
+	public static Map<String, Object> getUser(String ID){
+		String tableName = jedis.get(TableName.User);
+		List<String> list = jedis.hmget(ID, "");
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
@@ -55,7 +56,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static int getUserNum() {
-		return usersData.size();
+		return 0;
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static int getAnimeNum() {
-		return animeData.size();
+		return 0;
 	}
 
 	/**

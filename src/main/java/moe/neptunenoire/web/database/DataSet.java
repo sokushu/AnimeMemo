@@ -1,6 +1,5 @@
 package moe.neptunenoire.web.database;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,19 +22,22 @@ public class DataSet {
 
 	private static Jedis jedis = new Jedis("localhost");
 
-	private static List<String> tableName = new ArrayList<>();
-
+	public class TableName{
+		public static final String User = "User";
+		public static final String Anime = "Anime";
+	}
 	/**
 	 * 保存用户数据
 	 * @param data
 	 */
-	public static void saveUsersData(String key, Map<String, Object> data) {
+	public static void saveUsersData(String ID, Map<String, Object> data) {
 		final Map<String, String> map = new HashMap<>();
-		data.keySet().forEach(val->{
-			String newVal = String.valueOf(data.get(val));
-			map.put(val, newVal);
+		data.keySet().forEach(key->{
+			String newVal = String.valueOf(data.get(key));
+			map.put(key, newVal);
 		});
-		jedis.hmset(key, map);
+		jedis.hmset(ID, map);
+		jedis.set(TableName.User, ID);
 	}
 
 	/**

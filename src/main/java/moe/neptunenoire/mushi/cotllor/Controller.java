@@ -120,10 +120,16 @@ public final class Controller {
             }else{
                 new Html(startUrl, downLinkKubaru);
             }
-            /** 开始下载 */
-            while (downLinkKubaru.getSize() > 0) {
-                down.down(downLinkKubaru.getData().toString());
-            }
+            try {
+            	/** 开始下载 */
+                while (downLinkKubaru.getSize() > 0) {
+                    down.down(downLinkKubaru.getData().toString());
+                }
+			} catch (Exception e) {
+				System.out.println("全部下载完毕");
+				System.exit(0);
+			}
+            
         }
     }
 

@@ -1,15 +1,24 @@
 package moe.neptunenoire.web;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import moe.neptunenoire.web.database.RedisObjectSerializer;
 
 /**
  * 配置设置类
@@ -76,6 +85,22 @@ public class Config {
 	    @Bean
 	    public ServerEndpointExporter serverEndpointExporter() {
 	        return new ServerEndpointExporter();
+	    }
+
+	}
+	
+	@Configuration
+	public class RedisConfig extends CachingConfigurerSupport {
+
+
+	    @Bean
+	    public RedisTemplate<String, List<Map<String, Object>>> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+
+	        RedisTemplate<String, List<Map<String, Object>>> template = new RedisTemplate<String, List<Map<String, Object>>>();
+	        template.setConnectionFactory(redisConnectionFactory);
+	        template.setKeySerializer(new StringRedisSerializer());
+	        template.setValueSerializer(new RedisObjectSerializer());
+	        return template;
 	    }
 
 	}

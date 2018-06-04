@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
+import org.springframework.cache.annotation.Cacheable;
 
 import moe.neptunenoire.web.newsql.SqlBuilder;
 import moe.neptunenoire.web.table.Anime;
@@ -29,6 +30,7 @@ public interface MaiKissReo {
     /**
      * 得到所有的动画数据
      */
+//	@Cacheable(key="#p0")
     @SelectProvider(type = SqlBuilder.class, method = "Anime_FindAllAnime")
     public List<Map<String, Object>> Anime_FindAllAnime();
     /**

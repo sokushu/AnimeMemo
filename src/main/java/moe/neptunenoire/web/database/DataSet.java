@@ -21,7 +21,6 @@ import redis.clients.jedis.Jedis;
 public class DataSet {
 
 	private static Jedis jedis = new Jedis("localhost");
-
 	public class TableName{
 		public static final String User = "User";
 		public static final String Anime = "Anime";
@@ -48,7 +47,7 @@ public class DataSet {
 	public static Map<String, Object> getUser(String ID){
 		String tableName = jedis.get(TableName.User);
 		List<String> list = jedis.hmget(ID, "");
-		return list.size() > 0 ? list.get(0) : null;
+		return null;//list.size() > 0 ? list.get(0) : null;
 	}
 
 	/**
@@ -72,9 +71,9 @@ public class DataSet {
 	 * @param data 动画的数据
 	 */
 	public static void saveAnimeData(Map<String, Object> data) {
-		synchronized (animeData) {
-			animeData.add(data);
-		}
+//		synchronized (animeData) {
+//			animeData.add(data);
+//		}
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static List<Map<String, Object>> getAnimeData(Predicate<? super Map<String, Object>> filter){
-		return animeData.stream().filter(filter).collect(Collectors.toList());
+		return null;//animeData.stream().filter(filter).collect(Collectors.toList());
 	}
 
 	/**
@@ -109,6 +108,6 @@ public class DataSet {
 	 * @param maiKissReo
 	 */
 	private void initData(MaiKissReo maiKissReo) {
-		animeData = maiKissReo.Anime_FindAllAnime();
+//		animeData = maiKissReo.Anime_FindAllAnime();
 	}
 }

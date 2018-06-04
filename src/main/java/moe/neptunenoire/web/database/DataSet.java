@@ -1,6 +1,5 @@
 package moe.neptunenoire.web.database;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import moe.neptunenoire.web.mysql.MaiKissReo;
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -19,34 +19,15 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 @Component
 public class DataSet {
 
-	/**
-	 * 用户的数据
-	 */
-	private static List<Map<String, Object>> usersData = new ArrayList<>();
-
-	/**
-	 * 启动时从数据读取的动画数据
-	 */
-	private static List<Map<String, Object>> animeData = null;
-
-	/**
-	 * 保存的数据数量
-	 */
-	private static int SaveDataNum = 1000;
+	private static Jedis jedis = new Jedis("localhost");
 
 	/**
 	 * 保存用户数据
 	 * @param data
 	 */
+	
 	public static void saveUsersData(Map<String, Object> data) {
-		synchronized (usersData) {
-			if (usersData.size() > SaveDataNum) {
-				for (int i = usersData.size(); i > SaveDataNum; i--) {
-					usersData.remove(0);
-				}
-			}
-			usersData.add(data);
-		}
+		jedis.set("".getBytes(), d)
 	}
 
 	/**

@@ -2,13 +2,10 @@ package moe.neptunenoire.web.test;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mapdb.BTreeMap;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.Serializer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.util.FileReadAndLoad;
+import redis.clients.jedis.Jedis;
 
 
 @Controller
@@ -28,8 +26,6 @@ public class TheTest {
 	public String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
 	FileReadAndLoad fileutil = new FileReadAndLoad("D:\\Test");
-
-	DB db = DBMaker.fileDB("").closeOnJvmShutdown().make();
 
 
 	Map<String, String> map;
@@ -57,8 +53,18 @@ public class TheTest {
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
 	public String muda(String w) {
-		BTreeMap<String, Object> da = db.treeMap("da", Serializer.STRING, Serializer.ILLEGAL_ACCESS).createOrOpen();
-		da.put("", "");
-		return "ok";
+		// 连接本地的 Redis 服务
+        Jedis jedis = new Jedis("localhost");
+
+        jedis.hmset("test", new HashMap<String, String>() {{put("hello", "xiaoming");}});
+        System.out.println(jedis.hmget("test", "hello"));
+        // 查看服务是否运行
+        System.out.println("" + jedis.ping());
+        jedis.close();
+		return"ok";
+	}
+
+	class Person{
+
 	}
 }

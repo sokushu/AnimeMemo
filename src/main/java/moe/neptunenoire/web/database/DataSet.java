@@ -7,10 +7,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -20,23 +20,15 @@ import redis.clients.jedis.Jedis;
 @Component
 public class DataSet {
 
-	private static Jedis jedis = new Jedis("localhost");
-	public class TableName{
-		public static final String User = "User";
-		public static final String Anime = "Anime";
-	}
+	private static RedisTemplate<String, List<Map<String, Object>>> redis;
+	
+	private static MaiKissReo maiKissReo;
 	/**
 	 * 保存用户数据
 	 * @param data
 	 */
-	public static void saveUsersData(String ID, Map<String, Object> data) {
-		final Map<String, String> map = new HashMap<>();
-		data.keySet().forEach(key->{
-			String newVal = String.valueOf(data.get(key));
-			map.put(key, newVal);
-		});
-		jedis.hmset(ID, map);
-		jedis.set(TableName.User, ID);
+	public static void saveUsersData(Map<String, Object> data) {
+		redis.opsForList().set("", 0, null);
 	}
 
 	/**
@@ -45,9 +37,7 @@ public class DataSet {
 	 * @return
 	 */
 	public static Map<String, Object> getUser(String ID){
-		String tableName = jedis.get(TableName.User);
-		List<String> list = jedis.hmget(ID, "");
-		return null;//list.size() > 0 ? list.get(0) : null;
+		return null;
 	}
 
 	/**
@@ -99,15 +89,16 @@ public class DataSet {
 	 * @param maiKissReo
 	 */
 	@Autowired
-	public DataSet(MaiKissReo maiKissReo) {
-		initData(maiKissReo);
+	public DataSet(MaiKissReo maiKissReo, RedisTemplate<String, List<Map<String, Object>>> redis) {
+		initData(maiKissReo, redis);
 	}
 
 	/**
 	 * 数据初始化
 	 * @param maiKissReo
 	 */
-	private void initData(MaiKissReo maiKissReo) {
-//		animeData = maiKissReo.Anime_FindAllAnime();
+	private void initData(MaiKissReo maiKissReo, RedisTemplate<String, List<Map<String, Object>>> redis) {
+		DataSet.maiKissReo = maiKissReo;
+		DataSet.redis = redis;
 	}
 }

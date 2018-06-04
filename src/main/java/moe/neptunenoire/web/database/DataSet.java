@@ -1,5 +1,7 @@
 package moe.neptunenoire.web.database;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -21,13 +23,19 @@ public class DataSet {
 
 	private static Jedis jedis = new Jedis("localhost");
 
+	private static List<String> tableName = new ArrayList<>();
+
 	/**
 	 * 保存用户数据
 	 * @param data
 	 */
-	
-	public static void saveUsersData(Map<String, Object> data) {
-		jedis.set("".getBytes(), d)
+	public static void saveUsersData(String key, Map<String, Object> data) {
+		final Map<String, String> map = new HashMap<>();
+		data.keySet().forEach(val->{
+			String newVal = String.valueOf(data.get(val));
+			map.put(val, newVal);
+		});
+		jedis.hmset(key, map);
 	}
 
 	/**
@@ -82,14 +90,6 @@ public class DataSet {
 	 */
 	public static Map<String, Object> getAnimeOne(Predicate<? super Map<String, Object>> filter){
 		return getAnimeData(filter).get(0);
-	}
-
-	/**
-	 * 设置保存数量
-	 * @param num
-	 */
-	public static void setSaveDataNum(int num) {
-		SaveDataNum = num;
 	}
 
 	/**

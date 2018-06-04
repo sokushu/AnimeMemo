@@ -21,7 +21,7 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 public class DataSet {
 
 	private static RedisTemplate<String, List<Map<String, Object>>> redis;
-	
+	// https://www.cnblogs.com/nfcm/p/7833032.html
 	private static MaiKissReo maiKissReo;
 	/**
 	 * 保存用户数据

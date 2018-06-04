@@ -74,7 +74,7 @@
 		<dependency>
 		    <groupId>org.mapdb</groupId>
 		    <artifactId>mapdb</artifactId>
-		    <version>3.0.6</version>
+		    <version>3.0.5</version>
 		</dependency>
 
 		<!-- 搜索引擎开始 -->

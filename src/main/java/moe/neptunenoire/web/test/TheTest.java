@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 
 import org.mapdb.BTreeMap;
 import org.mapdb.DB;
@@ -58,6 +59,10 @@ public class TheTest {
 	@ResponseBody
 	public String muda(String w) {
 		BTreeMap<String, Object> da = db.treeMap("da", Serializer.STRING, Serializer.ILLEGAL_ACCESS).createOrOpen();
+		da.put("", "");
+		NavigableSet<String> treeSet = 
+			    db.treeSet("treeSet").maxNodeSize(112).
+			        createOrOpen();
 		return "ok";
 	}
 }

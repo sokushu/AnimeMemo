@@ -6,14 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.util.FileReadAndLoad;
-import redis.clients.jedis.Jedis;
 
 
 @Controller
@@ -27,6 +28,8 @@ public class TheTest {
 
 	FileReadAndLoad fileutil = new FileReadAndLoad("D:\\Test");
 
+	@Autowired
+	private RedisTemplate<String, Map<String, Object>> ListMap;
 
 	Map<String, String> map;
 
@@ -53,15 +56,10 @@ public class TheTest {
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
 	public String muda(String w) {
-		// 连接本地的 Redis 服务
-        Jedis jedis = new Jedis("localhost");
-
-        jedis.hmset("test", new HashMap<String, String>() {{put("hello", "xiaoming");}});
-        System.out.println(jedis.hmget("test", "hello"));
-        // 查看服务是否运行
-        System.out.println("" + jedis.ping());
-        jedis.close();
-		return"ok";
+		Map<String, Object> m = new HashMap<>();
+		m.put("test", "Hello World!!");
+		ListMap.opsForValue().set("test", m);
+		return ListMap.opsForValue().get("test").get("test").toString();
 	}
 
 	class Person{

@@ -1,6 +1,5 @@
 package moe.neptunenoire.web;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.web.server.ErrorPage;
@@ -88,15 +87,15 @@ public class Config {
 	    }
 
 	}
-	
+
 	@Configuration
 	public class RedisConfig extends CachingConfigurerSupport {
 
 
 	    @Bean
-	    public RedisTemplate<String, List<Map<String, Object>>> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	    public RedisTemplate<String, Map<String, Object>> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-	        RedisTemplate<String, List<Map<String, Object>>> template = new RedisTemplate<String, List<Map<String, Object>>>();
+	        RedisTemplate<String, Map<String, Object>> template = new RedisTemplate<String, Map<String, Object>>();
 	        template.setConnectionFactory(redisConnectionFactory);
 	        template.setKeySerializer(new StringRedisSerializer());
 	        template.setValueSerializer(new RedisObjectSerializer());

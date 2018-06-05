@@ -1,10 +1,8 @@
 package moe.neptunenoire.web.database;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,7 +18,7 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 @Component
 public class DataSet {
 
-	private static RedisTemplate<String, List<Map<String, Object>>> redis;
+	private static RedisTemplate<String, Map<String, Object>> redis;
 	// https://www.cnblogs.com/nfcm/p/7833032.html
 	private static MaiKissReo maiKissReo;
 	/**
@@ -89,7 +87,7 @@ public class DataSet {
 	 * @param maiKissReo
 	 */
 	@Autowired
-	public DataSet(MaiKissReo maiKissReo, RedisTemplate<String, List<Map<String, Object>>> redis) {
+	public DataSet(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
 		initData(maiKissReo, redis);
 	}
 
@@ -97,7 +95,7 @@ public class DataSet {
 	 * 数据初始化
 	 * @param maiKissReo
 	 */
-	private void initData(MaiKissReo maiKissReo, RedisTemplate<String, List<Map<String, Object>>> redis) {
+	private void initData(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
 		DataSet.maiKissReo = maiKissReo;
 		DataSet.redis = redis;
 	}

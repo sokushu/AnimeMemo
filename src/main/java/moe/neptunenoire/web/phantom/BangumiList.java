@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.database.DataSet;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.mysql.MySQL;
 import moe.neptunenoire.web.util.StringCheck;
 
 
@@ -21,10 +20,6 @@ import moe.neptunenoire.web.util.StringCheck;
  */
 @Component
 public class BangumiList extends StringCheck {
-
-    /** 数据库类 */
-	@Autowired
-    private MaiKissReo maiReo;
 
     /** 得到用户的Session */
     @Autowired
@@ -50,8 +45,9 @@ public class BangumiList extends StringCheck {
     }
 
 
+    /** 数据库类 */
     @Autowired
-	private MySQL mysql;
+	private MaiKissReo mysql;
 	/** Bangumi错误页面 */
     public String BangumiError = "bangumi/bangumierror";
     /** 显示Bangumi页面 */

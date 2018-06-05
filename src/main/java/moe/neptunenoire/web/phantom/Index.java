@@ -26,7 +26,6 @@ import moe.neptunenoire.InfoData;
 import moe.neptunenoire.MainRun;
 import moe.neptunenoire.web.controller.IndexServer;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.mysql.MySQL;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.util.MD5Coding;
@@ -40,7 +39,7 @@ public class Index extends StringCheck {
 
     // 数据库操作
 	@Autowired
-    private MySQL mysql;
+    private MaiKissReo mysql;
 
     /**
      * 数据库的相关操作
@@ -212,7 +211,7 @@ public class Index extends StringCheck {
      */
     protected int sign_inimpl(String username, String password, HttpSession session, HttpHeaders headers, Model model){
         try {
-            Map<String, Object> userInfo = maireo.User_FindUserByUsername(username);
+            Map<String, Object> userInfo = maireo.User_FindUserByID(new UserID(username).toString());
             // 找到用户信息
             if (isNull(userInfo) == false) {
                 // 找到用户名 验证密码

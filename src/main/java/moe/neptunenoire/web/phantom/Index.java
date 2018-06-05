@@ -25,7 +25,6 @@ import com.github.pagehelper.PageInfo;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.MainRun;
 import moe.neptunenoire.web.controller.IndexServer;
-import moe.neptunenoire.web.database.DataSet;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.mysql.MySQL;
 import moe.neptunenoire.web.table.Anime;
@@ -102,9 +101,9 @@ public class Index extends StringCheck {
 
 		try {
 
-			Map<String, Object> thisusername = DataSet.getUser(var->var.get("username").equals(user.getUsername()));
+			Map<String, Object> thisusername = null;//DataSet.getUser(var->var.get("username").equals(user.getUsername()));
 
-			Map<String, Object> thisurl = DataSet.getUser(var->var.get("url").equals(user.getUrl()));
+			Map<String, Object> thisurl = null;//DataSet.getUser(var->var.get("url").equals(user.getUrl()));
 
 			String errorUserName = null;
 			String errorUrl = null;

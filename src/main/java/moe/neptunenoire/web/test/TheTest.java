@@ -55,11 +55,11 @@ public class TheTest {
 
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)
 	@ResponseBody
-	public String muda(String w) {
+	public long muda(String w) {
 		Map<String, Object> m = new HashMap<>();
 		m.put("test", "Hello World!!");
 		ListMap.opsForValue().set("test", m);
-		return ListMap.opsForValue().get("test").get("test").toString();
+		return ListMap.opsForList().size("AABB");
 	}
 
 	class Person{

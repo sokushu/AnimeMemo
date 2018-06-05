@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.newsql;
+package moe.neptunenoire.web.mysql;
 
 import org.apache.ibatis.jdbc.SQL;
 

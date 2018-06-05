@@ -21,12 +21,17 @@ public class DataSet {
 	private static RedisTemplate<String, Map<String, Object>> redis;
 	// https://www.cnblogs.com/nfcm/p/7833032.html
 	private static MaiKissReo maiKissReo;
+
+	public static final String Anime = "Anime";
+	public static final String User = "User";
+
 	/**
 	 * 保存用户数据
 	 * @param data
 	 */
-	public static void saveUsersData(Map<String, Object> data) {
-		redis.opsForList().set("", 0, null);
+	public static void saveUsersData(String UID, Map<String, Object> data) {
+		long userSize = redis.opsForList().size(User);
+		redis.opsForList().set(User, userSize, data);
 	}
 
 	/**

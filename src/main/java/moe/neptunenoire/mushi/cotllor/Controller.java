@@ -127,9 +127,8 @@ public final class Controller {
                 }
 			} catch (Exception e) {
 				System.out.println("全部下载完毕");
-				System.exit(0);
 			}
-            
+
         }
     }
 

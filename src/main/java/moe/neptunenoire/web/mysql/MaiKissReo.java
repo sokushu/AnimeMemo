@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.cache.annotation.Cacheable;
 
-import moe.neptunenoire.web.newsql.SqlBuilder;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 

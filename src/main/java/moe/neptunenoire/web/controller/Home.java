@@ -6,21 +6,24 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.InfoData;
-import moe.neptunenoire.web.mysql.MySQL;
+import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.util.StringCheck;
 
 @Controller
 @EnableAutoConfiguration
 public class Home extends StringCheck {
-     
+
 	@Autowired
-	private MySQL mysql;
+	private MaiKissReo mysql;
 
 	protected String Method_ID = "id";
     protected String Method_Home = "home";
@@ -36,12 +39,12 @@ public class Home extends StringCheck {
 	/**用于显示用户的个人主页 */
     @RequestMapping(value = "/id/{url}", method = RequestMethod.GET)
     public String homeid(@PathVariable("url") String url, HttpSession session, Model model) {
-		
+
 		if (haveErrStr(url)) {
 			//有非法字符
 			return HomeError;
 		}
-		
+
 		return homm(url, session, model, Method_ID);
 
 	}
@@ -72,10 +75,10 @@ public class Home extends StringCheck {
 		}
 
 		String uid = map.get("uid").toString();
-		
+
     	List<Map<String, Object>> watching = mysql.findWatchingAnimeInfoBy3(uid);
     	List<Map<String, Object>> watched = mysql.findWatchedAnimeInfoBy3(uid);
-    	
+
 		int watchingKazu = mysql.UserWatchingAnime(uid);
 		int watchedKazu = mysql.UserWatchedAnime(uid);
 
@@ -97,7 +100,7 @@ public class Home extends StringCheck {
 			model.addAttribute("watchedKazu", 0);
 		}
 		if (watchingKazu + watchedKazu == 0) {
-			model.addAttribute("watchinfo", "空空的 >.< 该用户还没有订阅信息"); 
+			model.addAttribute("watchinfo", "空空的 >.< 该用户还没有订阅信息");
 		}
 		model.addAttribute("userinfo", map);
 		//显示留言
@@ -118,11 +121,11 @@ public class Home extends StringCheck {
         try {
     		String UID = session.getAttribute("USERUID").toString();
     		String URL = session.getAttribute("USERURL").toString();
-    		
+
     		if (URL.equals(url) && UID.equals(uid)) {
     			/*
     			 * 以登录，访问自己的界面
-    			 */ 
+    			 */
 				model.addAttribute("logined", "true");
             	model.addAttribute("isme", "true");
 				return model;
@@ -133,7 +136,7 @@ public class Home extends StringCheck {
 				model.addAttribute("logined", "true");
             	model.addAttribute("isme", "false");
 				return model;
-			}	
+			}
 		} catch (NullPointerException e) {
 			/*
 			 * 未登录
@@ -178,7 +181,7 @@ public class Home extends StringCheck {
 
 	@RequestMapping(value = "/id/{url}/bangumi/list", method = RequestMethod.GET)
 	public String bangumilist(@PathVariable("url")String url, Model model, String page) {
-		
+
 		Map<String, Object>userinfo = mysql.User_FindUserByURL(url);
 		String uid = userinfo.get("uid").toString();
 
@@ -193,11 +196,11 @@ public class Home extends StringCheck {
 		model.addAttribute("watching", lista);
 		return "user/bangumilist";
 	}
-	
+
 	/**已经看过得动画 */
 	@RequestMapping(value = "/id/{url}/bangumi/watched", method = RequestMethod.GET)
 	public String GetWatched(@PathVariable("url")String url, Model model, String page) {
-		
+
 		Map<String,Object>map = mysql.User_FindUserByURL(url);
 		String uid = map.get("uid").toString();
 		List<Map<String, Object>>watching = mysql.findWatchedAnimeInfo(uid);
@@ -216,7 +219,7 @@ public class Home extends StringCheck {
 	/**正在看的动画 */
 	@RequestMapping(value = "/id/{url}/bangumi/watching", method = RequestMethod.GET)
 	public String GetWatching(@PathVariable("url")String url, Model model) {
-		
+
 		Map<String,Object>map = mysql.User_FindUserByURL(url);
 		String uid = map.get("uid").toString();
 		List<Map<String, Object>>watching = mysql.findWatchingAnimeInfo(uid);

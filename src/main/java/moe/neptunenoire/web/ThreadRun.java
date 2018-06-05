@@ -28,7 +28,9 @@ public class ThreadRun implements Runnable {
 			while (true) {
 				Thread.sleep(time);
 			}
-		} catch (InterruptedException e) {}
+		} catch (InterruptedException e) {
+
+		}
 	}
 
 }

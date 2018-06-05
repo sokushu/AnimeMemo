@@ -1,9 +1,6 @@
 package moe.neptunenoire;
 
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,12 +13,6 @@ import moe.neptunenoire.web.ThreadRun;
 @SpringBootApplication
 // @ServletComponentScan
 public class MainRun {
-
-	/**
-	 * map集合
-	 * 用于储存数据库信息
-	 */
-	public static Map<String, Object> MySQLReaderData = new ConcurrentHashMap<>();
 	/**
 	 * 图片文件存放路径
 	 */

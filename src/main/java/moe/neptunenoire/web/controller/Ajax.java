@@ -1,9 +1,9 @@
 package moe.neptunenoire.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import moe.neptunenoire.web.mysql.MySQL;
-
+import moe.neptunenoire.web.mysql.MaiKissReo;
 
 @Controller
 @RequestMapping(value = "/ajax")
@@ -69,8 +68,8 @@ public class Ajax {
      * ===========================================================================
      */
     @Autowired
-    private MySQL mySQL;
-    
+    private MaiKissReo mySQL;
+
     private boolean getsign_in(HttpServletRequest req){
         try {
             @SuppressWarnings("unused")
@@ -80,7 +79,7 @@ public class Ajax {
 			return false;
 		}
     }
-    
+
 	private boolean ajax_login(String username, String password) {
 		try {
 			Map<String, Object>map = mySQL.User_FindUserByUsername(username);

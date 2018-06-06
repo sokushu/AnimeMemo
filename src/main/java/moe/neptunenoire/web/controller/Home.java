@@ -18,6 +18,7 @@ import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.util.StringCheck;
 
+
 @Controller
 @EnableAutoConfiguration
 public class Home extends StringCheck {
@@ -60,9 +61,9 @@ public class Home extends StringCheck {
 	}
 	private Map<String, Object> getMap(String type, String uid, String url){
 		if (type.equals(Method_Home)) {
-			return mysql.User_FindUser(uid);
+			return null;//mysql.User_FindUser(uid);
 		}else if (type.equals(Method_ID)) {
-			return mysql.User_FindUserByURL(url);
+			return null;//mysql.User_FindUserByURL(url);
 		}
 		return null;
 	}
@@ -76,11 +77,11 @@ public class Home extends StringCheck {
 
 		String uid = map.get("uid").toString();
 
-    	List<Map<String, Object>> watching = mysql.findWatchingAnimeInfoBy3(uid);
-    	List<Map<String, Object>> watched = mysql.findWatchedAnimeInfoBy3(uid);
+    	List<Map<String, Object>> watching = null;//mysql.findWatchingAnimeInfoBy3(uid);
+    	List<Map<String, Object>> watched = null;//mysql.findWatchedAnimeInfoBy3(uid);
 
-		int watchingKazu = mysql.UserWatchingAnime(uid);
-		int watchedKazu = mysql.UserWatchedAnime(uid);
+		int watchingKazu = 0;//mysql.UserWatchingAnime(uid);
+		int watchedKazu = 0;//mysql.UserWatchedAnime(uid);
 
     	//对home页面进行控制
     	if (watchingKazu != 0) {
@@ -175,20 +176,20 @@ public class Home extends StringCheck {
     @RequestMapping(value = "/id/getbackimg", method = RequestMethod.GET)
     @ResponseBody
     public String getpic(String url) {
-    	Map<String, Object>map = mysql.User_FindUserByURL(url);
+    	Map<String, Object>map = null;//mysql.User_FindUserByURL(url);
     	return map.get("backpic").toString();
 	}
 
 	@RequestMapping(value = "/id/{url}/bangumi/list", method = RequestMethod.GET)
 	public String bangumilist(@PathVariable("url")String url, Model model, String page) {
 
-		Map<String, Object>userinfo = mysql.User_FindUserByURL(url);
+		Map<String, Object>userinfo = null;//mysql.User_FindUserByURL(url);
 		String uid = userinfo.get("uid").toString();
 
-		List<Map<String,Object>>lista = mysql.findWatchAnime(uid);
+		List<Map<String,Object>>lista = null;//mysql.findWatchAnime(uid);
 
-		int watchingKazu = mysql.UserWatchingAnime(uid);
-		int watchedKazu = mysql.UserWatchedAnime(uid);
+		int watchingKazu = 0;//mysql.UserWatchingAnime(uid);
+		int watchedKazu = 0;//mysql.UserWatchedAnime(uid);
 
 		int watchKazu = watchedKazu + watchingKazu;
 		model.addAttribute("watchingKazu", watchKazu);
@@ -201,11 +202,11 @@ public class Home extends StringCheck {
 	@RequestMapping(value = "/id/{url}/bangumi/watched", method = RequestMethod.GET)
 	public String GetWatched(@PathVariable("url")String url, Model model, String page) {
 
-		Map<String,Object>map = mysql.User_FindUserByURL(url);
+		Map<String,Object>map = null;//mysql.User_FindUserByURL(url);
 		String uid = map.get("uid").toString();
-		List<Map<String, Object>>watching = mysql.findWatchedAnimeInfo(uid);
+		List<Map<String, Object>>watching = null;//mysql.findWatchedAnimeInfo(uid);
 
-		int watchedKazu = mysql.UserWatchedAnime(uid);
+		int watchedKazu = 0;//mysql.UserWatchedAnime(uid);
 		{
 			{
 				model.addAttribute("watchedKazu", watchedKazu);
@@ -220,11 +221,11 @@ public class Home extends StringCheck {
 	@RequestMapping(value = "/id/{url}/bangumi/watching", method = RequestMethod.GET)
 	public String GetWatching(@PathVariable("url")String url, Model model) {
 
-		Map<String,Object>map = mysql.User_FindUserByURL(url);
+		Map<String,Object>map = null;//mysql.User_FindUserByURL(url);
 		String uid = map.get("uid").toString();
-		List<Map<String, Object>>watching = mysql.findWatchingAnimeInfo(uid);
+		List<Map<String, Object>>watching = null;//mysql.findWatchingAnimeInfo(uid);
 
-		int watchingKazu = mysql.UserWatchingAnime(uid);
+		int watchingKazu = 0;//mysql.UserWatchingAnime(uid);
 		model.addAttribute("watchingKazu", watchingKazu);
 		model.addAttribute("watching", watching);
 		model.addAttribute("url", url);

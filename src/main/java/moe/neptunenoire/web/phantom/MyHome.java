@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 
+
 /**
  * 我的个人主页
  *
@@ -78,6 +79,7 @@ public class MyHome {
             uid = session.getAttribute(InfoData.Session_USERUID).toString();
             // 如果没出错就是登陆了
             isSign_in = true;
+            // 捕获Null
         } catch (Exception e) {
             // 出错，未登录
             isSign_in = false;
@@ -88,9 +90,9 @@ public class MyHome {
         if (uurl != null && url.equals(uurl)) {
         	isMe = true;
 
-        	Map<String, Object> userinfo = getUserInfo(uurl);
+        	Map<String, Object> userinfo = null;//getUserInfo(uurl);
         	if (userinfo == null) {
-//				sess
+				
 			}
         	returnMap.put("", isMe);
         }
@@ -98,13 +100,13 @@ public class MyHome {
         // Home的方式
         if (InfoData.MethodHome.equals(type)) {
             try {
-                Map<String, Object> userinfo = getUserInfo(url);
+                Map<String, Object> userinfo = null;//getUserInfo(url);
                 if (userinfo == null) {
                     userinfo = maiReo.User_FindUserByID(url);
                     if (userinfo == null) {
                         return null;
                     }else{
-                        saveUserInfo(url, userinfo);
+                        //saveUserInfo(url, userinfo);
                     }
                 }
                 returnMap = userinfo;
@@ -117,13 +119,13 @@ public class MyHome {
         // id的方式
         if (InfoData.MethodID.equals(type)) {
             try {
-                Map<String, Object> userInfo = getUserInfo(url);
+                Map<String, Object> userInfo = null;//getUserInfo(url);
                 if (userInfo == null) {
                     userInfo = maiReo.User_FindUserByShowByURL(url);
                     if (userInfo == null) {
                         return null;
                     }else{
-                        saveUserInfo(url, userInfo);
+                        //saveUserInfo(url, userInfo);
                     }
                 }
                 return userInfo;
@@ -142,32 +144,5 @@ public class MyHome {
     public List<String> showMyBangumi(){
 
         return null;
-    }
-
-    /**
-     *
-     */
-    public static void saveUserInfo(String url, Map<String, Object> map){
-        synchronized(userMap){
-        	int NowData = userMap.size();
-        	if (NowData >= 1000) {
-        		List<String> list = new ArrayList<>(userMap.keySet());
-        		list = list.subList(1000, NowData);
-                // 只缓存1000条数据
-                for (String var : list) {
-					userMap.remove(var);
-				}
-			}
-            userMap.put(url, map);
-        }
-    }
-
-    /**
-     *
-     */
-    public static Map<String, Object> getUserInfo(String url){
-        synchronized(userMap){
-            return userMap.get(url);
-        }
     }
 }

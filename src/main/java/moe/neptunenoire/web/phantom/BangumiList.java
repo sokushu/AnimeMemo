@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -21,9 +22,24 @@ import moe.neptunenoire.web.util.StringCheck;
 @Component
 public class BangumiList extends StringCheck {
 
-    /** 得到用户的Session */
-    @Autowired
-    private HttpSession session;
+	/** dataSet类 */
+	private DataSet dataSet;
+
+	/** 数据库类 */
+	private MaiKissReo mysql;
+	/** Bangumi错误页面 */
+    public String BangumiError = "bangumi/bangumierror";
+    /** 显示Bangumi页面 */
+	public String BangumiShow = "bangumi/bangumi";
+	
+	/**
+	 * 类的初始化方法
+	 */
+	@Autowired
+	public BangumiList(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis){
+		this.mysql = maiKissReo;
+		this.dataSet = new DataSet(maiKissReo, redis);
+	}
 
     /**
      * 处理新番表数据
@@ -37,24 +53,9 @@ public class BangumiList extends StringCheck {
         return null;
     }
 
-    /** 获取动画 */
-    public List<Map<String, Object>> getAnime(Integer animeID, String infoType) {
-        return DataSet.getAnimeData(var ->
-        	((Integer)(var.get("anime_id"))) == animeID
-        );
-    }
-
-
-    /** 数据库类 */
-    @Autowired
-	private MaiKissReo mysql;
-	/** Bangumi错误页面 */
-    public String BangumiError = "bangumi/bangumierror";
-    /** 显示Bangumi页面 */
-    public String BangumiShow = "bangumi/bangumi";
-
-    public int StringToNum(String num) {
-        return super.StringToNum(num);
+    /** 获取一部动画 */
+    public Map<String, Object> getAnime(Integer animeID, String infoType) {
+        return dataSet.getAnimeOne(animeID);
     }
 
 	/**
@@ -89,8 +90,8 @@ public class BangumiList extends StringCheck {
 			/**
 			 * 查询登录用户信息
 			 */
-			Map<String, Object>userInfo = mysql.User_FindUser(UID);
-			Map<String, Object>isdingyue = mysql.findIsdingyue(UID, animeid); //如果没有订阅这里会出现空指针错误，即便登录也会显示未登录
+			Map<String, Object>userInfo = null;//mysql.User_FindUser(UID);
+			Map<String, Object>isdingyue = null;//mysql.findIsdingyue(UID, animeid); //如果没有订阅这里会出现空指针错误，即便登录也会显示未登录
 			if (isdingyue == null || isdingyue.toString().trim().equals("") || isdingyue.size() == 0) {
 				/**未订阅的情况 */
 				model.addAttribute("isdingyue", "false");
@@ -149,7 +150,7 @@ public class BangumiList extends StringCheck {
 			}else{
 				/**未订阅的情况,订阅动画 */
 				String a = map.get("anime_number").toString();
-				mysql.add(animeid, uid, a);
+				//mysql.add(animeid, uid, a);
 			}
 			return true;
 		}catch(Exception e){
@@ -190,10 +191,10 @@ public class BangumiList extends StringCheck {
 				/**如果请求集数超过总集数 */
 				if (allnumberint < a) {
 					//更新的集数是动画的最终话
-					mysql.updatabumber(animeid, allnumber, UID);
+					//mysql.updatabumber(animeid, allnumber, UID);
 				}else{
 					//更新的集数是请求集数
-					mysql.updatabumber(animeid, animenumber, UID);
+					//mysql.updatabumber(animeid, animenumber, UID);
 				}
 			}else{
 				/**如果没订阅则会无动作 */
@@ -226,9 +227,9 @@ public class BangumiList extends StringCheck {
 				String allnumber = animeMap.get("anime_number").toString();
 				int allnumberint = StringToNum(allnumber);
 				if (allnumberint < a) {
-					mysql.updatabumber(animeid, allnumber, useruid);
+					//mysql.updatabumber(animeid, allnumber, useruid);
 				}else{
-					mysql.updatabumber(animeid, animenumber, useruid);
+					//mysql.updatabumber(animeid, animenumber, useruid);
 				}
 				return "true";
 			}else{
@@ -244,7 +245,7 @@ public class BangumiList extends StringCheck {
 		try {
 			/**判断动画是否已定阅（非法订阅） */
 			/**获取订阅信息 */
-			Map<String, Object>isdingyue = mysql.findIsdingyue(uid, animeid);
+			Map<String, Object>isdingyue = null;//mysql.findIsdingyue(uid, animeid);
 
 			if (isdingyue == null || isdingyue.toString().equals("")) {
 				return false;

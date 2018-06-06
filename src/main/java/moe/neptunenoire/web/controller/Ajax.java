@@ -42,23 +42,23 @@ public class Ajax {
     public Map<String, Object> findOneAnime(@PathVariable("meth") String meth, Model model) {
         return mySQL.Anime_FindByAnimeID(meth);
     }
-    // 获取全部的动画数据
-    @ResponseBody
-    @RequestMapping(value = "/anime/getall", method = RequestMethod.GET)
-    public List<Map<String, Object>> returnAllAnime(){
-    	return mySQL.Anime_ReturnAllAnime();
-    }
-    @ResponseBody
-    @RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
-    public List<Map<String, Object>> search(@PathVariable("name")String name){
-    	return mySQL.Anime_SearchAnime(name);
-    }
-    // 获取首页的最新添加的8个动画
-    @ResponseBody
-    @RequestMapping(value = "/indexanime", method = RequestMethod.GET)
-    public List<Map<String, Object>> returnIndexAnime(){
-    	return mySQL.Anime_FindIndexAnime();
-    }
+    // // 获取全部的动画数据
+    // @ResponseBody
+    // @RequestMapping(value = "/anime/getall", method = RequestMethod.GET)
+    // public List<Map<String, Object>> returnAllAnime(){
+    // 	return mySQL.Anime_ReturnAllAnime();
+    // }
+    // @ResponseBody
+    // @RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
+    // public List<Map<String, Object>> search(@PathVariable("name")String name){
+    // 	return mySQL.Anime_SearchAnime(name);
+    // }
+    // // 获取首页的最新添加的8个动画
+    // @ResponseBody
+    // @RequestMapping(value = "/indexanime", method = RequestMethod.GET)
+    // public List<Map<String, Object>> returnIndexAnime(){
+    // 	return mySQL.Anime_FindIndexAnime();
+    // }
     //数据库中查询图片后，返回图片路径
     @RequestMapping(value = "/pic/{picid}", method = RequestMethod.GET)
     public String getPic(@PathVariable("picid")String picid){

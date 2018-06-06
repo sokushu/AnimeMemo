@@ -1,8 +1,12 @@
 package moe.neptunenoire.web.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.phantom.BangumiList;
 
 /**
@@ -20,6 +25,10 @@ import moe.neptunenoire.web.phantom.BangumiList;
 @EnableAutoConfiguration
 public class Bangumi extends BangumiList{
 
+	@Autowired
+	public Bangumi(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis){
+		super(maiKissReo, redis);
+	}
 	/**
 	 * URL路由
 	 */

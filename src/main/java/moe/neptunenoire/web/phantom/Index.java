@@ -412,7 +412,7 @@ public class Index extends StringCheck {
     private void getdatasave(String getpath, String data, HttpSession session, String from) {
         if (getpath.equals("/bangumi/")) {
             String animeid = from.substring(from.indexOf("bangumi/") + 8).substring(0, from.substring(from.indexOf("bangumi/") + 8).indexOf("/"));
-            mysql.Anime_UpDataPic(data, animeid);
+            //mysql.Anime_UpDataPic(data, animeid);
         }
         if (getpath.equals("/id/")) {
             String uid = session.getAttribute("USERUID").toString();
@@ -452,7 +452,7 @@ public class Index extends StringCheck {
 
         PageHelper.startPage(Page, 9);
 		/**对动画进行搜索 */
-		List<Map<String, Object>>search = mysql.Anime_SearchAnime(w);
+		List<Map<String, Object>>search = null;//mysql.Anime_SearchAnime(w);
 		if (search.size() == 0) {
 			/**如果没有搜索结果的情况 */
 			model.addAttribute("ishas", "false");

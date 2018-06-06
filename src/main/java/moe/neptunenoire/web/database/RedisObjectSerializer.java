@@ -6,6 +6,9 @@ import org.springframework.core.serializer.support.SerializingConverter;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
+/**
+ * 这个类是有用的！！
+ */
 public class RedisObjectSerializer implements RedisSerializer<Object> {
     private Converter<Object, byte[]> serializer = new SerializingConverter();
     private Converter<byte[], Object> deserializer = new DeserializingConverter();

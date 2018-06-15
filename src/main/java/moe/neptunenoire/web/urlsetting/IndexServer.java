@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.controller;
+package moe.neptunenoire.web.urlsetting;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import moe.neptunenoire.web.phantom.Index;
+import moe.neptunenoire.web.controller.Index;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 

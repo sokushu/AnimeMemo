@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.phantom;
+package moe.neptunenoire.web.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,13 +24,11 @@ import com.github.pagehelper.PageInfo;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.MainRun;
-import moe.neptunenoire.web.controller.IndexServer;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
-import moe.neptunenoire.web.util.MD5Coding;
+import moe.neptunenoire.web.urlsetting.IndexServer;
 import moe.neptunenoire.web.util.UtilsPack;
-import moe.neptunenoire.web.util.UserID;
 
 /**
  * Index

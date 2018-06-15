@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.controller;
+package moe.neptunenoire.web.urlsetting;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import moe.neptunenoire.web.controller.BangumiList;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.phantom.BangumiList;
 
 /**
  * 显示TAG，文章，小记事。

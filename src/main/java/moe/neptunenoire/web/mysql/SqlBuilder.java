@@ -11,6 +11,9 @@ import moe.neptunenoire.web.util.UtilsPack;
  * 构建新的SQL语句的类
  */
 public class SqlBuilder extends UtilsPack {
+
+	private StringUtil strutil = getStringUtil();
+
     /**
      * =====================================================================
      * 动画查找
@@ -32,7 +35,7 @@ public class SqlBuilder extends UtilsPack {
     public String Anime_AddAnime(final Anime anime){
         return new SQL() {{
 			INSERT_INTO("anime");
-			
+
 			VALUES("anime_name", "#{anime_name}");
 			VALUES("anime_number", "#{anime_number}");
 			VALUES("anime_class", "#{anime_class}");
@@ -74,6 +77,10 @@ public class SqlBuilder extends UtilsPack {
             if (isNull(anime.getAnime_info2()) == false) {
                 VALUES("anime_info2", "#{anime_info2}");
             }
+		}
+
+		private boolean isNull(String anime_info_edsonger) {
+			return strutil.isNull(anime_info_edsonger);
 		}}.toString();
     }
     public String Anime_FindIndexAnime(){
@@ -155,7 +162,11 @@ public class SqlBuilder extends UtilsPack {
 			VALUES("email", "#{email}");
 			VALUES("url", "#{url}");
 			VALUES("pageusername", "#{pageusername}");
-        }}.toString();
+        }
+
+		private boolean isNull(Long uid) {
+			return strutil.isNull(uid);
+		}}.toString();
     }
     public String User_UpdataUser(final Users users) {
 		return new SQL() {{
@@ -176,6 +187,10 @@ public class SqlBuilder extends UtilsPack {
 				SET("pageusername = #{pageusername}");
 			}
 			WHERE("uid = #{uid}");
+		}
+
+		private boolean isNull(String email) {
+			return strutil.isNull(email);
 		}}.toString();
     }
     public String User_UpdataPic() {

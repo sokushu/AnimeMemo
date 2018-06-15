@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 对用户输入数据进行检查，防止进行攻击
  */
-public class StringCheck {
+public class UtilsPack {
 
     /**
      * 判断是否是数字
@@ -15,13 +15,12 @@ public class StringCheck {
      * @return
      */
     public boolean isNumber(String num){
-        try {
-            @SuppressWarnings("unused")
-            Integer a = new Integer(num);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    	try {
+    		Integer.parseInt(num);
+    		return true;
+		} catch (Exception e) {
+			return false;
+		}
     }
 
     /**
@@ -88,7 +87,7 @@ public class StringCheck {
      * </pre>
      */
     public boolean isNull(String str){
-        return str == null ? true : (str.trim()).length() > 0 ? false : true;
+        return !(str != null && str.length() > 0);
     }
 
     /**
@@ -115,7 +114,7 @@ public class StringCheck {
      * @return
      */
     public boolean isNull(Long long1){
-        return long1 == null ? true : false;
+        return long1 == null;
     }
 
     /**
@@ -124,7 +123,7 @@ public class StringCheck {
      * @return
      */
     public boolean isNull(Integer inte){
-        return inte == null ? true : false;
+        return inte == null;
     }
 
     /**
@@ -133,6 +132,16 @@ public class StringCheck {
      */
     public String getNowTime() {
     	return LocalDateTime.now().toString();
+    }
+
+    public FG getFG() {
+    	return new FG();
+    }
+
+    private class FG{
+    	public void go() {
+    		System.out.println("kkkjk");
+    	}
     }
 
 }

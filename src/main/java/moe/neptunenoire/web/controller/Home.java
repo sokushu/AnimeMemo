@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.util.StringCheck;
+import moe.neptunenoire.web.util.UtilsPack;
 
 
 @Controller
 @EnableAutoConfiguration
-public class Home extends StringCheck {
+public class Home extends UtilsPack {
 
 	@Autowired
 	private MaiKissReo mysql;

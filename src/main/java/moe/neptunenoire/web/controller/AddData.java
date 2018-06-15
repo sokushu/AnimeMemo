@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Music;
+import moe.neptunenoire.web.util.UtilsPack;
 
 @Controller
 @EnableAutoConfiguration
-public class AddData {
+public class AddData extends UtilsPack {
 
 	@RequestMapping(value = "/data/bangumi", method = RequestMethod.POST)
 	public String addBangumi(Anime anime) {

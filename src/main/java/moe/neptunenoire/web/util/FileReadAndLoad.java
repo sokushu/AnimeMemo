@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import moe.neptunenoire.MainRun;
 
@@ -106,7 +106,7 @@ public class FileReadAndLoad {
      * @throws Exception
      */
     public void WriteText(String FileName, String[] text) throws Exception {
-        WriteText(FileName, Stream.of(text).collect(Collectors.toList()));
+        WriteText(FileName, Arrays.asList(text));
     }
 
     /**
@@ -179,7 +179,7 @@ public class FileReadAndLoad {
      * @return
      */
     private boolean filterEMP(String str) {
-    	return str == null ? false : str.length() >= 3 ? true : false;
+    	return str != null && str.length() >= 3;
     }
 
     /**

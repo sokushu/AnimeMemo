@@ -13,14 +13,14 @@ import org.springframework.ui.Model;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.database.DataSet;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.util.StringCheck;
+import moe.neptunenoire.web.util.UtilsPack;
 
 
 /**
  * 新番表
  */
 @Component
-public class BangumiList extends StringCheck {
+public class BangumiList extends UtilsPack {
 
 	/** dataSet类 */
 	private DataSet dataSet;

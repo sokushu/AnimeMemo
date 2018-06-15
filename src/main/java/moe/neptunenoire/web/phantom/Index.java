@@ -29,13 +29,13 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.util.MD5Coding;
-import moe.neptunenoire.web.util.StringCheck;
+import moe.neptunenoire.web.util.UtilsPack;
 import moe.neptunenoire.web.util.UserID;
 
 /**
  * Index
  */
-public class Index extends StringCheck {
+public class Index extends UtilsPack {
 
     // 数据库操作
 	@Autowired

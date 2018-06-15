@@ -5,11 +5,7 @@ package moe.neptunenoire.mushi;
  */
 public class utils {
     public boolean isNull(String str){
-        if (str == null) {
-            return true;
-        }else{
-            return str.trim().length() > 0 ? false : true;
-        }
+        return !(str != null && str.length() > 0);
     }
-    
+
 }

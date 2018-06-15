@@ -4,13 +4,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
-import moe.neptunenoire.web.util.StringCheck;
+import moe.neptunenoire.web.util.UtilsPack;
 
 
 /**
  * 构建新的SQL语句的类
  */
-public class SqlBuilder extends StringCheck {
+public class SqlBuilder extends UtilsPack {
     /**
      * =====================================================================
      * 动画查找

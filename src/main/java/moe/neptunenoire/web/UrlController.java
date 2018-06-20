@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import moe.neptunenoire.web.bean.SignInBean;
 import moe.neptunenoire.web.mysql.MaiKissReo;
+import moe.neptunenoire.web.table.Users;
 
 /**
  * <pre>
@@ -54,14 +55,24 @@ public class UrlController {
 	public String sendSignIn(SignInBean signInBean) {
 		return "";
 	}
+
+	@RequestMapping(value = "/sign_up", method = RequestMethod.GET)
+	public String showSignUp(Model model) {
+		return "";
+	}
+
+	@RequestMapping(value = "/sign_up", method = RequestMethod.POST)
+	public String sendSignUp(Users users) {
+		return "";
+	}
 /*
  * ==========================================================================
- * http://localhost/								Index Root
+ * http://localhost/bangumi/						Index Root
  * ==========================================================================
  */
 /*
  * ==========================================================================
- * http://localhost/								Index Root
+ * http://localhost/id/								Index Root
  * ==========================================================================
  */
 /*

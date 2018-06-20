@@ -30,10 +30,13 @@ public class Home extends UtilsPack {
 
     StringUtil strutil = getStringUtil();
 
+    UtilsPack userid = getUserID("");
+
     @RequestMapping(value = "/home/{uid}", method = RequestMethod.GET)
     public String getHomeByUID(Model model, @PathVariable("uid")String uid) {
     	{
     		model.addAttribute("", "");
+
     	}
     	return HomePage;
     }

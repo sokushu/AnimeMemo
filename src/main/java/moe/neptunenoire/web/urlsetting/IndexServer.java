@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import moe.neptunenoire.web.controller.Index;
+import moe.neptunenoire.web.controller.Indexss;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 
 
 @Controller
 @EnableAutoConfiguration
-public class IndexServer extends Index {
+public class IndexServer extends Indexss {
     /** 网址路由 */
     public static final String index = "/";
     public static final String sign_in = "/sign_in";

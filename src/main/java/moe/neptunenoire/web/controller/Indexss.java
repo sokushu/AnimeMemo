@@ -33,7 +33,7 @@ import moe.neptunenoire.web.util.UtilsPack;
 /**
  * Index
  */
-public class Index extends UtilsPack {
+public class Indexss extends UtilsPack {
 
     // 数据库操作
 	@Autowired

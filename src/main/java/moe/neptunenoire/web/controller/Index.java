@@ -1,6 +1,5 @@
 package moe.neptunenoire.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,15 +15,20 @@ import moe.neptunenoire.web.util.MD5Coding;
 import moe.neptunenoire.web.util.StringUtil;
 import moe.neptunenoire.web.util.UserID;
 
+/**
+ *
+ * @author M
+ *
+ */
 public class Index {
-	
+
 	/** 数据库字段 */
 	private MaiKissReo maiKissReo;
-	
+	/** 内存数据库操作 */
 	private DataSet dataSet;
-	
+	/** 字符工具类 */
 	private StringUtil stringUtil = new StringUtil();
-	
+
 	/**
 	 * 初始化
 	 */
@@ -32,7 +36,7 @@ public class Index {
 		this.maiKissReo = maiKissReo;
 		this.dataSet = new DataSet(maiKissReo, redis);
 	}
-	
+
 	/**
 	 * 判断用户是否已经登陆，如果没登陆，
 	 * 返回False，如果登陆，返回True
@@ -42,7 +46,7 @@ public class Index {
 		Object mysess = session.getAttribute(InfoData.Session_USERNAME);
 		return mysess != null;
 	}
-	
+
 	/**
 	 * 获取首页的动画
 	 * 按收藏展示，按评分展示，按最新展示
@@ -53,34 +57,27 @@ public class Index {
 		maiKissReo.Anime_FindIndexAnime(8);
 		return null;
 	}
-	
+
 	public enum AnimeType{
 		time,like
 	}
-	
+
 	/**
-	 * 登陆
+	 * 用户登陆，将用户信息写入Session
 	 * @param signInBean
 	 * @return
 	 */
-	public Map<String, String> sign_in(SignInBean signInBean, HttpSession session) {
-		
-		Map<String, String> returnInfo = new HashMap<String, String>(){
-			private static final long serialVersionUID = 1L;
-			{
-				put("info", "登陆成功");
-			}
-		};
-		
+	public String sign_in(SignInBean signInBean, HttpSession session) {
+
 		String username = signInBean.getUsername();
 		String password = signInBean.getPassword();
-		
+
 		/* 生成UID */
 		UserID uid = new UserID(username);
-		
+
 		Map<String, Object> userdata = dataSet.getUser(uid.GetlongCode());
-		
-		/* 如果没有缓存过 */ 
+
+		/* 如果没有缓存过 */
 		if (stringUtil.isNull(userdata)) {
 			userdata = maiKissReo.User_FindUserByID(uid.toString());
 			if (!stringUtil.isNull(userdata)) {
@@ -88,13 +85,13 @@ public class Index {
 				dataSet.saveUsersData(userdata);
 			}else {
 				/* 没有这个用户 */
-				returnInfo.put("info", "用户名或密码错误");
+				return "用户名或密码错误";
 			}
 		}
-		
+
 		/* 获取MD5密码 */
 		String md5Password = new MD5Coding().coding(username, password, uid.GetlongCode());
-		
+
 		/* 验证密码 */
 		if (((String)userdata.get("password")).equals(md5Password)) {
 			/* 将用户数据写入Session */
@@ -115,9 +112,10 @@ public class Index {
             }
 		}else {
 			/* 密码错误 */
-			returnInfo.put("info", "用户名或密码错误");
+			return "用户名或密码错误";
 		}
-		
-		return returnInfo;
+
+		return "登陆成功";
 	}
+
 }

@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.urlsetting;
+package moe.neptunenoire.web.controller.old;
 
 import java.util.HashMap;
 import java.util.Map;

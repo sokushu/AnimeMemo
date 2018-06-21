@@ -4,15 +4,15 @@ import org.apache.ibatis.jdbc.SQL;
 
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
-import moe.neptunenoire.web.util.UtilsPack;
+import moe.neptunenoire.web.util.StringUtil;
 
 
 /**
  * 构建新的SQL语句的类
  */
-public class SqlBuilder extends UtilsPack {
+public class SqlBuilder{
 
-	private StringUtil strutil = getStringUtil();
+	private StringUtil strutil = new StringUtil();
 
     /**
      * =====================================================================

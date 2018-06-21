@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.controller;
+package moe.neptunenoire.web.controller.old;
 
 import java.util.ArrayList;
 import java.util.HashMap;

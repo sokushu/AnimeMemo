@@ -10,12 +10,12 @@ import moe.neptunenoire.web.controller.error.HomeException;
 public class ErrorCatch {
 
 	@ExceptionHandler(value = BangumiException.class)
-	public String bangumiError() {
+	public String bangumiError(BangumiException e) {
 		return "";
 	}
 
 	@ExceptionHandler(value = HomeException.class)
-	public String homeError() {
+	public String homeError(HomeException e) {
 		return "";
 	}
 

@@ -105,9 +105,10 @@ public class UrlController {
 	@RequestMapping(value = "/sign_in", method = RequestMethod.POST)
 	public String sendSignIn(SignInBean signInBean, Model model, HttpSession session) {
 		{
-			/* 得到登陆的信息  */
+			/* 得到登陆的信息  (String)*/
 			model.addAttribute(Info, index.sign_in(signInBean, session));
 		}
+		//TODO
 		return index.IsSign_in(session) ? /*跳转到指定页面*/ "" : /*跳转回登陆页面*/ "";
 	}
 
@@ -159,19 +160,28 @@ public class UrlController {
 	 * 获得一部动画，漫画等
 	 */
 	@RequestMapping(value = "/bangumi/{bangumiid}", method = RequestMethod.GET)
-	public String showBangumi(@PathVariable("bangumiid")String bangumiid) {
-		return "";
+	public String showBangumi(@PathVariable("bangumiid")String bangumiid, Model model, HttpSession session) {
+		/* bangumiID进行检查 */
+		if (bangumi.animeIDCheck(bangumiid)) {
+			{
+				model.addAttribute(IsSign_in, index.IsSign_in(session));
+				model.addAttribute("Data", bangumi.getAnime(bangumiid));
+			}
+			return "";
+		}else {
+			return "";
+		}
 	}
 
 	/**  */
 	@RequestMapping(value = "/bangumi/{bangumiid}/edit", method = RequestMethod.GET)
-	public String showBangumiEdit() {
+	public String showBangumiEdit(Model model, HttpSession session) {
 		return "";
 	}
 
 	/**  */
 	@RequestMapping(value = "/bangumi/{bangumiid}/edit", method = RequestMethod.POST)
-	public String sendBangumiEdit(BangumiEditBean bangumiEditBean) {
+	public String sendBangumiEdit(BangumiEditBean bangumiEditBean, HttpSession session) {
 		return "";
 	}
 

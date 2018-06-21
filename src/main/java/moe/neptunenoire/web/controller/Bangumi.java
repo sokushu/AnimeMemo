@@ -21,4 +21,26 @@ public class Bangumi {
 		this.maiKissReo = maiKissReo;
 		this.dataSet = new DataSet(maiKissReo, redis);
 	}
+
+	/**
+	 *
+	 * @param animeid
+	 * @return
+	 */
+	public boolean animeIDCheck(String animeid) {
+		try {
+			Integer.parseInt(animeid);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public Map<String, Object> getAnime(String animeID){
+		return null;
+	}
 }

@@ -85,6 +85,8 @@ public class UrlController {
 			model.addAttribute(IsSign_in, index.IsSign_in(session));
 			/* 返回首页的动画 （List<Map<String, Object>>） */
 			model.addAttribute(IndexAnimeTime, index.getIndexAnime(AnimeType.time));
+			/* 返回首页的动画 （List<Map<String, Object>>） */
+			model.addAttribute(IndexAnimeLike, index.getIndexAnime(AnimeType.like));
 		}
 		return "";
 	}

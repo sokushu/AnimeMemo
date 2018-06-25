@@ -25,9 +25,33 @@ public class Bangumi {
 
 	/**
 	 *
+	 * @param BangumiID
 	 * @return
+	 * @throws BangumiNotFoundException
 	 */
-	public Map<String, Object> getAnime(String animeID) throws BangumiNotFoundException {
-		return null;
+	public Map<String, Object> showBangumi(String BangumiID) throws BangumiNotFoundException {
+
+		int bangumiid;
+		try {
+			/* 转换成数字 */
+			bangumiid = Integer.parseInt(BangumiID);
+		} catch (Exception e) {
+			throw new BangumiNotFoundException();
+		}
+
+		/* 数据库查询动画资料 */
+		Map<String, Object> bangumiData = dataSet.getAnimeOne(bangumiid);
+
+		/* 验证是否为空 */
+		if (stringUtil.isNull(bangumiData)) {
+			bangumiData = maiKissReo.Anime_FindByAnimeID(BangumiID);
+			dataSet.saveAnimeData(bangumiData);
+		}
+		/* 验证是否为空 */
+		if (stringUtil.isNull(bangumiData)) {
+			throw new BangumiNotFoundException();
+		}
+
+		return bangumiData;
 	}
 }

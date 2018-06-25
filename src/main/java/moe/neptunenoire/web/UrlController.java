@@ -73,6 +73,8 @@ public class UrlController {
 	private final String IndexAnimeLike = "IndexAnimeLike";
 	/** 显示信息 */
 	private final String Info = "Info";
+	/** 显示集合数据 */
+	private final String Data = "Data";
 /*
  * ==========================================================================
  * http://localhost/								Index Root（Index.java）
@@ -167,7 +169,8 @@ public class UrlController {
 	public String showBangumi(@PathVariable("bangumiid")String bangumiid, Model model, HttpSession session) throws BangumiNotFoundException {
 		{
 			model.addAttribute(IsSign_in, index.IsSign_in(session));
-			model.addAttribute("Data", bangumi.getAnime(bangumiid));
+			model.addAttribute(Data, bangumi.showBangumi(bangumiid));
+			
 		}
 		return "";
 	}

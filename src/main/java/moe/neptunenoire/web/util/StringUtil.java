@@ -102,7 +102,7 @@ public class StringUtil{
      * @return
      */
     public boolean isNull(Map<?,?> map){
-        return map == null || map.size() != 0 ;
+        return !(map != null && map.size() > 0);
     }
 
     /**

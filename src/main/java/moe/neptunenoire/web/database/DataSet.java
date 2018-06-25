@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.data.redis.core.RedisTemplate;
+
 import moe.neptunenoire.web.mysql.MaiKissReo;
 
 /**
@@ -13,7 +14,7 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
  * @author M
  *
  */
-public class DataSet {
+public class DataSet{
 
 	private RedisTemplate<String, Map<String, Object>> redis;
 	// https://www.cnblogs.com/nfcm/p/7833032.html

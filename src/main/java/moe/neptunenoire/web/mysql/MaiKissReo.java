@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-import org.springframework.cache.annotation.Cacheable;
 
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
@@ -29,7 +28,6 @@ public interface MaiKissReo {
     /**
      * 得到所有的动画数据
      */
-//	@Cacheable(key="#p0")
     @SelectProvider(type = SqlBuilder.class, method = "Anime_FindAllAnime")
     public List<Map<String, Object>> Anime_FindAllAnime();
     /**
@@ -57,64 +55,64 @@ public interface MaiKissReo {
      * 最多收藏
      */
 
-     
+
     /**
      * =====================================================================
      * 用户的查找
      * =====================================================================
      */
 
-     
+
     /**
 	 * 根据id查询单个用户的信息
 	 */
 	@SelectProvider(type = SqlBuilder.class, method = "User_FindUserByID")
 	public Map<String, Object> User_FindUserByID(@Param("uid")String uid);
-	
+
 	/**
 	 * 根据用户名查询用户，可用于密码验证
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByUsername")
 	public Map<String, Object> User_FindUserByUsername(@Param("username")String username);
-	
+
 	/**
 	 * 用于页面渲染的数据（排除密码）
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByID")
 	public Map<String, Object> User_FindUserByShowByID(@Param("uid")String uid);
-	
+
 	/**
 	 * 用于页面渲染的数据（排除密码）
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByUsername")
 	public Map<String, Object> User_FindUserByShowByUsername(@Param("username")String username);
-	
+
 	/**
 	 * (排除密码)
 	 * 根据url读取
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByURL")
 	public Map<String, Object> User_FindUserByShowByURL(@Param("url")String url);
-	
+
 	/**
-	 * 添加用户信息 
+	 * 添加用户信息
 	 */
 	@InsertProvider(type = SqlBuilder.class, method = "User_AddUser")
 	public void User_AddUser(Users user);
-	
+
 	/**
 	 * 对用户信息进行更新
 	 */
 	@UpdateProvider(type = SqlBuilder.class, method = "User_UpdataUser")
 	public void User_UpdataUser(Users user, @Param("uid")String uid);
-	
+
 	/**
 	 * 用户的头像更新
 	 */
 	@UpdateProvider(type = SqlBuilder.class, method = "User_UpdataPic")
     public void User_UpdataPic(@Param("userpic")String pic, @Param("uid")String uid);
 
-     
+
     /**
      * =====================================================================
      * 动画标签
@@ -144,7 +142,7 @@ public interface MaiKissReo {
     @SelectProvider(type = SqlBuilder.class, method = "Tag_FindByTagID")
     public Map<String, Object> Tag_FindByTagID(@Param("tag_id")String tagid);
 
-     
+
     /**
      * =====================================================================
      * 动画标签
@@ -152,5 +150,5 @@ public interface MaiKissReo {
      */
 
 
-    
+
 }

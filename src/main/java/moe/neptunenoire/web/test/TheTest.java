@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import moe.neptunenoire.web.controller.error.HomeNotFoundException;
+
 
 
 @Controller
@@ -29,12 +31,12 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
 	public String adada(String id){
-		return map.get(id);
+		return "Hello World";
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)
-	public void exit(){
-
+	public void exit() throws HomeNotFoundException{
+		throw new HomeNotFoundException();
 	}
 
 	@RequestMapping(value = "/muda/", method = RequestMethod.GET)

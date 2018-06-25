@@ -90,4 +90,27 @@ public class MuDa {
 	}
 
 
+	public static String charPlus(String str, boolean goOne) {
+		return "";
+	}
+
+	/**
+	 *
+	 */
+	public static String addSpace(String str, int num) {
+		StringBuilder sb = new StringBuilder();
+		int loop = 0;
+		byte[] aa = new byte[num];
+		byte[] bb = str.getBytes();
+		for (@SuppressWarnings("unused") byte b : aa) {
+			if (loop <= bb.length - 1) {
+				aa[loop] = bb[loop];
+			}else {
+				aa[loop] = 0;
+			}
+			loop ++;
+		}
+		sb.append(new String(aa));
+		return sb.toString();
+	}
 }

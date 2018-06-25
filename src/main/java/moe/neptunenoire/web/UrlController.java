@@ -21,6 +21,7 @@ import moe.neptunenoire.web.controller.Home;
 import moe.neptunenoire.web.controller.Home.HomeType;
 import moe.neptunenoire.web.controller.Index;
 import moe.neptunenoire.web.controller.Index.AnimeType;
+import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
 
@@ -160,19 +161,15 @@ public class UrlController {
  */
 	/**
 	 * 获得一部动画，漫画等
+	 * @throws BangumiNotFoundException
 	 */
 	@RequestMapping(value = "/bangumi/{bangumiid}", method = RequestMethod.GET)
-	public String showBangumi(@PathVariable("bangumiid")String bangumiid, Model model, HttpSession session) {
-		/* bangumiID进行检查 */
-		if (bangumi.animeIDCheck(bangumiid)) {
-			{
-				model.addAttribute(IsSign_in, index.IsSign_in(session));
-				model.addAttribute("Data", bangumi.getAnime(bangumiid));
-			}
-			return "";
-		}else {
-			return "";
+	public String showBangumi(@PathVariable("bangumiid")String bangumiid, Model model, HttpSession session) throws BangumiNotFoundException {
+		{
+			model.addAttribute(IsSign_in, index.IsSign_in(session));
+			model.addAttribute("Data", bangumi.getAnime(bangumiid));
 		}
+		return "";
 	}
 
 	/**  */

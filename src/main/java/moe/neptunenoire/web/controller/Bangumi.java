@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.data.redis.core.RedisTemplate;
 
+import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.database.DataSet;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.util.StringUtil;
@@ -24,23 +25,9 @@ public class Bangumi {
 
 	/**
 	 *
-	 * @param animeid
 	 * @return
 	 */
-	public boolean animeIDCheck(String animeid) {
-		try {
-			Integer.parseInt(animeid);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public Map<String, Object> getAnime(String animeID){
+	public Map<String, Object> getAnime(String animeID) throws BangumiNotFoundException {
 		return null;
 	}
 }

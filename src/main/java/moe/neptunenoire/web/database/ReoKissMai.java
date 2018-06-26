@@ -8,8 +8,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
+import moe.neptunenoire.web.util.StringUtil;
 
 public class ReoKissMai extends DataSet {
+
+	private StringUtil stringUtil = new StringUtil();
 
 	/**
 	 *
@@ -28,8 +31,20 @@ public class ReoKissMai extends DataSet {
 
 	@Override
 	public Map<String, Object> Anime_FindByAnimeID(String animeid) throws BangumiNotFoundException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		int animeID;
+		try {
+			animeID = Integer.parseInt(animeid);
+		} catch (Exception e) {
+			throw new BangumiNotFoundException(e.getMessage());
+		}
+		Map<String, Object> data = getAnimeOne(animeID);
+		if (stringUtil.isNull(data)) {
+			data = maiKissReo.Anime_FindByAnimeID(animeid);
+		}
+		if (stringUtil.isNull(data)) {
+			throw new BangumiNotFoundException("非常抱歉，没有找到"+animeid);
+		}
+		return data;
 	}
 
 	@Override

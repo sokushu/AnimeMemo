@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
+import moe.neptunenoire.web.mysql.MaiKissReo;
 
 
 
@@ -24,14 +25,18 @@ public class TheTest {
 	@Autowired
 	private RedisTemplate<String, Map<String, Object>> ListMap;
 
+	@Autowired
+	private MaiKissReo maiKissReo;
 	Map<String, String> map;
 
 	List<String> list;
 
 	@RequestMapping(value = test, method = RequestMethod.GET)
 	@ResponseBody
-	public String adada(String id){
-		return "Hello World";
+	public Map<String, Object> adada(String id) throws HomeNotFoundException{
+		return maiKissReo.User_FindUserByID("710111514556923747")==null?new HashMap<String, Object>() {{
+			put("123", "null");
+		}}:maiKissReo.User_FindUserByID("710111514556923747");
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

@@ -14,14 +14,23 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
  * @author M
  *
  */
-public class DataSet{
+abstract class DataSet implements MaiKissReo{
 
 	private RedisTemplate<String, Map<String, Object>> redis;
 	// https://www.cnblogs.com/nfcm/p/7833032.html
-	private MaiKissReo maiKissReo;
+	protected MaiKissReo maiKissReo;
 
-	public static final String Anime = "Anime";
-	public static final String User = "User";
+	protected final String Anime = "Anime";
+	protected final String User = "User";
+
+	/**
+	 * 数据操作类初始化
+	 * @param maiKissReo
+	 */
+	public DataSet(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
+		this.maiKissReo = maiKissReo;
+		this.redis = redis;
+	}
 
 	/**
 	 * 保存用户数据
@@ -81,22 +90,5 @@ public class DataSet{
 	 */
 	public Map<String, Object> getAnimeOne(int AnimeID){
 		return redis.opsForList().index(Anime, AnimeID);
-	}
-
-	/**
-	 * 数据操作类初始化
-	 * @param maiKissReo
-	 */
-	public DataSet(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
-		initData(maiKissReo, redis);
-	}
-
-	/**
-	 * 数据初始化
-	 * @param maiKissReo
-	 */
-	private void initData(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
-		this.maiKissReo = maiKissReo;
-		this.redis = redis;
 	}
 }

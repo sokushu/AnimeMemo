@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
+import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 
@@ -34,7 +35,7 @@ public interface MaiKissReo {
      * 根据动画ID查找
      */
     @SelectProvider(type = SqlBuilder.class, method = "Anime_FindByAnimeID")
-    public Map<String, Object> Anime_FindByAnimeID(@Param("animeid")String animeid);
+    public Map<String, Object> Anime_FindByAnimeID(@Param("animeid")String animeid) throws BangumiNotFoundException;
     /**
      * 添加新的动数据
      */

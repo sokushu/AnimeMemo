@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
+import moe.neptunenoire.web.controller.error.BlogNotFoundException;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
@@ -155,14 +156,18 @@ public interface MaiKissReo {
      *
      */
     @SelectProvider(type = SqlBuilder.class, method = "Blog_FindBlogByID")
-    public Map<String, Object> Blog_FindBlogByID(@Param("articleid")String id);
+    public Map<String, Object> Blog_FindBlogByID(@Param("articleid")String id) throws BlogNotFoundException;
+
+    /**
+     * blog功能只有我个人使用，并不打算制作多用户
+     */
+    @Deprecated
+    @SelectProvider(type = SqlBuilder.class, method = "Blog_FindBlogByUser")
+    public Map<String, Object> Blog_FindBlogByUser(@Param("uid")String uid) throws BlogNotFoundException;
 
     /**
      *
      */
-    @SelectProvider(type = SqlBuilder.class, method = "Blog_FindBlogByUser")
-    public Map<String, Object> Blog_FindBlogByUser(@Param("uid")String uid);
-
     @InsertProvider(type = SqlBuilder.class, method = "Blog_AddBlog")
     public void Blog_AddBlog(BlogArticle article);
 }

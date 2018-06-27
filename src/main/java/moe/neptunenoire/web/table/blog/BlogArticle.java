@@ -39,8 +39,8 @@ public class BlogArticle {
 	/**
 	 * 文章正体
 	 */
-	@Column(name = "article")
-	private String article;
+	@Column(name = "articleurl")
+	private String articleurl;
 
 	/**
 	 * 时间
@@ -68,11 +68,11 @@ public class BlogArticle {
 	}
 
 	public String getArticle() {
-		return article;
+		return articleurl;
 	}
 
-	public void setArticle(String article) {
-		this.article = article;
+	public void setArticle(String articleurl) {
+		this.articleurl = articleurl;
 	}
 
 	public Date getDate_new() {
@@ -83,12 +83,12 @@ public class BlogArticle {
 		this.date_new = date_new;
 	}
 
-	public BlogArticle(Integer articleid, Integer userid, String title, String article, Date date_new) {
+	public BlogArticle(Integer articleid, Integer userid, String title, String articleurl, Date date_new) {
 		super();
 		this.articleid = articleid;
 		this.userid = userid;
 		this.title = title;
-		this.article = article;
+		this.articleurl = articleurl;
 		this.date_new = date_new;
 	}
 
@@ -99,6 +99,6 @@ public class BlogArticle {
 	@Override
 	public String toString() {
 		return "BlogArticle [articleid=" + articleid + ", userid=" + userid + ", title=" + title + ", article="
-				+ article + ", date_new=" + date_new + "]";
+				+ articleurl + ", date_new=" + date_new + "]";
 	}
 }

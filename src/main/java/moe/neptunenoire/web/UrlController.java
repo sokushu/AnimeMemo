@@ -24,6 +24,7 @@ import moe.neptunenoire.web.controller.Index;
 import moe.neptunenoire.web.controller.Index.AnimeType;
 import moe.neptunenoire.web.controller.System;
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
+import moe.neptunenoire.web.controller.error.BlogNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
 
@@ -73,16 +74,13 @@ public class UrlController {
  * 字段
  * ==========================================================================
  */
-	/** 是否已经登陆  */
-	private final String IsSign_in = "IsSign_in";
-	/** 显示首页的动画（时间顺序） */
-	private final String IndexAnimeTime = "IndexAnimeTime";
-	/** 显示首页的动画（喜爱顺序） */
-	private final String IndexAnimeLike = "IndexAnimeLike";
-	/** 显示信息 */
-	private final String Info = "Info";
-	/** 显示集合数据 */
-	private final String Data = "Data";
+	private enum ModelString{
+		/** 是否已经登陆  */IsSign_in,
+		/** 显示首页的动画（时间顺序） */IndexAnimeTime,
+		/** 显示首页的动画（喜爱顺序） */IndexAnimeLike,
+		/** 显示信息 */Info,
+		/** 显示集合数据 */Data,
+	}
 /*
  * ==========================================================================
  * http://localhost/								Index Root（Index.java）
@@ -93,11 +91,11 @@ public class UrlController {
 	public String showIndex(Model model, HttpSession session) {
 		{
 			/* 返回用户是否已经登陆 （boolean） */
-			model.addAttribute(IsSign_in, index.IsSign_in(session));
+			model.addAttribute(ModelString.IsSign_in.name(), index.IsSign_in(session));
 			/* 返回首页的动画 （List<Map<String, Object>>） */
-			model.addAttribute(IndexAnimeTime, index.getIndexAnime(AnimeType.time));
+			model.addAttribute(ModelString.IndexAnimeTime.name(), index.getIndexAnime(AnimeType.time));
 			/* 返回首页的动画 （List<Map<String, Object>>） */
-			model.addAttribute(IndexAnimeLike, index.getIndexAnime(AnimeType.like));
+			model.addAttribute(ModelString.IndexAnimeLike.name(), index.getIndexAnime(AnimeType.like));
 		}
 		return "";
 	}
@@ -119,7 +117,7 @@ public class UrlController {
 	public String sendSignIn(SignInBean signInBean, Model model, HttpSession session) {
 		{
 			/* 得到登陆的信息  (String)*/
-			model.addAttribute(Info, index.sign_in(signInBean, session));
+			model.addAttribute(ModelString.Info.name(), index.sign_in(signInBean, session));
 		}
 		//TODO
 		return index.IsSign_in(session) ? /*跳转到指定页面*/ "" : /*跳转回登陆页面*/ "";
@@ -176,8 +174,8 @@ public class UrlController {
 	@RequestMapping(value = "/bangumi/{bangumiid}", method = RequestMethod.GET)
 	public String showBangumi(@PathVariable("bangumiid")String bangumiid, Model model, HttpSession session) throws BangumiNotFoundException {
 		{
-			model.addAttribute(IsSign_in, index.IsSign_in(session));
-			model.addAttribute(Data, bangumi.showBangumi(bangumiid));
+			model.addAttribute(ModelString.IsSign_in.name(), index.IsSign_in(session));
+			model.addAttribute(ModelString.Data.name(), bangumi.showBangumi(bangumiid));
 
 		}
 		return "";
@@ -230,9 +228,18 @@ public class UrlController {
  * http://localhost/Blog							Blog Root(Blog.java)
  * ==========================================================================
  */
-
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String showBlog(Model model) {
+	/**
+	 *
+	 * @param model
+	 * @param blogid
+	 * @return
+	 * @throws BlogNotFoundException
+	 */
+	@RequestMapping(value = "/blog/{blogid}", method = RequestMethod.GET)
+	public String showBlog(Model model, @PathVariable("blogid")String blogid) throws BlogNotFoundException {
+		{
+			model.addAttribute(ModelString.Data.name(), blog.showBlog(blogid));
+		}
 		return "";
 	}
 

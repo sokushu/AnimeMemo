@@ -254,7 +254,9 @@ public class SqlBuilder{
     public String Blog_AddBlog(final BlogArticle article) {
     	return new SQL() {{
     		INSERT_INTO("blogarticle");
-    		VALUES("", "");
+    		VALUES("userid", "#{userid}");
+    		VALUES("title", "#{title}");
+    		VALUES("articleurl", "#{articleurl}");
     	}}.toString();
     }
 }

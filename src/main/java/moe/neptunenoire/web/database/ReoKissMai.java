@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
+import moe.neptunenoire.web.controller.error.BlogNotFoundException;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.controller.error.IAmError;
 import moe.neptunenoire.web.mysql.MaiKissReo;
@@ -227,13 +228,28 @@ public class ReoKissMai extends DataSet {
 	}
 
 	@Override
-	public Map<String, Object> Blog_FindBlogByID(String id) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public Map<String, Object> Blog_FindBlogByID(String id) throws BlogNotFoundException {
+		long blogid;
+		try {
+			blogid = Long.parseLong(id);
+		} catch (Exception e) {
+			throw new BlogNotFoundException();
+		}
+		Map<String, Object> data = getData(DataType.Blog, blogid);
+		if (stringUtil.isNull(data)) {
+			data = maiKissReo.Blog_FindBlogByID(id);
+			if (stringUtil.isNull(data)) {
+				throw new BlogNotFoundException();
+			}else {
+				saveData(DataType.Blog, blogid, data);
+			}
+		}
+		return data;
 	}
 
 	@Override
-	public Map<String, Object> Blog_FindBlogByUser(String uid) {
+	@Deprecated
+	public Map<String, Object> Blog_FindBlogByUser(String uid) throws BlogNotFoundException {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
@@ -243,7 +259,4 @@ public class ReoKissMai extends DataSet {
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
-
-
-
 }

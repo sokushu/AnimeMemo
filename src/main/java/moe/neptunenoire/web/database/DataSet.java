@@ -24,6 +24,8 @@ abstract class DataSet implements MaiKissReo{
 		TOKU,
 		Anime,
 		User,
+		Blog,
+		Tag,
 	}
 
 	/**

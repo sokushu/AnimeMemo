@@ -167,6 +167,25 @@ public class FileReadAndLoad {
 
     /**
      *
+     * @param FileName
+     * @return
+     * @throws IOException
+     */
+    public String ReadTextForString(String FileName) throws IOException {
+    	StringBuilder sb = new StringBuilder();
+    	File readFile = new File(sb.append(file.getPath()).append(File.separator).append(FileName).toString());
+    	if (!readFile.isFile()) {
+			throw new FileNotFoundException("未找到文件" + file.getPath() + File.separator + FileName);
+		}
+    	try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "UTF-8"))){
+			return br.lines().collect(Collectors.joining());
+		} catch (Exception e) {
+			throw e;
+		}
+    }
+
+    /**
+     *
      * @return
      */
     public File[] listFiles() {

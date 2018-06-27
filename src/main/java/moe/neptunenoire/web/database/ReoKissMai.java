@@ -10,6 +10,7 @@ import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.util.StringUtil;
+import moe.neptunenoire.web.util.UserID;
 
 public class ReoKissMai extends DataSet {
 
@@ -77,23 +78,48 @@ public class ReoKissMai extends DataSet {
 		Map<String, Object> data = getData(DataType.User, userID);
 		if (stringUtil.isNull(data)) {
 			data = maiKissReo.User_FindUserByID(uid);
-		}
-		if (stringUtil.isNull(data)) {
-			throw new HomeNotFoundException();
+			if (stringUtil.isNull(data)) {
+				throw new HomeNotFoundException();
+			}else {
+				saveData(DataType.User, userID, data);
+			}
 		}
 		return data;
 	}
 
 	@Override
 	public Map<String, Object> User_FindUserByUsername(String username) throws HomeNotFoundException{
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		long uid = new UserID(username).GetlongCode();
+		Map<String, Object> data = getData(DataType.User, uid);
+		if (stringUtil.isNull(data)) {
+			data = maiKissReo.User_FindUserByUsername(username);
+			if (stringUtil.isNull(data)) {
+				throw new HomeNotFoundException();
+			}else {
+				saveData(DataType.User, uid, data);
+			}
+		}
+		return data;
 	}
 
 	@Override
 	public Map<String, Object> User_FindUserByShowByID(String uid) throws HomeNotFoundException{
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		Long userid;
+		try {
+			userid = Long.parseLong(uid);
+		} catch (Exception e) {
+			throw new HomeNotFoundException();
+		}
+		Map<String, Object> data = getData(DataType.User, userid);
+		if (stringUtil.isNull(data)) {
+			data = maiKissReo.User_FindUserByShowByID(uid);
+			if (stringUtil.isNull(data)) {
+				throw new HomeNotFoundException();
+			}else {
+				saveData(DataType.User, userid, data);
+			}
+		}
+		return data;
 	}
 
 	@Override
@@ -110,7 +136,7 @@ public class ReoKissMai extends DataSet {
 
 	@Override
 	public void User_AddUser(Users user) {
-		// TODO 自動生成されたメソッド・スタブ
+
 
 	}
 

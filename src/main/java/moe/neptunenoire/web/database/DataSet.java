@@ -21,6 +21,7 @@ abstract class DataSet implements MaiKissReo{
 	protected MaiKissReo maiKissReo;
 
 	public static enum DataType{
+		TOKU,
 		Anime,
 		User,
 	}
@@ -44,6 +45,7 @@ abstract class DataSet implements MaiKissReo{
 
 	public void saveData(DataType type, List<Map<String, Object>> data) {
 		redis.opsForList().leftPushAll(type.name(), data);
+//		redis.opsForHash();
 	}
 
 

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
+import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 
@@ -68,32 +69,32 @@ public interface MaiKissReo {
 	 * 根据id查询单个用户的信息
 	 */
 	@SelectProvider(type = SqlBuilder.class, method = "User_FindUserByID")
-	public Map<String, Object> User_FindUserByID(@Param("uid")String uid);
+	public Map<String, Object> User_FindUserByID(@Param("uid")String uid) throws HomeNotFoundException;
 
 	/**
 	 * 根据用户名查询用户，可用于密码验证
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByUsername")
-	public Map<String, Object> User_FindUserByUsername(@Param("username")String username);
+	public Map<String, Object> User_FindUserByUsername(@Param("username")String username) throws HomeNotFoundException;
 
 	/**
 	 * 用于页面渲染的数据（排除密码）
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByID")
-	public Map<String, Object> User_FindUserByShowByID(@Param("uid")String uid);
+	public Map<String, Object> User_FindUserByShowByID(@Param("uid")String uid) throws HomeNotFoundException;
 
 	/**
 	 * 用于页面渲染的数据（排除密码）
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByUsername")
-	public Map<String, Object> User_FindUserByShowByUsername(@Param("username")String username);
+	public Map<String, Object> User_FindUserByShowByUsername(@Param("username")String username) throws HomeNotFoundException;
 
 	/**
 	 * (排除密码)
 	 * 根据url读取
 	 */
     @SelectProvider(type = SqlBuilder.class, method = "User_FindUserByShowByURL")
-	public Map<String, Object> User_FindUserByShowByURL(@Param("url")String url);
+	public Map<String, Object> User_FindUserByShowByURL(@Param("url")String url) throws HomeNotFoundException;
 
 	/**
 	 * 添加用户信息

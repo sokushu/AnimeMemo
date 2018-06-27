@@ -20,8 +20,10 @@ abstract class DataSet implements MaiKissReo{
 	// https://www.cnblogs.com/nfcm/p/7833032.html
 	protected MaiKissReo maiKissReo;
 
-	protected final String Anime = "Anime";
-	protected final String User = "User";
+	public static enum DataType{
+		Anime,
+		User,
+	}
 
 	/**
 	 * 数据操作类初始化
@@ -33,62 +35,50 @@ abstract class DataSet implements MaiKissReo{
 	}
 
 	/**
-	 * 保存用户数据
+	 * 保存数据
 	 * @param data
 	 */
-	public void saveUsersData(Map<String, Object> data) {
-		redis.opsForList().set(User, (long)(data.get("uid")), data);
+	public void saveData(DataType type, long key, Map<String, Object> data) {
+		redis.opsForList().set(type.name(), key, data);
+	}
+
+	public void saveData(DataType type, List<Map<String, Object>> data) {
+		redis.opsForList().leftPushAll(type.name(), data);
 	}
 
 
 	/**
-	 * 得到一条用户数据
+	 * 得到一条数据
 	 * @param filter
 	 * @return
 	 */
-	public Map<String, Object> getUser(long UID){
-		return redis.opsForList().index(User, UID);
+	public Map<String, Object> getData(DataType type, long key){
+		return redis.opsForList().index(type.name(), key);
 	}
 
 	/**
-	 * 得到用户数
+	 * 得到数
 	 * @return
 	 */
-	public long getUserNum() {
-		return redis.opsForList().size(User);
+	public long getDataSize(DataType type) {
+		return redis.opsForList().size(type.name());
 	}
 
 	/**
-	 * 得到数据的数量
+	 *
+	 * @param type
 	 * @return
 	 */
-	public long getAnimeNum() {
-		return redis.opsForList().size(Anime);
+	public List<Map<String, Object>> getAllData(DataType type) {
+		return redis.opsForList().range(type.name(), 0, 5000);
 	}
 
 	/**
-	 * 保存一个动画数据
-	 * @param data 动画的数据
-	 */
-	public void saveAnimeData(Map<String, Object> data) {
-		redis.opsForList().set(Anime, (int)(data.get("anime_id")), data);
-	}
-
-	/**
-	 * 得到动画集合
+	 * 得到集合
 	 * @param filter 过滤规则
 	 * @return
 	 */
-	public List<Map<String, Object>> getAllAnimeData(Predicate<? super Map<String, Object>> filter){
-		return redis.opsForList().range(Anime, 0, 5000).stream().filter(filter).collect(Collectors.toList());
-	}
-
-	/**
-	 * 得到一部动画
-	 * @param filter 过滤规则
-	 * @return
-	 */
-	public Map<String, Object> getAnimeOne(int AnimeID){
-		return redis.opsForList().index(Anime, AnimeID);
+	public List<Map<String, Object>> getFilterAllData(DataType type, Predicate<? super Map<String, Object>> filter){
+		return redis.opsForList().range(type.name(), 0, 5000).stream().filter(filter).collect(Collectors.toList());
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -22,7 +23,7 @@ public class Message {
 	private Integer id;
 	/**
 	 * 谁发的
-	 * 
+	 *
 	 */
 	@Column(name="fromuid")
 	private Integer fromUID;
@@ -40,7 +41,7 @@ public class Message {
 	 * 是否已读 已读 1 未读 0
 	 */
 	@Column(name="readed")
-	private Integer readed;
+	private Boolean readed;
 	/**
 	 * 发送日期(只用来读)
 	 */
@@ -71,10 +72,10 @@ public class Message {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Integer getReaded() {
+	public Boolean getReaded() {
 		return readed;
 	}
-	public void setReaded(Integer readed) {
+	public void setReaded(Boolean readed) {
 		this.readed = readed;
 	}
 	public Date getDate() {
@@ -136,7 +137,7 @@ public class Message {
 			return false;
 		return true;
 	}
-	public Message(Integer id, Integer fromUID, Integer toUID, String message, Integer readed, Date date) {
+	public Message(Integer id, Integer fromUID, Integer toUID, String message, Boolean readed, Date date) {
 		super();
 		this.id = id;
 		this.fromUID = fromUID;
@@ -153,5 +154,5 @@ public class Message {
 		return "Message [id=" + id + ", fromUID=" + fromUID + ", toUID=" + toUID + ", message=" + message + ", readed="
 				+ readed + ", date=" + date + "]";
 	}
-	
+
 }

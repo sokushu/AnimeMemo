@@ -4,6 +4,7 @@ import org.apache.ibatis.jdbc.SQL;
 
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
+import moe.neptunenoire.web.table.blog.BlogArticle;
 import moe.neptunenoire.web.util.StringUtil;
 
 
@@ -230,5 +231,30 @@ public class SqlBuilder{
             FROM("tag");
             WHERE("tag_id = #{tag_id}");
         }}.toString();
+    }
+    /**
+     * =====================================================================
+     * Blog
+     * =====================================================================
+     */
+    public String Blog_FindBlogByID() {
+    	return new SQL() {{
+    		SELECT("*");
+    		FROM("blogarticle");
+    		WHERE("articleid = #{articleid}");
+    	}}.toString();
+    }
+    public String Blog_FindBlogByUser() {
+    	return new SQL() {{
+    		SELECT("*");
+    		FROM("blogarticle");
+    		WHERE("userid = #{uid}");
+    	}}.toString();
+    }
+    public String Blog_AddBlog(final BlogArticle article) {
+    	return new SQL() {{
+    		INSERT_INTO("blogarticle");
+    		VALUES("", "");
+    	}}.toString();
     }
 }

@@ -10,6 +10,7 @@ import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.controller.error.IAmError;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
+import moe.neptunenoire.web.table.blog.BlogArticle;
 import moe.neptunenoire.web.util.StringUtil;
 import moe.neptunenoire.web.util.UserID;
 
@@ -223,6 +224,24 @@ public class ReoKissMai extends DataSet {
 	public Map<String, Object> Tag_FindByTagID(String tagid) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
+	}
+
+	@Override
+	public Map<String, Object> Blog_FindBlogByID(String id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> Blog_FindBlogByUser(String uid) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public void Blog_AddBlog(BlogArticle article) {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 

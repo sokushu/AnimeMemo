@@ -13,6 +13,7 @@ import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
+import moe.neptunenoire.web.table.blog.BlogArticle;
 
 /**
  * 用于数据库查询的接口
@@ -147,10 +148,21 @@ public interface MaiKissReo {
 
     /**
      * =====================================================================
-     * 动画标签
+     * Blog
      * =====================================================================
      */
+    /**
+     *
+     */
+    @SelectProvider(type = SqlBuilder.class, method = "Blog_FindBlogByID")
+    public Map<String, Object> Blog_FindBlogByID(@Param("articleid")String id);
 
+    /**
+     *
+     */
+    @SelectProvider(type = SqlBuilder.class, method = "Blog_FindBlogByUser")
+    public Map<String, Object> Blog_FindBlogByUser(@Param("uid")String uid);
 
-
+    @InsertProvider(type = SqlBuilder.class, method = "Blog_AddBlog")
+    public void Blog_AddBlog(BlogArticle article);
 }

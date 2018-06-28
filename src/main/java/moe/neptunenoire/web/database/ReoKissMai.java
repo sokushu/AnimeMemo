@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
+import moe.neptunenoire.web.controller.error.IAmError;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.util.StringUtil;
@@ -31,7 +32,9 @@ public class ReoKissMai extends DataSet {
 		if (stringUtil.isNull(data)) {
 			data = maiKissReo.Anime_FindAllAnime();
 			if (!stringUtil.isNull(data)) {
-				saveData(DataType.Anime, data);
+				data.forEach(var->{
+					saveData(DataType.Anime, (long)(var.get("anime_id")), var);
+				});
 			}
 		}
 		return data;
@@ -60,6 +63,18 @@ public class ReoKissMai extends DataSet {
 	@Override
 	public void Anime_AddAnime(moe.neptunenoire.web.table.Anime anime) {
 		maiKissReo.Anime_AddAnime(anime);
+		String animeid = anime.getAnime_id().toString();
+		try {
+			Map<String, Object> data = maiKissReo.Anime_FindByAnimeID(animeid);
+			if (stringUtil.isNull(data)) {
+				throw new IAmError("动画数据保存失败，原因未知");
+			}else {
+				saveData(DataType.Anime, anime.getAnime_id(), data);
+			}
+		} catch (BangumiNotFoundException e) {
+		} catch (IAmError e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

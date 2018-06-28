@@ -43,9 +43,10 @@ abstract class DataSet implements MaiKissReo{
 		redis.opsForList().set(type.name(), key, data);
 	}
 
-	public void saveData(DataType type, List<Map<String, Object>> data) {
-		redis.opsForList().leftPushAll(type.name(), data);
-//		redis.opsForHash();
+	public void saveData(DataType type, String key, Map<String, Object> data) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(type.name()).append("-").append(key);
+		redis.opsForValue().set(sb.toString(), data);
 	}
 
 

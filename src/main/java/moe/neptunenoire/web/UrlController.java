@@ -170,7 +170,7 @@ public class UrlController {
 		{
 			model.addAttribute(IsSign_in, index.IsSign_in(session));
 			model.addAttribute(Data, bangumi.showBangumi(bangumiid));
-			
+
 		}
 		return "";
 	}

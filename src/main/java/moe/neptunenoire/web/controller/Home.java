@@ -7,22 +7,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import moe.neptunenoire.InfoData;
-import moe.neptunenoire.web.database.DataSet;
+import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.util.StringUtil;
 
 public class Home {
 
-	/** 数据库字段 */
-	private MaiKissReo maiKissReo;
-	/** 内存数据库操作 */
-	private DataSet dataSet;
+	/** 数据库操作 */
+	private ReoKissMai reoKissMai;
 	/** 字符工具类 */
 	private StringUtil stringUtil = new StringUtil();
 
 	public Home(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
-		this.maiKissReo = maiKissReo;
-		this.dataSet = new DataSet(maiKissReo, redis);
+		this.reoKissMai = new ReoKissMai(maiKissReo, redis);
 	}
 
 	/**

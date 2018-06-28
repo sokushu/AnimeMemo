@@ -9,7 +9,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.bean.SignInBean;
-import moe.neptunenoire.web.database.DataSet;
+import moe.neptunenoire.web.controller.error.HomeNotFoundException;
+import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.util.MD5Coding;
 import moe.neptunenoire.web.util.StringUtil;
@@ -22,10 +23,8 @@ import moe.neptunenoire.web.util.UserID;
  */
 public class Index {
 
-	/** 数据库字段 */
-	private MaiKissReo maiKissReo;
-	/** 内存数据库操作 */
-	private DataSet dataSet;
+	/** 数据库操作 */
+	private ReoKissMai reoKissMai;
 	/** 字符工具类 */
 	private StringUtil stringUtil = new StringUtil();
 
@@ -33,8 +32,7 @@ public class Index {
 	 * 初始化
 	 */
 	public Index(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
-		this.maiKissReo = maiKissReo;
-		this.dataSet = new DataSet(maiKissReo, redis);
+		this.reoKissMai = new ReoKissMai(maiKissReo, redis);
 	}
 
 	/**
@@ -54,7 +52,7 @@ public class Index {
 	 */
 	public List<Map<String, Object>> getIndexAnime(AnimeType type){
 		//TODO 首页动画的展示
-		maiKissReo.Anime_FindIndexAnime(8);
+		reoKissMai.Anime_FindIndexAnime(8);
 		return null;
 	}
 
@@ -67,7 +65,7 @@ public class Index {
 	 * @param signInBean
 	 * @return
 	 */
-	public String sign_in(SignInBean signInBean, HttpSession session) {
+	public String sign_in(SignInBean signInBean, HttpSession session){
 
 		String username = signInBean.getUsername();
 		String password = signInBean.getPassword();
@@ -75,20 +73,13 @@ public class Index {
 		/* 生成UID */
 		UserID uid = new UserID(username);
 
-		Map<String, Object> userdata = dataSet.getUser(uid.GetlongCode());
-
-		/* 如果没有缓存过 */
-		if (stringUtil.isNull(userdata)) {
-			userdata = maiKissReo.User_FindUserByID(uid.toString());
-			if (!stringUtil.isNull(userdata)) {
-				/* 缓存用户数据 */
-				dataSet.saveUsersData(userdata);
-			}else {
-				/* 没有这个用户 */
-				return "用户名或密码错误";
-			}
+		Map<String, Object> userdata;
+		try {
+			userdata = reoKissMai.User_FindUserByID(uid.toString());
+		} catch (HomeNotFoundException e) {
+			return "用户名或密码错误";
 		}
-
+		//TODO コードのチェック
 		/* 获取MD5密码 */
 		String md5Password = new MD5Coding().coding(username, password, uid.GetlongCode());
 

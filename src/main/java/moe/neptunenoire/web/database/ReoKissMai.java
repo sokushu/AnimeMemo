@@ -139,8 +139,17 @@ public class ReoKissMai extends DataSet {
 
 	@Override
 	public Map<String, Object> User_FindUserByShowByUsername(String username) throws HomeNotFoundException{
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		long userID = new UserID(username).GetlongCode();
+		Map<String, Object> data = getData(DataType.User, userID);
+		if (stringUtil.isNull(data)) {
+			data = maiKissReo.User_FindUserByShowByUsername(username);
+			if (stringUtil.isNull(data)) {
+				throw new HomeNotFoundException();
+			}else {
+				saveData(DataType.User, userID, data);
+			}
+		}
+		return data;
 	}
 
 	@Override

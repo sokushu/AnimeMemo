@@ -8,4 +8,8 @@ public class IAmError extends Exception {
 	public IAmError(String str) {
 		super(str);
 	}
+
+	public IAmError(String msg, Throwable e) {
+		super(msg, e);
+	}
 }

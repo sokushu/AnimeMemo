@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import moe.neptunenoire.web.bean.BangumiEditBean;
 import moe.neptunenoire.web.bean.SignInBean;
 import moe.neptunenoire.web.controller.Bangumi;
+import moe.neptunenoire.web.controller.Blog;
 import moe.neptunenoire.web.controller.Home;
 import moe.neptunenoire.web.controller.Home.HomeType;
 import moe.neptunenoire.web.controller.Index;
 import moe.neptunenoire.web.controller.Index.AnimeType;
+import moe.neptunenoire.web.controller.System;
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
@@ -52,12 +54,18 @@ public class UrlController {
 	/**  */
 	private Home home;
 
+	private System system;
+
+	private Blog blog;
+
 	/**  */
 	@Autowired
 	public UrlController(MaiKissReo maiKissReo, RedisTemplate<String, Map<String, Object>> redis) {
 		index = new Index(maiKissReo, redis);
 		bangumi = new Bangumi(maiKissReo, redis);
 		home = new Home(maiKissReo, redis);
+		system = new System(maiKissReo, redis);
+		blog = new Blog(maiKissReo, redis);
 	}
 
 /*

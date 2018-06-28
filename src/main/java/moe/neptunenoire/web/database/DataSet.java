@@ -59,6 +59,12 @@ abstract class DataSet implements MaiKissReo{
 		return redis.opsForList().index(type.name(), key);
 	}
 
+	public Map<String, Object> getData(DataType type, String key){
+		StringBuilder sb = new StringBuilder();
+		sb.append(type.name()).append("-").append(key);
+		return redis.opsForValue().get(sb.toString());
+	}
+
 	/**
 	 * 得到数
 	 * @return

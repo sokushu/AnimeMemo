@@ -28,7 +28,7 @@ public class BlogArticle {
 	 * 文章作者
 	 */
 	@Column(name = "userid")
-	private Integer userid;
+	private Long userid;
 
 	/**
 	 * 文章标题
@@ -51,8 +51,28 @@ public class BlogArticle {
 	/*
 	 * ===================================================
 	 */
+
+
+
 	public Integer getArticleid() {
 		return articleid;
+	}
+
+	public BlogArticle(Integer articleid, Long userid, String title, String articleurl, Date date_new) {
+		super();
+		this.articleid = articleid;
+		this.userid = userid;
+		this.title = title;
+		this.articleurl = articleurl;
+		this.date_new = date_new;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public void setArticleid(Integer articleid) {
@@ -67,11 +87,11 @@ public class BlogArticle {
 		this.title = title;
 	}
 
-	public String getArticle() {
+	public String getArticleurl() {
 		return articleurl;
 	}
 
-	public void setArticle(String articleurl) {
+	public void setArticleurl(String articleurl) {
 		this.articleurl = articleurl;
 	}
 
@@ -80,15 +100,6 @@ public class BlogArticle {
 	}
 
 	public void setDate_new(Date date_new) {
-		this.date_new = date_new;
-	}
-
-	public BlogArticle(Integer articleid, Integer userid, String title, String articleurl, Date date_new) {
-		super();
-		this.articleid = articleid;
-		this.userid = userid;
-		this.title = title;
-		this.articleurl = articleurl;
 		this.date_new = date_new;
 	}
 

@@ -250,9 +250,18 @@ public class FileReadAndLoad {
      *
      * @param FileName
      * @param html
+     * @throws IOException
      */
-    public void HtmlWrite(String FileName, String html) {
-    	html = html.replaceAll("", "");
+    public void WriteHtml(String FileName, String html) throws IOException {
+    	html = html.replaceAll("script", "div");
+
+    	StringBuilder sb = new StringBuilder();
+    	try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+    			sb.append(this.file.getPath()).append(File.separator).append(FileName).toString()), "UTF-8"))){
+    		writer.write(html);
+		} catch (IOException e) {
+			throw e;
+		}
     }
 
     /**

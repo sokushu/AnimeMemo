@@ -2,12 +2,17 @@ package moe.neptunenoire.web.controller;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.data.redis.core.RedisTemplate;
 
+import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.controller.error.BlogNotFoundException;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
+import moe.neptunenoire.web.table.blog.BlogArticle;
 import moe.neptunenoire.web.util.FileReadAndLoad;
 import moe.neptunenoire.web.util.StringUtil;
 
@@ -51,5 +56,29 @@ public class Blog {
 			data.put("articleurl", blog);
 		}
 		return data;
+	}
+
+	/**
+	 *
+	 * @param title
+	 * @param article
+	 */
+	public void addBlog(String title, String article, HttpSession session) {
+		BlogArticle blogArticle = new BlogArticle();
+		UUID uuid = UUID.fromString(title);
+		String fileName = uuid.toString();
+		try {
+			readAndLoad.WriteHtml(uuid.toString() , article);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		long uid = (long)session.getAttribute(InfoData.Session_USERUID);
+
+		StringBuilder sb = new StringBuilder();
+		blogArticle.setArticleurl(sb.append(readAndLoad.getPath()).append("/").append(fileName).toString());
+		blogArticle.setTitle(title);
+		blogArticle.setUserid(uid);
+
+		reoKissMai.Blog_AddBlog(blogArticle);
 	}
 }

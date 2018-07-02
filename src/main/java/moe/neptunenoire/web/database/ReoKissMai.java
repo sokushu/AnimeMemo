@@ -256,7 +256,6 @@ public class ReoKissMai extends DataSet {
 
 	@Override
 	public void Blog_AddBlog(BlogArticle article) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		maiKissReo.Blog_AddBlog(article);
 	}
 }

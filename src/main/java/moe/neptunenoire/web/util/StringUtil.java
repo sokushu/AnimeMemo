@@ -110,17 +110,8 @@ public class StringUtil{
      * @param long1
      * @return
      */
-    public boolean isNull(Long long1){
-        return long1 == null;
-    }
-
-    /**
-     * 检查时候是Null
-     * @param inte
-     * @return
-     */
-    public boolean isNull(Integer inte){
-        return inte == null;
+    public boolean isNull(Object obj){
+        return obj == null;
     }
 
     /**

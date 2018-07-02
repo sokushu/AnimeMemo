@@ -243,6 +243,17 @@ public class UrlController {
 		return "";
 	}
 
+	@RequestMapping(value = "/blog/addblog", method = RequestMethod.POST)
+	public String addBlog(String title, String article, HttpSession session) {
+		blog.addBlog(title, article, session);
+		return "";
+	}
+
+	@RequestMapping(value = "/blog/addblog", method = RequestMethod.GET)
+	public String addBlog(Model model) {
+		return "";
+	}
+
 /*
  * ==========================================================================
  * http://localhost/system							System Root(System.java)

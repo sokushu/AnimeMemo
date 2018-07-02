@@ -1,5 +1,13 @@
 package moe.neptunenoire.web.util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 何の役も立たないので
  * 普通使わない
@@ -112,5 +120,53 @@ public class MuDa {
 		}
 		sb.append(new String(aa));
 		return sb.toString();
+	}
+
+	public Map<String, Object> getFields(Object obj, String...fieldsName) {
+		Map<String, Object> data = new HashMap<>();
+		List<String> fieldName = Arrays.asList(fieldsName);
+		for (Field field : obj.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			String name = field.getName();
+			if (fieldName.contains(name)) {
+				try {
+					data.put(name, field.get(obj));
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return data;
+	}
+
+	public void setField(Object obj, String fieldName, Object value) {
+		try {
+			Field field = obj.getClass().getDeclaredField(fieldName);
+			field.setAccessible(true);
+			field.set(obj, value);
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+	}
+
+	public Map<String, Method> getMethods(Object obj, String...methodNames) {
+		List<String> list = Arrays.asList(methodNames);
+		Map<String, Method> data = new HashMap<>();
+		for (Method var : obj.getClass().getDeclaredMethods()) {
+			var.setAccessible(true);
+			if (list.contains(var.getName())) {
+				data.put(var.getName(), var);
+			}
+		}
+		return data;
+	}
+
+	public Object Run(Method method,Object obj, Object...objects) throws Exception {
+		try {
+			return method.invoke(obj, objects);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			throw e;
+		}
 	}
 }

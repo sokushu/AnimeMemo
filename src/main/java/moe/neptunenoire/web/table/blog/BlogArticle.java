@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="blogarticle", indexes = {@Index(name = "user_acticleIndex", columnList="title,articleid,userid")})
+@Table(name="blogarticle", indexes={@Index(name="key_ofblogarticle", columnList="articleid,userid")})
 public class BlogArticle {
 
 	/**

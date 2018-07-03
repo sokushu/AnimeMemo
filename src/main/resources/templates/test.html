@@ -7,7 +7,10 @@
 </head>
 
 <body>
-    <h1 th:text="${test}"></h1>
+    <form enctype="multipart/form-data" action="/test/" method="post">
+    	<input type="file" name="file0"/>
+    	<input type="submit" value="GO"/>
+    </form>
 </body>
 
 </html>

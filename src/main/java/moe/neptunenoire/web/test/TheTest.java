@@ -1,5 +1,6 @@
 package moe.neptunenoire.web.test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
@@ -31,12 +33,19 @@ public class TheTest {
 
 	List<String> list;
 
+	@RequestMapping(value = test, method = RequestMethod.POST)
+	public void adada(String id, MultipartFile file0) throws HomeNotFoundException{
+		try {
+			File file = new File("E:\\" + file0.getOriginalFilename());
+			file0.transferTo(file);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
 	@RequestMapping(value = test, method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> adada(String id) throws HomeNotFoundException{
-		return maiKissReo.User_FindUserByID("710111514556923747")==null?new HashMap<String, Object>() {{
-			put("123", "null");
-		}}:maiKissReo.User_FindUserByID("710111514556923747");
+	public String test() {
+		return "test";
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

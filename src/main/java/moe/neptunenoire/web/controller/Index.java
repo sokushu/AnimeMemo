@@ -1,11 +1,14 @@
 package moe.neptunenoire.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.bean.SignInBean;
@@ -107,6 +110,17 @@ public class Index {
 		}
 
 		return "登陆成功";
+	}
+
+	public String fileUpLoad(MultipartFile upfile) {
+		try {
+			upfile.transferTo(new File(""));
+			return "OK";
+		} catch (IllegalStateException | IOException e) {
+
+			return "NG";
+		}
+
 	}
 
 }

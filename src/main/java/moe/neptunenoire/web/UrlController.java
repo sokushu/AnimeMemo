@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import moe.neptunenoire.web.bean.BangumiEditBean;
 import moe.neptunenoire.web.bean.SignInBean;
@@ -159,7 +160,7 @@ public class UrlController {
 
 	/** 文件上传 */
 	@RequestMapping(value = "/fileupload", method = RequestMethod.POST)
-	public String fileUpLoad() {
+	public String fileUpLoad(MultipartFile upfile) {
 		return "";
 	}
 /*

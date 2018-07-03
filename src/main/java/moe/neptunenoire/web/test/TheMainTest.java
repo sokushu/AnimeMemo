@@ -1,8 +1,9 @@
 package moe.neptunenoire.web.test;
 
-import java.time.LocalTime;
-
-import moe.neptunenoire.web.util.SenKiZeSShou;
+import org.mapdb.BTreeMap;
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
+import org.mapdb.serializer.GroupSerializer;
 
 public class TheMainTest {
 
@@ -13,13 +14,14 @@ public class TheMainTest {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(LocalTime.now().toString());
-			SenKiZeSShou senKiZeSShou = SenKiZeSShou.loadClass(TheMainTest.class.newInstance());
-			senKiZeSShou.RunMethod("print");
-			System.out.println(LocalTime.now().toString());
-			TheMainTest mainTest = new TheMainTest();
-			mainTest.print();
-			System.out.println(LocalTime.now().toString());
+			DB db = DBMaker.memoryDB().make();
+
+			BTreeMap<String, String> bTreeMap = db.treeMap("map").keySerializer(GroupSerializer.STRING).valueSerializer(GroupSerializer.STRING).create();
+
+			bTreeMap.put("Hello", "Hello00");
+
+			System.out.println(bTreeMap.get("Hello"));
+
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

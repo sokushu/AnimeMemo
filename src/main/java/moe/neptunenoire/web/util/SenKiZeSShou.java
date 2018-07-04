@@ -1,14 +1,17 @@
 package moe.neptunenoire.web.util;
 
+import java.lang.instrument.ClassFileTransformer;
+import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SenKiZeSShou {
+public class SenKiZeSShou implements ClassFileTransformer {
 
 	private Class<? extends Object> CVlass;
 
@@ -106,6 +109,13 @@ public class SenKiZeSShou {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
+			ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+		System.out.println(className);
+		return null;
 	}
 
 }

@@ -20,10 +20,10 @@ public class TheMainTest {
 
 	public static void main(String[] args) {
 		try {
-			TheMainTest mainTest = new TheMainTest();
+//			TheMainTest mainTest = new TheMainTest();
 
 			ClassPool pool = ClassPool.getDefault();
-			pool.insertClassPath(new ClassClassPath(mainTest.getClass()));
+			pool.insertClassPath(new ClassClassPath(TheMainTest.class.getClass()));
 
 			CtClass ctClass = pool.get("moe.neptunenoire.web.test.Test");
 
@@ -32,6 +32,8 @@ public class TheMainTest {
 			ctMethod.setBody("System.out.println(\"this method is changed dynamically!\");");
 
 			ctClass.toClass();
+
+			System.out.println(TheMainTest.class.getName());
 
 			Test test = new Test();
 			test.sayHello();

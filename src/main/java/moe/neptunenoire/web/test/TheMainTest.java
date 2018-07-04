@@ -1,9 +1,12 @@
 package moe.neptunenoire.web.test;
 
+import java.util.List;
+
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
+import moe.neptunenoire.web.util.MoeArrayList;
 
 public class TheMainTest {
 
@@ -20,23 +23,17 @@ public class TheMainTest {
 
 	public static void main(String[] args) {
 		try {
-//			TheMainTest mainTest = new TheMainTest();
 
-			ClassPool pool = ClassPool.getDefault();
-			pool.insertClassPath(new ClassClassPath(TheMainTest.class.getClass()));
+			List<String> list = new MoeArrayList<>();
 
-			CtClass ctClass = pool.get("moe.neptunenoire.web.test.Test");
+			list.add("123");
 
-			CtMethod ctMethod = ctClass.getDeclaredMethod("sayHello");
-
-			ctMethod.setBody("System.out.println(\"this method is changed dynamically!\");");
-
-			ctClass.toClass();
-
-			System.out.println(TheMainTest.class.getName());
-
-			Test test = new Test();
-			test.sayHello();
+			String a = list.get(0);
+			if (a == null) {
+				System.out.println("HELLO");
+			}else {
+				System.out.println(a);
+			}
 
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
@@ -50,18 +47,24 @@ public class TheMainTest {
 
 	public void premain() {
 		try {
-			ClassLoader classPool = ClassPool.getDefault().getClassLoader();
+//			TheMainTest mainTest = new TheMainTest();
 
-			Thread.currentThread().setContextClassLoader(classPool);
+			ClassPool pool = ClassPool.getDefault();
+			pool.insertClassPath(new ClassClassPath(TheMainTest.class.getClass()));
 
-			Class<?> theclass = classPool.loadClass(this.getClass().getName());
+//			Loader cl = new Loader(pool);
 
-			CtClass pool = ClassPool.getDefault().get("moe.neptunenoire.web.test.TheMainTest");
+			CtClass ctClass = pool.get("moe.neptunenoire.web.test.Test");
 
-		    CtMethod ctMethod = pool.getDeclaredMethod("test");
-		    ctMethod.setBody("System.out.println(\"this method is changed dynamically!\");");
-		    pool.toClass();
-		    System.out.println("OK");
+			CtMethod ctMethod = ctClass.getDeclaredMethod("sayHello");
+
+			ctMethod.setBody("System.out.println(\"this method is changed dynamically!\");");
+
+			ctClass.toClass();
+
+			System.out.println(TheMainTest.class.getName());
+			Test test = new Test();
+			test.sayHello();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

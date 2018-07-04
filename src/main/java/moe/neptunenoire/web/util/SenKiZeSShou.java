@@ -1,31 +1,23 @@
 package moe.neptunenoire.web.util;
 
-import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SenKiZeSShou implements ClassFileTransformer {
-
+public class SenKiZeSShou {
 	private Class<? extends Object> CVlass;
-
 	private Object obj;
-
 	private SenKiZeSShou(Class<? extends Object> class1, Object obj2) {
 		this.CVlass = class1;
 		obj = obj2;
 	}
-
 	public static SenKiZeSShou loadClass(Object obj) {
 		return new SenKiZeSShou(obj.getClass(), obj);
 	}
-
 	public Map<String, Object> getFields(String...fieldsName) {
 		Map<String, Object> data = new HashMap<>();
 		List<String> fieldName = Arrays.asList(fieldsName);
@@ -42,7 +34,6 @@ public class SenKiZeSShou implements ClassFileTransformer {
 		}
 		return data;
 	}
-
 	public Object getField(String fieldName) throws Exception {
 		for (Field field : CVlass.getDeclaredFields()) {
 			field.setAccessible(true);
@@ -57,7 +48,6 @@ public class SenKiZeSShou implements ClassFileTransformer {
 		}
 		throw new Exception(fieldName+" NOT Found");
 	}
-
 	public void setField(String fieldName, Object value) {
 		try {
 			Field field = CVlass.getDeclaredField(fieldName);
@@ -67,7 +57,6 @@ public class SenKiZeSShou implements ClassFileTransformer {
 			e.printStackTrace();
 		}
 	}
-
 	public Map<String, Method> getMethods(String...methodNames) {
 		List<String> list = Arrays.asList(methodNames);
 		Map<String, Method> data = new HashMap<>();
@@ -80,11 +69,9 @@ public class SenKiZeSShou implements ClassFileTransformer {
 			}else {
 				data.put(var.getName(), var);
 			}
-
 		}
 		return data;
 	}
-
 	public Method getMethod(String methodName) throws Exception {
 		for (Method var : CVlass.getDeclaredMethods()) {
 			var.setAccessible(true);
@@ -94,12 +81,10 @@ public class SenKiZeSShou implements ClassFileTransformer {
 		}
 		throw new Exception(methodName + " Not Found");
 	}
-
 	@Deprecated
 	public Object RunMethod(Method method, Object...objects) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return method.invoke(obj, objects);
 	}
-
 	public Object RunMethod(String methodName, Object...objects) throws Exception{
 		try {
 			Method method = getMethod(methodName);
@@ -110,12 +95,4 @@ public class SenKiZeSShou implements ClassFileTransformer {
 			throw e;
 		}
 	}
-
-	@Override
-	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
-			ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-		System.out.println(className);
-		return null;
-	}
-
 }

@@ -1,12 +1,10 @@
 package moe.neptunenoire.web.test;
 
-import java.util.List;
-
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import moe.neptunenoire.web.util.MoeArrayList;
+import moe.neptunenoire.web.util.MuDa;
 
 public class TheMainTest {
 
@@ -21,19 +19,12 @@ public class TheMainTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		try {
 
-			List<String> list = new MoeArrayList<>();
-
-			list.add("123");
-
-			String a = list.get(0);
-			if (a == null) {
-				System.out.println("HELLO");
-			}else {
-				System.out.println(a);
-			}
+			String bb = MuDa.charPlus("lkj");
+			System.out.println(bb);
 
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック

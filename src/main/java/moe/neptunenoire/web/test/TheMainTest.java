@@ -45,6 +45,8 @@ public class TheMainTest {
 				System.out.println(map.get("123").get("Hello").toString());
 			}
 
+			map.close();
+
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

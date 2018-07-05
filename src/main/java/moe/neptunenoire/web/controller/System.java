@@ -12,4 +12,18 @@ public class System {
 
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	private String getTotalMemory() {
+		long totalMemory = Runtime.getRuntime().totalMemory();
+		return String.valueOf(totalMemory);
+	}
+
+	private String getFreeMemory() {
+		long freeMemory = Runtime.getRuntime().freeMemory();
+		return String.valueOf(freeMemory);
+	}
+
 }

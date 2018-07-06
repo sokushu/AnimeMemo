@@ -264,6 +264,10 @@ public class UrlController {
 	 * 展示系统控制面板
 	 */
 	public String showSystem(Model model) {
+		{
+			model.addAttribute("TotalMemory", system.getTotalMemory());
+			model.addAttribute("FreeMemory", system.getFreeMemory());
+		}
 		return "";
 	}
 

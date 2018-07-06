@@ -16,12 +16,16 @@ public class System {
 	 *
 	 * @return
 	 */
-	private String getTotalMemory() {
+	public String getTotalMemory() {
 		long totalMemory = Runtime.getRuntime().totalMemory();
 		return String.valueOf(totalMemory);
 	}
 
-	private String getFreeMemory() {
+	/**
+	 *
+	 * @return
+	 */
+	public String getFreeMemory() {
 		long freeMemory = Runtime.getRuntime().freeMemory();
 		return String.valueOf(freeMemory);
 	}

@@ -13,11 +13,26 @@ import org.mapdb.Serializer;
 import org.mapdb.serializer.GroupSerializer;
 import org.mapdb.serializer.GroupSerializerObjectArray;
 
+/**
+ *
+ * @author M
+ *
+ * @param <A>
+ */
 public interface MapDB<A> extends Serializer<A> {
 
+	/**
+	 *
+	 */
 	GroupSerializer<Map<String, Object>> MAP = new MapDBMap();
 
 }
+
+/**
+ *
+ * @author M
+ *
+ */
 class ObjectByteArrayUtil{
 
 	public static byte[] ObjectToByteArrays(Object object) throws IOException{
@@ -48,6 +63,11 @@ class ObjectByteArrayUtil{
 
 }
 
+/**
+ *
+ * @author M
+ *
+ */
 class MapDBMap extends GroupSerializerObjectArray<Map<String, Object>> {
     @Override
     public boolean isTrusted() {

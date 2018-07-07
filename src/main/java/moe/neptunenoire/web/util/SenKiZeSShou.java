@@ -125,6 +125,19 @@ public class SenKiZeSShou {
 		return data;
 	}
 
+	public void clearFieldValue(String fieldName) throws Exception {
+		List<String> list = new ArrayList<String>() {{
+			add(Map.class.getName());
+			add(List.class.getName());
+			add(String.class.getName());
+		}};
+		Field field = getFieldObject(fieldName);
+		String fieldClassName = field.getType().getName();
+		if (list.contains(fieldClassName)) {
+
+		}
+	}
+
 	public Method getMethod(String methodName) throws Exception {
 		for (Method var : CVlass.getDeclaredMethods()) {
 			var.setAccessible(true);

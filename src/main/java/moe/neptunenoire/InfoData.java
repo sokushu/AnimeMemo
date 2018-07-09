@@ -1,5 +1,6 @@
 package moe.neptunenoire;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,5 +90,9 @@ public class InfoData {
      */
     public static boolean goFilter(String link){
         return un_SignIN.contains(link);
+    }
+
+    public static File getStaticPath() {
+    	return new File(MainRun.filePathStatic);
     }
 }

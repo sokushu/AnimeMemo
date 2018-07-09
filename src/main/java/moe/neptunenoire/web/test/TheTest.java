@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 
@@ -36,7 +37,7 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.POST)
 	public void adada(String id, MultipartFile file0) throws HomeNotFoundException{
 		try {
-			File file = new File("E:\\" + file0.getOriginalFilename());
+			File file = InfoData.getStaticPath();
 			file0.transferTo(file);
 		} catch (Exception e) {
 			// TODO: handle exception

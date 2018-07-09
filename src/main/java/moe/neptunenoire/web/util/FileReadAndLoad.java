@@ -32,7 +32,7 @@ public class FileReadAndLoad {
      * 使用全局默认路径
      */
     public FileReadAndLoad(){
-        this.file = new File(MainRun.filePath1);
+        this.file = new File(MainRun.filePathStatic);
         if (this.file.exists()) {
 			this.file.mkdirs();
 		}
@@ -44,7 +44,7 @@ public class FileReadAndLoad {
      */
     public FileReadAndLoad(String Path){
         if (Path == null) {
-            this.file = new File(MainRun.filePath1);
+            this.file = new File(MainRun.filePathStatic);
             if (this.file.exists()) {
     			this.file.mkdirs();
     		}

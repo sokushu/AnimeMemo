@@ -28,8 +28,7 @@ public class Home {
 	 * @return
 	 */
 	public boolean showHomeByUID(HttpSession session) {
-		Object url = session.getAttribute(InfoData.Session_USERURL);
-		return url == null;
+		return session.getAttribute(InfoData.Session_USERURL) == null;
 	}
 
 	/**

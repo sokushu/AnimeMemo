@@ -263,4 +263,16 @@ public class ReoKissMai extends DataSet {
 		// TODO Auto-generated method stub
 		DataSet.MapDBExit();
 	}
+	
+	@Override
+	public void setImgMapDB(String filePath, String OriginalFilename) {
+		// TODO Auto-generated method stub
+		super.setImgMapDB(filePath, OriginalFilename);
+	}
+	
+	@Override
+	public String getImgMapDB(String filePath) {
+		// TODO Auto-generated method stub
+		return super.getImgMapDB(filePath);
+	}
 }

@@ -31,7 +31,7 @@ abstract class DataSet implements MaiKissReo{
 	
 	private static BTreeMap<String, Map<String, Object>> bTreeMap = db.treeMap("theMyblog").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).create();
 	
-	private static BTreeMap<String, Map<String, Object>> imgPathMap = db.treeMap("imgPathMap").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).createOrOpen();
+	private static BTreeMap<String, String> imgPathMap = db.treeMap("imgPathMap").keySerializer(MapDB.STRING).valueSerializer(MapDB.STRING).createOrOpen();
 	
 	public static enum DataType{
 		TOKU,
@@ -40,6 +40,14 @@ abstract class DataSet implements MaiKissReo{
 		Blog,
 		Tag,
 		Img,
+	}
+	
+	public void setImgMapDB(String filePath, String OriginalFilename) {
+		imgPathMap.put(filePath, OriginalFilename);
+	}
+	
+	public String getImgMapDB(String filePath) {
+		return imgPathMap.get(filePath);
 	}
 
 	/**

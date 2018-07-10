@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import moe.neptunenoire.web.controller.error.BangumiNotFoundException;
 import moe.neptunenoire.web.controller.error.BlogNotFoundException;
@@ -26,6 +27,7 @@ public class ErrorCatch {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@ExceptionHandler(value = HomeNotFoundException.class)
 	public String homeNotFoundError(HomeNotFoundException e, Model model, HttpSession session) {
 		model.addAttribute("test", "HomeNotFoundException");
@@ -39,9 +41,10 @@ public class ErrorCatch {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@ExceptionHandler(value = BangumiNotFoundException.class)
 	public String bangumiNotFoundError(BangumiNotFoundException e, Model model, HttpSession session) {
-		return "";
+		return "BangumiNotFoundException";
 	}
 	
 	/**
@@ -51,9 +54,10 @@ public class ErrorCatch {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@ExceptionHandler(value = BlogNotFoundException.class)
 	public String blogNotFoundError(BlogNotFoundException e, Model model, HttpSession session) {
-		return "";
+		return "BlogNotFoundException";
 	}
 	
 	/**
@@ -61,6 +65,7 @@ public class ErrorCatch {
 	 * @param e
 	 * @return
 	 */
+	@ResponseBody
 	@ExceptionHandler(value = UserNotSignInException.class)
 	public String userNotSignInError(UserNotSignInException e) {
 		// 跳转到登录页面

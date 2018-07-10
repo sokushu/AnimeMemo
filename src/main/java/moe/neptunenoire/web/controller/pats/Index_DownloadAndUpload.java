@@ -16,7 +16,7 @@ public class Index_DownloadAndUpload {
 			StringBuilder builder = new StringBuilder();
 			// 得到文件
 			String OriginalFilename = file.getOriginalFilename();
-			String filePath = builder.append(UUID.randomUUID().toString()).append(file.getOriginalFilename()).toString();
+			String filePath = UUID.randomUUID().toString();
 			File saveFile = MainRun.getFilePath(filePath, FileType.IMG);
 			file.transferTo(saveFile);
 			

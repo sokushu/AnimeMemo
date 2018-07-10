@@ -16,8 +16,10 @@ public class System {
 	 *
 	 * @return
 	 */
+	
 	public String getTotalMemory() {
 		long totalMemory = Runtime.getRuntime().totalMemory();
+		
 		return String.valueOf(totalMemory);
 	}
 

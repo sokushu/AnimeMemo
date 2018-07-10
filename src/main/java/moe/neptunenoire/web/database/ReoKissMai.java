@@ -258,4 +258,9 @@ public class ReoKissMai extends DataSet {
 	public void Blog_AddBlog(BlogArticle article) {
 		maiKissReo.Blog_AddBlog(article);
 	}
+	
+	public static void MapDBExit() {
+		// TODO Auto-generated method stub
+		DataSet.MapDBExit();
+	}
 }

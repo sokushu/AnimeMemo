@@ -91,8 +91,4 @@ public class InfoData {
     public static boolean goFilter(String link){
         return un_SignIN.contains(link);
     }
-
-    public static File getStaticPath() {
-    	return new File(MainRun.filePathStatic);
-    }
 }

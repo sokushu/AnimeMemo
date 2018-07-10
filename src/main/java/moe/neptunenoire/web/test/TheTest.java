@@ -37,8 +37,6 @@ public class TheTest {
 	@RequestMapping(value = test, method = RequestMethod.POST)
 	public void adada(String id, MultipartFile file0) throws HomeNotFoundException{
 		try {
-			File file = InfoData.getStaticPath();
-			file0.transferTo(file);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

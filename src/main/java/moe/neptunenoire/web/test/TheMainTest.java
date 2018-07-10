@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.mapdb.BTreeMap;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
 
 import javassist.ClassClassPath;
 import javassist.ClassPool;
@@ -31,21 +28,21 @@ public class TheMainTest {
 	public static void main(String[] args) {
 		try {
 
-			DB db = DBMaker.fileDB(new File("D:\\Test\\mapppp")).checksumHeaderBypass().make();
-
-			BTreeMap<String, Map<String, Object>> map = db.treeMap("map").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).createOrOpen();
-
-			map.put("123", new HashMap<String, Object>() {{
-				put("Hello", "hi jk");
-			}});
-
-			if (map.get("123") == null) {
-				System.out.println("null");
-			}else {
-				System.out.println(map.get("123").get("Hello").toString());
-			}
-
-			map.close();
+//			DB db = DBMaker.fileDB(new File("D:\\Test\\mapppp")).checksumHeaderBypass().make();
+//
+//			BTreeMap<String, Map<String, Object>> map = db.treeMap("map").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).createOrOpen();
+//
+//			map.put("123", new HashMap<String, Object>() {{
+//				put("Hello", "hi jk");
+//			}});
+//
+//			if (map.get("123") == null) {
+//				System.out.println("null");
+//			}else {
+//				System.out.println(map.get("123").get("Hello").toString());
+//			}
+//
+//			map.close();
 
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック

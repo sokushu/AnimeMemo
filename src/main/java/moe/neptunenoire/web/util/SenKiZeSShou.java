@@ -9,21 +9,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * @author M
+ *
+ */
 public class SenKiZeSShou {
 
+	/**
+	 *
+	 */
 	private Class<? extends Object> CVlass;
 
+	/**
+	 *
+	 */
 	private Object obj;
 
+	/**
+	 *
+	 * @param class1
+	 * @param obj2
+	 */
 	private SenKiZeSShou(Class<? extends Object> class1, Object obj2) {
 		this.CVlass = class1;
 		obj = obj2;
 	}
 
+	/**
+	 *
+	 * @param obj
+	 * @return
+	 */
 	public static SenKiZeSShou loadClass(Object obj) {
 		return new SenKiZeSShou(obj.getClass(), obj);
 	}
 
+	/**
+	 *
+	 * @param fieldsName
+	 * @return
+	 */
 	public Map<String, Object> getFields(String...fieldsName) {
 		Map<String, Object> data = new HashMap<>();
 		List<String> fieldName = Arrays.asList(fieldsName);
@@ -41,6 +67,12 @@ public class SenKiZeSShou {
 		return data;
 	}
 
+	/**
+	 *
+	 * @param fieldName
+	 * @return
+	 * @throws Exception
+	 */
 	public Object getField(String fieldName) throws Exception {
 		Class<?> theclass = CVlass;
 		while (theclass != null) {
@@ -60,6 +92,12 @@ public class SenKiZeSShou {
 		throw new Exception(fieldName+" NOT Found");
 	}
 
+	/**
+	 *
+	 * @param fieldName
+	 * @return
+	 * @throws NoSuchFieldException
+	 */
 	private Field getFieldObject(String fieldName) throws NoSuchFieldException {
 		Class<?> theclass = CVlass;
 		while (theclass != null) {
@@ -75,6 +113,11 @@ public class SenKiZeSShou {
 		throw new NoSuchFieldException(fieldName+" NOT Found");
 	}
 
+	/**
+	 *
+	 * @param fieldName
+	 * @param value
+	 */
 	public void setField(String fieldName, Object value) {
 		try {
 			Field field = getFieldObject(fieldName);
@@ -85,6 +128,9 @@ public class SenKiZeSShou {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public void printAllFieldName() {
 		List<Field> fieldList = new ArrayList<>();
 		Class<?> theclass = CVlass;
@@ -97,6 +143,9 @@ public class SenKiZeSShou {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public void printAllMethodName() {
 		List<Method> fieldList = new ArrayList<>();
 		Class<?> theclass = CVlass;
@@ -109,6 +158,11 @@ public class SenKiZeSShou {
 		}
 	}
 
+	/**
+	 *
+	 * @param methodNames
+	 * @return
+	 */
 	public Map<String, Method> getMethods(String...methodNames) {
 		List<String> list = Arrays.asList(methodNames);
 		Map<String, Method> data = new HashMap<>();
@@ -125,19 +179,29 @@ public class SenKiZeSShou {
 		return data;
 	}
 
+	/**
+	 *
+	 * @param fieldName
+	 * @throws Exception
+	 */
 	public void clearFieldValue(String fieldName) throws Exception {
-		List<String> list = new ArrayList<String>() {{
-			add(Map.class.getName());
-			add(List.class.getName());
-			add(String.class.getName());
-		}};
 		Field field = getFieldObject(fieldName);
 		String fieldClassName = field.getType().getName();
-		if (list.contains(fieldClassName)) {
-
+		if (fieldClassName.equals(Map.class.getName())) {
+			field.set(obj, new HashMap<>());
+		}else if (fieldClassName.equals(List.class.getName())) {
+			field.set(obj, new ArrayList<>());
+		}else if (fieldClassName.equals(String.class.getName())) {
+			field.set(obj, "");
 		}
 	}
 
+	/**
+	 *
+	 * @param methodName
+	 * @return
+	 * @throws Exception
+	 */
 	public Method getMethod(String methodName) throws Exception {
 		for (Method var : CVlass.getDeclaredMethods()) {
 			var.setAccessible(true);
@@ -148,11 +212,27 @@ public class SenKiZeSShou {
 		throw new Exception(methodName + " Not Found");
 	}
 
+	/**
+	 *
+	 * @param method
+	 * @param objects
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	@Deprecated
 	public Object RunMethod(Method method, Object...objects) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return method.invoke(obj, objects);
 	}
 
+	/**
+	 *
+	 * @param methodName
+	 * @param objects
+	 * @return
+	 * @throws Exception
+	 */
 	public Object RunMethod(String methodName, Object...objects) throws Exception{
 		try {
 			Method method = getMethod(methodName);

@@ -1,5 +1,6 @@
 package moe.neptunenoire.test;
 
+import moe.neptunenoire.test.awt.RobotTest;
 import moe.neptunenoire.test.io.FileTest;
 
 /**
@@ -8,9 +9,8 @@ import moe.neptunenoire.test.io.FileTest;
  */
 public class App {
 	public static void main(String[] args) {
-		FileTest fileTest = new FileTest();
-		String a = fileTest.readText("E:\\moePachong\\moePachong\\src\\main\\java\\moe\\neptunenoire\\TestRun.java");
-		System.out.println(a);
+		RobotTest robotTest = new RobotTest();
+		robotTest.robotTest();
 	}
 }
 

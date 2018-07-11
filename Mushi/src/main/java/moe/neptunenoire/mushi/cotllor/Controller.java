@@ -64,6 +64,8 @@ public final class Controller {
     }
     /** 开始运行 */
     public void Run(){
+    	
+    	/** 是否多线程下载 */
         if (thread) {
             ExecutorService threadPool = Executors.newCachedThreadPool();
 

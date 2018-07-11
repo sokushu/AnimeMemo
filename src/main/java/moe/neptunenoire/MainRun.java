@@ -18,10 +18,10 @@ public class MainRun {
 	 * 图片文件存放路径
 	 */
 	public static final String filePath = "/home/BanGuMiKiRoKu/000/";
-	
+
 	/** 静态资源存放路径，例如文章等 "/home/BanGuMiKiRoKu/static/" */
 	public static final String filePathStatic = "/home/BanGuMiKiRoKu/static/";
-	
+
 	/** 我的网站域名，用于防止跨站攻击 */
 	public static String localhostname = "localhost";
 
@@ -30,17 +30,17 @@ public class MainRun {
 		txt,
 		db,
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public static File getFilePath(FileType fileType) {
 		return new File(new StringBuilder().append(filePath).append(File.separator).append(fileType.name()).toString());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param path
 	 * @return
 	 */
@@ -48,17 +48,17 @@ public class MainRun {
 		return new File(new StringBuilder().append(filePath).append(File.separator).append(fileType.name()).
 				append(File.separator).append(path).toString());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public static File getPathStatic(FileType fileType) {
 		return new File(new StringBuilder().append(filePathStatic).append(File.separator).append(fileType.name()).toString());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param path
 	 * @return
 	 */
@@ -66,7 +66,7 @@ public class MainRun {
 		return new File(new StringBuilder().append(filePathStatic).append(File.separator).
 				append(fileType.name()).append(path).toString());
 	}
-	
+
 	/**
 	 * Main方法
 	 */
@@ -79,7 +79,7 @@ public class MainRun {
 			File staticFile = getPathStatic(type);
 			if (!staticFile.exists()) staticFile.mkdirs();
 		}
-		
+
 		/** 启动在后方运行的背景线程 */
 		ThreadRun back = new ThreadRun();
 		Thread backThread = new Thread(back, "backThread - 1");

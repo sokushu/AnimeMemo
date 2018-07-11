@@ -21,6 +21,8 @@ public class ThreadRun implements Runnable {
 		return time;
 	}
 
+
+
 	/** 默默的进行一些后台的处理 */
 	@Override
 	public void run() {

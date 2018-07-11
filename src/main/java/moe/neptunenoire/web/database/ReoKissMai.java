@@ -258,18 +258,18 @@ public class ReoKissMai extends DataSet {
 	public void Blog_AddBlog(BlogArticle article) {
 		maiKissReo.Blog_AddBlog(article);
 	}
-	
+
 	public static void MapDBExit() {
 		// TODO Auto-generated method stub
 		DataSet.MapDBExit();
 	}
-	
+
 	@Override
 	public void setImgMapDB(String filePath, String OriginalFilename) {
 		// TODO Auto-generated method stub
 		super.setImgMapDB(filePath, OriginalFilename);
 	}
-	
+
 	@Override
 	public String getImgMapDB(String filePath) {
 		// TODO Auto-generated method stub

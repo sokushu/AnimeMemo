@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="pats/head :: head">
+        <!-- 引入头部文件 -->
+    </th:block>
+    <link href="/css/mycss/backimg.css" rel="stylesheet">
+    <script src="/js/jquery.timer.js"></script>
+    <!--/* 移动幻灯片使用的图片样式 */-->
+    <style>
+        .img0 {
+            background-image: url([[${ad}]]);
+        }
+        
+        .img1 {
+            background-image: url([[${ad}]]);
+        }
+        
+        .img2 {
+            background-image: url([[${ad}]]);
+        }
+        
+        .img3 {
+            background-image: url([[${ad}]]);
+        }
+    </style>
+    <!--/* 标题 */-->
+    <title>首页</title>
+</head>
+
+<body>
+    <div th:replace="pats/button :: button"></div>
+
+    <!--/* 这里面是一个导航图片一样的东西 */-->
+    <div class="carousel carousel-slider center" data-indicators="true">
+        <div class="carousel-fixed-item center">
+            <a class="btn waves-effect white grey-text darken-text-2">查看详情</a>
+        </div>
+        <div class="carousel-item img0 red white-text" href="#one!">
+            <h1>First Panel</h1>
+            <h5 class="white-text">This is your first panel</h5>
+        </div>
+        <div class="carousel-item img1 amber white-text" href="#two!">
+            <h1>First Panel</h1>
+            <h5 class="white-text">This is your first panel</h5>
+        </div>
+        <div class="carousel-item img2 green white-text" href="#three!">
+            <h1>First Panel</h1>
+            <h5 class="white-text">This is your first panel</h5>
+        </div>
+        <div class="carousel-item img3 blue white-text" href="#four!">
+            <h1><a class="white-text" href="/sign_up">First Panel</a></h1>
+            <h5 class="white-text">This is your first panel</h5>
+        </div>
+    </div>
+
+
+    <!--/* 导航栏 */-->
+    <div th:replace="pats/badges :: badges"></div>
+
+    <br>
+    <!--/* 正式的正文 */-->
+    <div class="container">
+        <div class="row">
+            <!--/* 我的计划表 */-->
+            <div class="col s12">
+                <div>
+
+                </div>
+            </div>
+
+            <!--/* 主页的最近更新，最受推荐等 */-->
+            <div th:replace="indexmodel/anime :: anime"></div>
+
+        </div>
+
+        <!--/* 图片，可以是广告，充当分割线 */-->
+        <div class="row">
+            <img src="/img/page/backpic.jpg" height="150" width="100%">
+        </div>
+
+        <!--/* 首页的文章展示 */-->
+        <div th:replace="indexmodel/article :: article"></div>
+
+        <!--/* 图片，可以是广告，充当分割线 */-->
+        <div class="row">
+            <img src="/img/page/backpic.jpg" height="150" width="100%">
+        </div>
+
+        <!--/* 经典番剧推荐时间 */-->
+        <div th:replace="indexmodel/osusume :: osusume"></div>
+
+        <!--/* 动画图片，美其名曰：美图推荐，其实就是为了看着好看 0.0 */-->
+        <div th:replace="indexmodel/osusumepic :: osusumepic"></div>
+    </div>
+
+
+
+    <!--/* 页脚的布局 */-->
+    <div th:replace="pats/footer :: footer"></div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.carousel.carousel-slider').carousel({
+                indicators: false,
+                fullWidth: true,
+                noWrap: false
+            });
+            var timer = $.timer(10000, function() {
+                $('.carousel.carousel-slider').carousel('next');
+            }, false);
+        })
+    </script>
+</body>
+
+</html>

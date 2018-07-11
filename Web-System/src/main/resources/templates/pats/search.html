@@ -1,0 +1,110 @@
+<th:block th:fragment="searchbox">
+    <!--/* 这一块是搜索框 */-->
+    <div class="container">
+        <br/><br/><br/>
+        <div class="row"><br/>
+            <form action="/s" method="get">
+                <div class="col s12 offset-s2">
+                    <div class="input-field col s6">
+                        <input id="search" type="text" class="validate" name="w" />
+                        <label for="search" data-error="wrong" data-success="right" style="font-size: 20px;">搜索</label>
+                    </div>
+                    <div class="col s6" style="padding: 20px;">
+                        <button class="waves-effect waves-light btn" id="search_button" type="submit">搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+
+
+
+
+
+
+<th:block th:fragment="search">
+
+    <!--/* 这一块是搜索结果 */-->
+    <div class="col s12 m6 l4" th:each="search,searchStat:${list}">
+        <div class="card small">
+            <div class="card-image">
+                <img src="/img/101010.jpg" />
+                <span class="card-title" th:text="${search.anime_name}">动画标题</span>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s6">
+                        <p th:text="'类型：' +${search.anime_class}">信息</p>
+                    </div>
+                    <div class="col s6">
+                        <p th:text="'集数：'+${search.anime_number}+'集'">信息</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action">
+                <a th:text="${search.anime_name}" th:href="@{/bangumi/{anime_id}(anime_id=${search.anime_id})}">这是一个链接</a>
+                <a th:href="@{/bangumi/{anime_id}(anime_id=${search.anime_id})}">这是一个链接</a>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+
+
+
+
+
+
+<th:block th:fragment="pagelist">
+    <!--/* 搜索结果的分页查询 */-->
+    <ul class="pagination" th:unless="${pagelast} &lt; 5">
+        <li class="waves-effect">
+            <a th:href="@{/s?w={w}&amp;page=1(w=${title})}">第一页</a></li>
+        <li th:class="(${ispre})?(waves-effect):(disabled)">
+            <a th:href="@{((${ispre}) ? (@{/s?w={w}&amp;page={num}(w=${title},num=${pageone})}):(@{#!}))}">
+                <i class="material-icons">chevron_left</i></a>
+        </li>
+
+        <li th:class="(${pagefirst} ==${pagenow})?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=((${pagenow} &gt; ${pagefirst} +2 and ${pagenow} &lt; ${pagelast} -4 )?(${pagenow}-2):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 4):(1))))}" th:text="((${pagenow} &gt; ${pagefirst} +2 and ${pagenow} &lt; ${pagelast} -4 )?(${pagenow}-2):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 4):(1)))">1</a></li>
+
+        <li th:class="(${pagefirst} +1 ==${pagenow})?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=((${pagelast} - 1 &gt; ${pagenow} and ${pagenow} &gt; 2)?(${pagenow}-1):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 3):(2))))}" th:text="((${pagelast} - 1 &gt; ${pagenow} and ${pagenow} &gt; 2)?(${pagenow}-1):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 3):(2)))">2</a></li>
+
+        <li th:class="(${pagelast} - 1 &gt; ${pagenow} and ${pagenow} &gt; 2)?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=((${pagelast} - 1 &gt; ${pagenow} and ${pagenow} &gt; 2)?(${pagenow}):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 2):(3))))}" th:text="((${pagelast} - 1 &gt; ${pagenow} and ${pagenow} &gt; 2)?(${pagenow}):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 2):(3)))">3</a></li>
+
+        <li th:class="(${pagelast} - 1 == ${pagenow})?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=((${pagelast}-1 &gt; ${pagenow} and ${pagenow} &gt;= 3)?(${pagenow}+1):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 1):(4))))}" th:text="((${pagelast}-1 &gt; ${pagenow} and ${pagenow} &gt;= 3)?(${pagenow}+1):((${pagenow} &gt;= ${pagelast} - 2)?(${pagelast} - 1):(4)))">4</a></li>
+
+        <li th:class="(${pagelast} == ${pagenow})?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=((${pagelast} - 2 &gt; ${pagenow} and ${pagenow} &gt;= 4)?(${pagenow}+2):((${pagenow} &gt;= ${pagelast}-2)?(${pagelast}):(5))))}" th:text="((${pagelast} - 2 &gt; ${pagenow} and ${pagenow} &gt;= 4)?(${pagenow}+2):((${pagenow} &gt;= ${pagelast}-2)?(${pagelast}):(5)))">5</a></li>
+
+        <li th:class="(${isnext})?(waves-effect):(disabled)">
+            <a th:href="@{((${isnext}) ? (@{/s?w={w}&amp;page={num}(w=${title},num=${pagetwo})}):(@{#!}))}"><i class="material-icons">chevron_right</i></a></li>
+        <li class="waves-effect">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=${pagelast})}" th:text="'最后一页('+${pagelast}+'页)'">最后一页</a><span th:text="'共有' + ${kazu} + '个结果'">搜索信息</span></li>
+    </ul>
+
+
+
+    <ul class="pagination" th:unless="${pagelast} &gt; 5">
+        <li class="waves-effect">
+            <a th:href="@{/s?w={w}&amp;page=1(w=${title})}">第一页</a></li>
+        <li th:class="(${ispre})?(waves-effect):(disabled)">
+            <a th:href="@{((${ispre}) ? (@{/s?w={w}&amp;page={num}(w=${title},num=${pageone})}):(@{#!}))}">
+                <i class="material-icons">chevron_left</i></a>
+        </li>
+
+        <li th:each="i : ${#numbers.sequence(1, pagelast)}" th:class="(${i} ==${pagenow})?(active):(waves-effect)">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=${i})}" th:text="${i}">1</a></li>
+
+        <li th:class="(${isnext})?(waves-effect):(disabled)">
+            <a th:href="@{((${isnext}) ? (@{/s?w={w}&amp;page={num}(w=${title},num=${pagetwo})}):(@{#!}))}"><i class="material-icons">chevron_right</i></a></li>
+        <li class="waves-effect">
+            <a th:href="@{/s?w={w}&amp;page={num}(w=${title},num=${pagelast})}" th:text="'最后一页('+${pagelast}+'页)'">最后一页</a><span th:text="'共有' + ${kazu} + '个结果'">搜索信息</span></li>
+    </ul>
+
+</th:block>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>正在看的动画列表</title>
+
+    <link href="/file/css/runtime/materialize.min.css" rel="stylesheet" />
+    <link href="/file/css/runtime/000.css" rel="stylesheet" />
+    <script type="text/javascript" src="/file/js/runtime/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/file/js/runtime/materialize.min.js"></script>
+    <link href="/file/css/backimg.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="row">
+        <div class="col s12 m6 l4" th:unless="${watchingKazu} == 0" th:each="watching,watchingStat:${watching}">
+            <div class="card small">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" th:src="@{${watching.anime_pic}}" />
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><span th:text="${watching.anime_name}">动画标题</span><i class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><span th:text="${watching.anime_name}">动画标题</span><i class="material-icons right">close</i></span>
+                    <p th:text="${watching.anime_info}">动画信息</p>
+                </div>
+
+                <div class="card-action">
+                    <a th:href="@{/bangumi/{anime_id}(anime_id=${watching.anime_id})}">动画详情</a>
+                    <a th:text="${watching.number} + '(已看)/' + ${watching.anime_number} + '(总)'" href="#!">这里显示看得集数</a>
+                </div>
+            </div>
+        </div>
+        <div th:unless="${watchingKazu} > 0">
+            <div>
+                <p>空空的 0.0 该用户还没有订阅信息</p>
+            </div>
+        </div>
+    </div>
+    <a class="waves-effect waves-light btn" th:href="@{/id/{url}(url=${url})}">返回个人主页</a>
+</body>
+
+</html>

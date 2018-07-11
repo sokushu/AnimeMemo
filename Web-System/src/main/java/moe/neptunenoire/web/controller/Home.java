@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.util.StringUtil;
+import moe.neptunenoire.web.utils.StringUtil;
 
 public class Home {
 

@@ -5,7 +5,7 @@ import org.apache.ibatis.jdbc.SQL;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.table.blog.BlogArticle;
-import moe.neptunenoire.web.util.StringUtil;
+import moe.neptunenoire.web.utils.StringUtil;
 
 
 /**

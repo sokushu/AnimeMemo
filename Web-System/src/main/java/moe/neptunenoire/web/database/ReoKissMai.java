@@ -12,8 +12,8 @@ import moe.neptunenoire.web.controller.error.IAmError;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.table.blog.BlogArticle;
-import moe.neptunenoire.web.util.StringUtil;
-import moe.neptunenoire.web.util.UserID;
+import moe.neptunenoire.web.utils.StringUtil;
+import moe.neptunenoire.web.utils.UserID;
 
 public class ReoKissMai extends DataSet {
 

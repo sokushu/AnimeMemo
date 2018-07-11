@@ -13,8 +13,9 @@ import moe.neptunenoire.web.controller.error.BlogNotFoundException;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 import moe.neptunenoire.web.table.blog.BlogArticle;
-import moe.neptunenoire.web.util.FileReadAndLoad;
-import moe.neptunenoire.web.util.StringUtil;
+import moe.neptunenoire.web.utils.FileReadAndLoad;
+import moe.neptunenoire.web.utils.StringUtil;
+
 
 public class Blog {
 

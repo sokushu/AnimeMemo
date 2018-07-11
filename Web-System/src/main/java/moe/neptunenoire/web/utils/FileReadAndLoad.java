@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.util;
+package moe.neptunenoire.web.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -19,6 +19,8 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import moe.neptunenoire.MainRun;
+
+
 
 /**
  * 文件的读取与写入

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import moe.neptunenoire.InfoData;
 
+
 /**
  * 用户未登录使用的类
  */

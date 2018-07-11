@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.util;
+package moe.neptunenoire.web.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,4 @@
-package moe.neptunenoire.web.util;
+package moe.neptunenoire.web.utils;
 
 /**
  * 何の役も立たないので

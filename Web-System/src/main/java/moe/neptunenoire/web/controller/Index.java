@@ -15,9 +15,9 @@ import moe.neptunenoire.web.bean.SignInBean;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.util.MD5Coding;
-import moe.neptunenoire.web.util.StringUtil;
-import moe.neptunenoire.web.util.UserID;
+import moe.neptunenoire.web.utils.MD5Coding;
+import moe.neptunenoire.web.utils.StringUtil;
+import moe.neptunenoire.web.utils.UserID;
 
 /**
  *

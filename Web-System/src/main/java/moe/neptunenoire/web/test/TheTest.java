@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;

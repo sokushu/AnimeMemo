@@ -31,11 +31,14 @@ public class TheMainTest {
 	public static void main(String[] args) {
 		try {
 
-			DB db = DBMaker.fileDB(new File("D:\\Test\\mapppp")).checksumHeaderBypass().make();
+			DB db = DBMaker.memoryDB().make();
 
 			BTreeMap<String, Map<String, Object>> map = db.treeMap("map").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).createOrOpen();
 
-			map.put("123", new HashMap<String, Object>() {{
+			map.put("123", new HashMap<String, Object>() {
+				private static final long serialVersionUID = 597266269307886411L;
+
+			{
 				put("Hello", "hi jk");
 			}});
 

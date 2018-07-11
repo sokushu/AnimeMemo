@@ -15,4 +15,9 @@ public class ErrorCatch {
 		return "test";
 	}
 
+
+	public String error(Exception e) {
+		return e.getMessage();
+	}
+
 }

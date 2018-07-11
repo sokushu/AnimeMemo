@@ -263,6 +263,7 @@ public class UrlController {
 	/**
 	 * 展示系统控制面板
 	 */
+	@RequestMapping(value = "systeminfo", method = RequestMethod.GET)
 	public String showSystem(Model model) {
 		{
 			model.addAttribute("TotalMemory", system.getTotalMemory());

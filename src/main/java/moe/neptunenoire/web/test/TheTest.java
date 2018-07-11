@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import moe.neptunenoire.InfoData;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
+import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
 
 
@@ -25,28 +26,40 @@ import moe.neptunenoire.web.mysql.MaiKissReo;
 public class TheTest {
 	public static final String test = "/test/";
 
-	@Autowired
 	private RedisTemplate<String, Map<String, Object>> ListMap;
 
-	@Autowired
 	private MaiKissReo maiKissReo;
+	
+	private ReoKissMai reoKissMai;
 	Map<String, String> map;
 
 	List<String> list;
-
-	@RequestMapping(value = test, method = RequestMethod.POST)
-	public void adada(String id, MultipartFile file0) throws HomeNotFoundException{
-		try {
-			File file = InfoData.getStaticPath();
-			file0.transferTo(file);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+	
+	@Autowired
+	public TheTest(RedisTemplate<String, Map<String, Object>> ListMap, MaiKissReo maiKissReo) {
+		this.ListMap = ListMap;
+		this.maiKissReo = maiKissReo;
+		reoKissMai = new ReoKissMai(maiKissReo, ListMap);
 	}
 
+	@ResponseBody
 	@RequestMapping(value = test, method = RequestMethod.GET)
-	public String test() {
-		return "test";
+	public String adada(String id) {
+		try {
+			
+			if (id.equals("0")) {
+				reoKissMai.setImgMapDB("test", "testHelloWorld");
+			}
+			if (id.equals("1")) {
+				return reoKissMai.getImgMapDB("test");
+			}
+			
+			return "请选择ID";
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "ERROR";
+		}
 	}
 
 	@RequestMapping(value = "/exit", method = RequestMethod.GET)

@@ -89,7 +89,7 @@
     
     <module>NeptuneNoire-MoeMushi</module>
     <module>NeptuneNoire-System</module>
-    <module>NeptuneNoire-Web-System</module>
+    
     <module>NeptuneNoire-BangumiKiRoKu-Web</module>
     <module>Test-Project</module>
   </modules>

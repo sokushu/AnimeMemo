@@ -5,16 +5,13 @@ import org.apache.ibatis.jdbc.SQL;
 import moe.neptunenoire.web.table.Anime;
 import moe.neptunenoire.web.table.Users;
 import moe.neptunenoire.web.table.blog.BlogArticle;
-import moe.neptunenoire.web.utils.StringUtil;
+import moe.neptunenoire.web.utils.StringUtils;
 
 
 /**
  * 构建新的SQL语句的类
  */
 public class SqlBuilder{
-
-	private StringUtil strutil = new StringUtil();
-
     /**
      * =====================================================================
      * 动画查找
@@ -81,7 +78,7 @@ public class SqlBuilder{
 		}
 
 		private boolean isNull(String anime_info_edsonger) {
-			return strutil.isNull(anime_info_edsonger);
+			return StringUtils.isEmpty(anime_info_edsonger);
 		}}.toString();
     }
     public String Anime_FindIndexAnime(){
@@ -166,7 +163,7 @@ public class SqlBuilder{
         }
 
 		private boolean isNull(Long uid) {
-			return strutil.isNull(uid);
+			return uid == null;
 		}}.toString();
     }
     public String User_UpdataUser(final Users users) {
@@ -191,7 +188,7 @@ public class SqlBuilder{
 		}
 
 		private boolean isNull(String email) {
-			return strutil.isNull(email);
+			return StringUtils.isEmpty(email);
 		}}.toString();
     }
     public String User_UpdataPic() {

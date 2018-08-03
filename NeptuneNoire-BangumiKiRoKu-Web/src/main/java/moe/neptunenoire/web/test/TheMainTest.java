@@ -1,18 +1,12 @@
 package moe.neptunenoire.web.test;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.mapdb.BTreeMap;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
+import java.util.Arrays;
 
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import moe.neptunenoire.web.database.MapDB;
+import moe.neptunenoire.web.utils.StringUtils;
 
 public class TheMainTest {
 
@@ -29,31 +23,10 @@ public class TheMainTest {
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
-		try {
-
-			DB db = DBMaker.memoryDB().make();
-
-			BTreeMap<String, Map<String, Object>> map = db.treeMap("map").keySerializer(MapDB.STRING).valueSerializer(MapDB.MAP).createOrOpen();
-
-			map.put("123", new HashMap<String, Object>() {
-				private static final long serialVersionUID = 597266269307886411L;
-
-			{
-				put("Hello", "hi jk");
-			}});
-
-			if (map.get("123") == null) {
-				System.out.println("null");
-			}else {
-				System.out.println(map.get("123").get("Hello").toString());
-			}
-
-			map.close();
-
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+		String a = "abreakabreaka";
+		String[] g = StringUtils.split(a, "break");
+		System.out.println(g.length);
+		Arrays.asList(g).forEach(System.out::println);
 	}
 
 	private static void println() {

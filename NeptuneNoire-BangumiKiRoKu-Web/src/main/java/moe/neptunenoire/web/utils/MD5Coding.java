@@ -16,8 +16,7 @@ public class MD5Coding {
      * @param uid
      * @return
      */
-    public String coding(String username, String password, long uid){
-
+    static String coding(String username, String password, long uid){
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             MessageDigest sha1 = MessageDigest.getInstance("SHA1");
@@ -31,7 +30,6 @@ public class MD5Coding {
             e.printStackTrace();
             return null;
 		}
-
     }
 
 }

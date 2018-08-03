@@ -15,8 +15,8 @@ import moe.neptunenoire.web.bean.SignInBean;
 import moe.neptunenoire.web.controller.error.HomeNotFoundException;
 import moe.neptunenoire.web.database.ReoKissMai;
 import moe.neptunenoire.web.mysql.MaiKissReo;
-import moe.neptunenoire.web.utils.MD5Coding;
-import moe.neptunenoire.web.utils.StringUtil;
+import moe.neptunenoire.web.utils.ProjectUtils;
+import moe.neptunenoire.web.utils.StringUtils;
 import moe.neptunenoire.web.utils.UserID;
 
 /**
@@ -28,8 +28,6 @@ public class Index {
 
 	/** 数据库操作 */
 	private ReoKissMai reoKissMai;
-	/** 字符工具类 */
-	private StringUtil stringUtil = new StringUtil();
 
 	/**
 	 * 初始化
@@ -44,8 +42,7 @@ public class Index {
 	 * @return
 	 */
 	public boolean IsSign_in(HttpSession session) {
-		Object mysess = session.getAttribute(InfoData.Session_USERNAME);
-		return mysess != null;
+		return session.getAttribute(InfoData.Session_USERNAME) != null;
 	}
 
 	/**
@@ -84,7 +81,7 @@ public class Index {
 		}
 		//TODO コードのチェック
 		/* 获取MD5密码 */
-		String md5Password = new MD5Coding().coding(username, password, uid.GetlongCode());
+		String md5Password = ProjectUtils.passWordCoding(username, password);
 
 		/* 验证密码 */
 		if (((String)userdata.get("password")).equals(md5Password)) {
@@ -97,7 +94,7 @@ public class Index {
 	        session.setAttribute(InfoData.Session_UserPic, userdata.get("userpic"));
 	        session.setAttribute(InfoData.Session_USERUID, userdata.get("uid"));
 	        // session.setAttribute(InfoData.Session_USERYURI, userInfo.get("username"));
-            if (stringUtil.isNull((String)(userdata.get("url")))) {
+            if (StringUtils.isEmpty((String)(userdata.get("url")))) {
                 session.setAttribute(InfoData.Session_USERURL, userdata.get("uid"));
                 session.setAttribute(InfoData.Session_USERMETHOD, InfoData.MethodHome);
             }else{

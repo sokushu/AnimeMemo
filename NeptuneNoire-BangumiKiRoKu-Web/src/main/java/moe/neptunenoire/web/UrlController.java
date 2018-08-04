@@ -98,7 +98,7 @@ public class UrlController {
 			/* 返回首页的动画 （List<Map<String, Object>>） */
 			model.addAttribute(ModelString.IndexAnimeLike.name(), index.getIndexAnime(AnimeType.like));
 		}
-		return "";
+		return "indexhome";
 	}
 
 	/** 搜索 */
